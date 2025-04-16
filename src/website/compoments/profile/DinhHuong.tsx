@@ -6,16 +6,15 @@ export const DinhHuong = () => {
   const initialized = useRef(false);
   if (!initialized.current) {
     initialized.current = true;
-    console.log(useData.url_hinhanh);
   }
   return (
     <div className="profile-dinhhuong profile-item">
-      <div className="profile-dinhhuong-item">
-        <i className="fa-solid fa-user"></i>
-        <span>
-          Thay đổi và nâng cao kỹ năng lập trình cũng như tìm kiếm công việc
-        </span>
-      </div>
+      {useData.dh?.map((item) => (
+        <div className="profile-dinhhuong-item">
+          <i className="fas fa-star fa-2x"></i>
+          <span>{item.noidung}</span>
+        </div>
+      ))}
     </div>
   );
 };

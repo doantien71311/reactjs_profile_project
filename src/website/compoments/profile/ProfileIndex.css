@@ -46,12 +46,33 @@
 
 /* region profile-dinhhuong */
 .profile-dinhhuong-item {
-  border: 5px solid;
+  border: 2px solid;
   border-radius: 10px;
+  width: auto;
+  height: 70px;
+  margin: 5px;
+  display: flex;
+  /* display: inline; */
 }
 .profile-dinhhuong-item span {
   font-weight: bold;
   color: brown;
+  margin: auto 5px auto 5px;
+  background-color: blue;
+}
+.profile-dinhhuong-item i {
+  /* transform: scale(300%); */
+  padding: 5px;
+  /* margin: auto; */
+  margin: auto 5px auto 5px;
+  /* width: 50px; */
+  /* height: 50px; */
+  background-color: var(--primary-color);
+  /* background-color: green; */
+  border: 2px solid;
+  border-radius: 50%;
+  border-color: black;
+  color: green;
 }
 /* endregion profile-dinhhuong */
 

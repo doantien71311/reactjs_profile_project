@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, ReactNode, useRef } from "react";
-import { ProfileType } from "./ProfileType";
+import { ProfileDinhHuongType, ProfileType } from "./ProfileType";
 import { useParams } from "react-router-dom";
 
 export type ProfileProps = { children: ReactNode };
@@ -14,7 +14,22 @@ export const ProfileProvider = ({ children }: ProfileProps) => {
     if (!initialized.current) {
       initialized.current = true;
       setTimeout(() => {
+        const dh: ProfileDinhHuongType[] = [
+          {
+            noidung:
+              "Thay đổi và nâng cao kỹ năng lập trình cũng như tìm kiếm công việc",
+          },
+          {
+            noidung:
+              "Tìm hiểu và phát triển sản phẩm phần mềm trên nền tảng web ",
+          },
+          {
+            noidung:
+              "Tìm hiểu và phát triển sản phẩm phần mềm trên nền tảng app moblie ",
+          },
+        ];
         const data: ProfileType = {
+          dh: dh,
           ma_nv: ma_nv,
           ten_nv: "NGUYỄN VĂN NAM",
           email: "nguyenvannam123@gmail.com",

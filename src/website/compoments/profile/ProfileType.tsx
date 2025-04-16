@@ -8,6 +8,7 @@ export type ProfileType = {
   zalo?: string;
   diachi_thuongtru?: string;
   qtlv?: ProfileQuaTrinhLamViecType[];
+  dh?: ProfileDinhHuongType[];
   mota?: string;
 };
 
@@ -19,4 +20,8 @@ export type ProfileQuaTrinhLamViecType = {
   thoigian?: string;
   mota?: string;
   stt?: number;
+};
+
+export type ProfileDinhHuongType = {
+  noidung?: string;
 };
