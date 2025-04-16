@@ -1,0 +1,83 @@
+.profile {
+  display: grid;
+  height: 100vh;
+  /* width: 100vh; */
+  background-color: aquamarine;
+  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-areas:
+    /* "tieude tieude tieude tieude" */
+    "anhdaidien dinhhuong dinhhuong dinhhuong"
+    "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+    "thongtincanhan thongtincanhan hocvan hocvan"
+    "mota mota mota mota";
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
+.profile-anhdaidien {
+  grid-area: anhdaidien;
+}
+
+.profile-dinhhuong {
+  grid-area: dinhhuong;
+}
+
+.profile-quatrinhlamviec {
+  grid-area: quatrinhlamviec;
+}
+
+.profile-mota {
+  grid-area: mota;
+}
+
+.profile-thongtincanhan {
+  grid-area: thongtincanhan;
+  background-color: blue;
+}
+
+.profile-hocvan {
+  grid-area: hocvan;
+}
+
+.profile-item {
+  background-color: var(--primary-color);
+}
+
+/* region profile-dinhhuong */
+.profile-dinhhuong-item {
+  border: 5px solid;
+  border-radius: 10px;
+}
+.profile-dinhhuong-item span {
+  font-weight: bold;
+  color: brown;
+}
+/* endregion profile-dinhhuong */
+
+/*Ipad ngang(1024 x 768)*/
+@media screen and (max-width: 1024px) {
+}
+/*Ipad dọc(768 x 1024)*/
+@media screen and (max-width: 768px) {
+  .profile {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+    /* "tieude tieude tieude tieude" */
+      "anhdaidien"
+      "dinhhuong"
+      "quatrinhlamviec"
+      "thongtincanhan"
+      "hocvan"
+      "mota";
+  }
+}
+/*Tablet nhỏ(480 x 640)*/
+@media screen and (max-width: 480px) {
+}
+/*Iphone(480 x 640)*/
+@media screen and (max-width: 320px) {
+}
+/*Smart phone nhỏ*/
+@media screen and (max-width: 240px) {
+}
