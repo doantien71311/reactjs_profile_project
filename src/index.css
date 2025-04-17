@@ -16,6 +16,7 @@
   box-sizing: border-box;
   /*  */
   --primary-color: #ffa400;
+  --secondary-color: gray;
 }
 
 /* a {
