@@ -52,13 +52,15 @@
   height: 70px;
   margin: 5px;
   display: flex;
-  /* display: inline; */
+  flex-direction: row;
+  flex: auto 1 auto;
 }
 .profile-dinhhuong-item span {
   font-weight: bold;
-  color: brown;
+  /* color: brown; */
   margin: auto 5px auto 5px;
   background-color: blue;
+  flex-grow: 1;
 }
 .profile-dinhhuong-item i {
   /* transform: scale(300%); */
