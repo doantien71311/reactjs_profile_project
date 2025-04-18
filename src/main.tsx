@@ -3,14 +3,39 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import { RouterProvider } from "react-router-dom";
 import { Profile } from "./website/compoments/profile/Index";
 import { RouteBackEnd } from "./administrator/RouteBackEnd.tsx";
+import { FukudaSonDonDatHangIndex } from "./website/compoments/fukuda_son_dondathang/FukudaSonDonDatHangIndex.tsx";
+
+// const router = createBrowserRouter([
+//   {
+//     element: <App />,
+//     children: [
+//       {
+//         path: "profile",
+//         element: <Home />,
+//       },
+//       {
+//         path: "products",
+//         element: <Products />,
+//       },
+//       {
+//         path: "reports",
+//         element: <Reports />,
+//       },
+//     ],
+//   },
+// ]);
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
   //   <App />
   // </StrictMode>,
+
   <StrictMode>
+    {/* <RouterProvider router={router} /> */}
+
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
@@ -26,6 +51,10 @@ createRoot(document.getElementById("root")!).render(
         {/* <Route path="administrator/sanpham" element={<SanPhamIndex />} /> */}
         {/* <RouteBackEnd /> */}
         <Route path="profile/:ma_nv" element={<Profile />} />
+        <Route
+          path="fukuda-son-dondathang/:ma_nv"
+          element={<FukudaSonDonDatHangIndex />}
+        />
       </Routes>
     </BrowserRouter>
   </StrictMode>

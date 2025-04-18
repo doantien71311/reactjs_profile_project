@@ -39,7 +39,12 @@ export const ProfileProvider = ({ children }: ProfileProps) => {
           diachi_thuongtru:
             "Số 123, Đường Nguyễn Văn Nam, Phường Hiệp Bỉnh Chánh, Thủ Đức, Hồ Chí Minh",
           url_hinhanh:
-            "https://twl-hinhanh.theworldlink.vn/TheWorldLink/WebPortal/NhanVien/DaiDien/logo_twl.jpg",
+            // "https://drive.google.com/thumbnail?id=1WCCmFDcmtXyNiUGg7uxfooR2tbOnHa2r",
+            "https://drive.google.com/thumbnail?id=1WCCmFDcmtXyNiUGg7uxfooR2tbOnHa2r&sz=w1000",
+          // "https://drive.google.com/thumbnail?id=10hhX4pIZr0NhuusN4eHvf4ghah5d6yAG",
+          // "https://drive.google.com/file/d/1WCCmFDcmtXyNiUGg7uxfooR2tbOnHa2r/view",
+          // "https://drive.google.com/file/d/1WCCmFDcmtXyNiUGg7uxfooR2tbOnHa2r/view?usp=drive_link",
+          // "https://twl-hinhanh.theworldlink.vn/TheWorldLink/WebPortal/NhanVien/DaiDien/logo_twl.jpg",
         };
         console.log(data);
         setUseData(data);

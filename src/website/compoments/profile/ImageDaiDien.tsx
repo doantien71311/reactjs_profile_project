@@ -10,7 +10,7 @@ export const ImageDaiDien = () => {
   }
   return (
     <div className="profile-anhdaidien profile-item">
-      <img src={useData.url_hinhanh ?? ""} alt="ảnh đại diện"></img>
+      <img src={useData.url_hinhanh ?? ""} alt="ảnh đại diện" role="img"></img>
     </div>
   );
 };

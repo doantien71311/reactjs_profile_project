@@ -1,18 +1,22 @@
-// import { Route, Routes } from "react-router-dom";
-// import { AdministratorNav } from "./compoments/index";
-// import { NhanVienIndex } from "./compoments/nhanvien/NhanVienIndex";
-// import { SanPhamIndex } from "./compoments/sanpham/SanPhamIndex";
+import { Route, Routes } from "react-router-dom";
+import { AdministratorNav } from "./compoments/index";
+import { FukudaSonDonDatHangBEIndex } from "./compoments/fukuda_son_dondathang_be/FukudaSonDonDatHangBEIndex";
+import { ProfileBEIndex } from "./compoments/profile_be/ProfileBEIndex";
 
 export const RouteBackEnd = () => {
-  // return (
-  //   <Routes>
-  //     <Route element={<AdministratorNav />}>
-  //       <Route path="nhanvien" element={<NhanVienIndex />} />
-  //       <Route path="sanpham" element={<SanPhamIndex />} />
-  //       <Route index element={<RouteBackEndIndex />} />
-  //     </Route>
-  //   </Routes>
-  // );
+  return (
+
+    <Routes>
+      <Route element={<AdministratorNav />}>
+        <Route index element={<RouteBackEndIndex />} />
+        <Route path="profile" element={<ProfileBEIndex />} />
+        <Route
+          path="fukuda-son-dondathang"
+          element={<FukudaSonDonDatHangBEIndex />}
+        />
+      </Route>
+    </Routes>
+  );
   return <h1>Đang là trang admin</h1>;
 };
 
