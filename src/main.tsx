@@ -47,9 +47,8 @@ createRoot(document.getElementById("root")!).render(
           /> */}
           {/* <Route index element={<Home />} /> */}
         </Route>
-        <Route path="administrator/*" element={<RouteBackEnd />} />
-        {/* <Route path="administrator/sanpham" element={<SanPhamIndex />} /> */}
-        {/* <RouteBackEnd /> */}
+        {/* <Route path="administrator/*" element={<RouteBackEnd />} /> */}
+        <Route path="*" element={<RouteBackEnd />} />
         <Route path="profile/:ma_nv" element={<Profile />} />
         <Route
           path="fukuda-son-dondathang/:ma_nv"

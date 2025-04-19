@@ -1,23 +1,25 @@
 import { Route, Routes } from "react-router-dom";
-import { AdministratorNav } from "./compoments/index";
+import { BEIndex } from "./compoments/BEIndex";
 import { FukudaSonDonDatHangBEIndex } from "./compoments/fukuda_son_dondathang_be/FukudaSonDonDatHangBEIndex";
 import { ProfileBEIndex } from "./compoments/profile_be/ProfileBEIndex";
+import ChucNangUrl from "./ChucNangUrl";
 
 export const RouteBackEnd = () => {
   return (
-
     <Routes>
-      <Route element={<AdministratorNav />}>
-        <Route index element={<RouteBackEndIndex />} />
-        <Route path="profile" element={<ProfileBEIndex />} />
+      <Route element={<BEIndex />}>
+        <Route index path="administrator" element={<RouteBackEndIndex />} />
         <Route
-          path="fukuda-son-dondathang"
+          path={ChucNangUrl.administrator_profile}
+          element={<ProfileBEIndex />}
+        />
+        <Route
+          path={ChucNangUrl.administrator_fukuda_son_dondathang}
           element={<FukudaSonDonDatHangBEIndex />}
         />
       </Route>
     </Routes>
   );
-  return <h1>Đang là trang admin</h1>;
 };
 
 export const RouteBackEndIndex = () => {

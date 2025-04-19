@@ -1,3 +1,14 @@
+import { CommonTitleBodyUI } from "../common_ui/CommonTitleBodyUI";
+import { ProfileBEGrid } from "./ProfileBEGrid";
+import { ProfileBEToolbar } from "./ProfileBEToolbar";
+
 export const ProfileBEIndex = () => {
-  return <h1>ProfileBEIndex</h1>;
+  return (
+    <>
+      <CommonTitleBodyUI
+        title={<ProfileBEToolbar></ProfileBEToolbar>}
+        body={<ProfileBEGrid></ProfileBEGrid>}
+      ></CommonTitleBodyUI>
+    </>
+  );
 };
