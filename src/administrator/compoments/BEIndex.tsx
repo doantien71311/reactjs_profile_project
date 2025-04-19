@@ -7,7 +7,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Outlet } from "react-router-dom";
 
+
 export const BEIndex = () => {
+
+
   return (
     <Container fluid>
       <Row>

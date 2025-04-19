@@ -16,6 +16,11 @@ export const MenuIndex = () => {
 
   useEffect(() => {
     if (!initialized.current) {
+
+      
+
+
+
       initialized.current = true;
       const _dataMenu: MenuType[] = [];
       _dataMenu.push({
@@ -53,6 +58,13 @@ export const MenuIndex = () => {
         url_chucnang: "/administrator/fukuda-son-tuyendung-npp",
         sott: "0202",
       });
+      _dataMenu.push({
+        ma_chucnang: "SonFuKuDa_SanPham",
+        ten_chucnang: "Sản phẩm",
+        ma_chucnang_cha: "SonFuKuDa",
+        url_chucnang: "/administrator/fukuda-son-sanpham",
+        sott: "0203",
+      });
 
       console.log(_dataMenu);
       setDataMenu(_dataMenu);
@@ -65,6 +77,7 @@ export const MenuIndex = () => {
   }, [dataMenu]);
 
   const getMenuCha = () => {
+    console.log("getMenuCha");
     return dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == "");
   };
   const getMenuCon = (ma_chucnang?: string) => {
@@ -83,20 +96,21 @@ export const MenuIndex = () => {
       >
         <>
           <Accordion defaultActiveKey={["0", "1"]} alwaysOpen={true}>
-            {getMenuCha().map((item) => (
-              <Accordion.Item eventKey={item.sott ?? ""}>
-                <Accordion.Header>{item.ten_chucnang}</Accordion.Header>
-                <Accordion.Body>
-                  {getMenuCon(item.ma_chucnang).map((map) => (
-                    <div>
-                      <NavLink to={map.url_chucnang ?? ""}>
-                        {map.ten_chucnang ?? "Chưa có tên"}
-                      </NavLink>
-                    </div>
-                  ))}
-                </Accordion.Body>
-              </Accordion.Item>
-            ))}
+            {(() =>
+              getMenuCha().map((item) => (
+                <Accordion.Item eventKey={item.sott ?? ""}>
+                  <Accordion.Header>{item.ten_chucnang}</Accordion.Header>
+                  <Accordion.Body>
+                    {getMenuCon(item.ma_chucnang).map((map) => (
+                      <div>
+                        <NavLink to={map.url_chucnang ?? ""}>
+                          {map.ten_chucnang ?? "Chưa có tên"}
+                        </NavLink>
+                      </div>
+                    ))}
+                  </Accordion.Body>
+                </Accordion.Item>
+              )))()}
           </Accordion>
         </>
       </nav>

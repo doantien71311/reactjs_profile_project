@@ -3,6 +3,7 @@ import { BEIndex } from "./compoments/BEIndex";
 import { FukudaSonDonDatHangBEIndex } from "./compoments/fukuda_son_dondathang_be/FukudaSonDonDatHangBEIndex";
 import { ProfileBEIndex } from "./compoments/profile_be/ProfileBEIndex";
 import ChucNangUrl from "./ChucNangUrl";
+import { FukudaSonSanPhamBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamBEIndex";
 
 export const RouteBackEnd = () => {
   return (
@@ -16,6 +17,10 @@ export const RouteBackEnd = () => {
         <Route
           path={ChucNangUrl.administrator_fukuda_son_dondathang}
           element={<FukudaSonDonDatHangBEIndex />}
+        />
+        <Route
+          path={ChucNangUrl.administrator_fukuda_son_sanpham}
+          element={<FukudaSonSanPhamBEIndex />}
         />
       </Route>
     </Routes>
