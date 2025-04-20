@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-// import "react-data-grid/lib/styles.css";
+import "react-data-grid/lib/styles.css";
 import "./BEIndex.css";
 import { MenuIndex } from "./menu/MenuIndex";
 import Container from "react-bootstrap/Container";
@@ -9,8 +9,6 @@ import { Outlet } from "react-router-dom";
 
 
 export const BEIndex = () => {
-
-
   return (
     <Container fluid>
       <Row>

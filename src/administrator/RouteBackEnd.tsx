@@ -4,6 +4,7 @@ import { FukudaSonDonDatHangBEIndex } from "./compoments/fukuda_son_dondathang_b
 import { ProfileBEIndex } from "./compoments/profile_be/ProfileBEIndex";
 import ChucNangUrl from "./ChucNangUrl";
 import { FukudaSonSanPhamBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamBEIndex";
+import { FukudaSonSanPhamEditBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamEditBEIndex";
 
 export const RouteBackEnd = () => {
   return (
@@ -21,6 +22,16 @@ export const RouteBackEnd = () => {
         <Route
           path={ChucNangUrl.administrator_fukuda_son_sanpham}
           element={<FukudaSonSanPhamBEIndex />}
+        />
+
+        <Route
+          //  path="fukuda-son-dondathang/:ma_nv
+          path={
+            ChucNangUrl.administrator_fukuda_son_sanpham_edit +
+            ChucNangUrl.toQueryDanhMuc
+            // "/:keyString/:isAddNew"
+          }
+          element={<FukudaSonSanPhamEditBEIndex />}
         />
       </Route>
     </Routes>

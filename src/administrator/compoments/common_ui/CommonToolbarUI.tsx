@@ -65,11 +65,21 @@ export const CommonToolbarUI = ({
                     <div>{Xem.tenChucNang}</div>
                   </Button>
                 </div>
-                <Button as="a" variant={str_variant} size={str_size}>
+                <Button
+                  onClick={Them.onNavigation}
+                  as="a"
+                  variant={str_variant}
+                  size={str_size}
+                >
                   <FontAwesomeIcon icon={faPlus} />
                   <div>{Them.tenChucNang}</div>
                 </Button>{" "}
-                <Button as="a" variant={str_variant} size={str_size}>
+                <Button
+                  onClick={Sua.onNavigation}
+                  as="a"
+                  variant={str_variant}
+                  size={str_size}
+                >
                   <FontAwesomeIcon icon={faPen} />
                   <div>{Sua.tenChucNang}</div>
                 </Button>
