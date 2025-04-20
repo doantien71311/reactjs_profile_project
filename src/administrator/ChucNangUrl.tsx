@@ -2,7 +2,7 @@ class ChucNangUrl {
   static toUrlDanhMuc = (url: string, keyString: string, isAddNew: boolean) => {
     return url + "/" + keyString + "/" + isAddNew;
   };
-  static toQueryDanhMuc = "/:keyString/:isAddNew?";
+  static toQueryDanhMuc = "/:keyString/:isAddNew";
   ///
   ///
   static administrator_profile = "administrator/profile";
