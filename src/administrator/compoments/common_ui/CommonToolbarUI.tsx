@@ -60,7 +60,12 @@ export const CommonToolbarUI = ({
             <div className="p-2">
               <ButtonGroup aria-label="Basic example">
                 <div className={kiemTraChucNang(Xem)}>
-                  <Button as="a" variant={str_variant} size={str_size}>
+                  <Button
+                    onClick={Xem.onNavigation}
+                    as="a"
+                    variant={str_variant}
+                    size={str_size}
+                  >
                     <FontAwesomeIcon icon={faRotate} />
                     <div>{Xem.tenChucNang}</div>
                   </Button>

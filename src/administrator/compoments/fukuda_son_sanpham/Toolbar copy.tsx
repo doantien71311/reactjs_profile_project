@@ -1,27 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { TCommonToolbar } from "../common_props/CommonToolbarProps";
 import { CommonToolbarUI } from "../common_ui/CommonToolbarUI";
+import { CommonProps } from "./Props";
 import ChucNangUrl from "../../ChucNangUrl";
-import { useContext } from "react";
-import {
-  FukudaSonSanPhamBEContext,
-  FukudaSonSanPhamBEContextProps,
-} from "./FukudaSonSanPhamBEContext";
 
-export const Toolbar = () => {
+export const Toolbar = ({ selectRow }: CommonProps) => {
   const navigate = useNavigate();
-  const context = useContext<FukudaSonSanPhamBEContextProps>(
-    FukudaSonSanPhamBEContext
-  );
 
   const Xem: TCommonToolbar = {
     maChucNang: "Xem",
     tenChucNang: "Xem",
     isChucNang: false,
     isShowChucnang: true,
-    onNavigation: () => {
-      context.fetchDataApi();
-    },
+    onNavigation: () => {},
   };
   const Them: TCommonToolbar = {
     maChucNang: "Them",
@@ -44,13 +35,10 @@ export const Toolbar = () => {
     isChucNang: false,
     isShowChucnang: true,
     onNavigation: () => {
-      if (!context.selectRow) return;
-      if (!context.selectRow.id) return;
-      if (context.selectRow.id === "") return;
       navigate(
         ChucNangUrl.toUrlDanhMuc(
           ChucNangUrl.administrator_fukuda_son_sanpham_edit,
-          context.selectRow.id ?? "",
+          selectRow.id,
           false
         )
       );
