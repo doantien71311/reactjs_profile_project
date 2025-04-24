@@ -7,47 +7,28 @@ export const ThongTinCacNhan = () => {
   const useData = useContext<ProfileType>(ProfileContext);
 
   return (
-    <div className="profile-thongtincanhan profile-item">
-      <div className="profile_thongtincanhan">
+    <div className="profile-item profile-thongtincanhan ">
+      <div className="common-title">
+        <span>THÔNG TIN CÁ NHÂN</span>
+        <i className="fas fa-address-card fa-3x"></i>
+      </div>
+      <div className="profile_thongtincanhan_noidung">
         <div className="profile_thongtincanhan_item">
-          <i className="fa-solid fa-user"></i>
-          <span>
-            <b>{useData.ten_nv}</b>
-          </span>
+          <i className="fas fa-user fa-lg"></i>
+          <span>{useData.ten_nv}</span>
+        </div>
+        <div className="profile_thongtincanhan_item">
+          <i className="fas fa-mobile fa-lg"></i>
+          <span>{useData.dienthoai}</span>
+        </div>
+        <div className="profile_thongtincanhan_item">
+          <i className="fas fa-envelope fa-lg"></i>
+          <span>{useData.email}</span>
         </div>
 
         <div className="profile_thongtincanhan_item">
-          <i className="fa-solid fa-user"></i>
-          <span>
-            <b>{useData.dienthoai}</b>
-          </span>
-        </div>
-
-        <div className="profile_thongtincanhan_item">
-          <i className="fa-solid fa-user"></i>
-          <span>
-            <b>{useData.zalo}</b>
-          </span>
-        </div>
-
-        <div className="profile_thongtincanhan_item">
-          <i className="fa-solid fa-user"></i>
-          <span>
-            <b>{useData.facebook}</b>
-          </span>
-        </div>
-        <div className="profile_thongtincanhan_item">
-          <i className="fa-solid fa-user"></i>
-          <span>
-            <b>{useData.email}</b>
-          </span>
-        </div>
-
-        <div className="profile_thongtincanhan_item">
-          <i className="fa-solid fa-user"></i>
-          <span>
-            <b>{useData.diachi_thuongtru}</b>
-          </span>
+          <i className="fas fa-map-marker fa-lg"></i>
+          <span>{useData.diachi_thuongtru}</span>
         </div>
       </div>
     </div>

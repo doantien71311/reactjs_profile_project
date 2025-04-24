@@ -17,6 +17,11 @@
   /*  */
   --primary-color: #ffa400;
   --secondary-color: gray;
+  --color-border-item: gray;
+  --value-border-item: 3px;
+  --value-border-radius: 7px;
+  --value-border-radius-child: 3px;
+  --color-box-shadow-item: royalblue;
 }
 
 /* a {

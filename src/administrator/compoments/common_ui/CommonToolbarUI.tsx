@@ -51,14 +51,17 @@ export const CommonToolbarUI = ({
   }, []);
 
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion defaultActiveKey="0" style={{ width: "100%" }}>
       <Card>
         <Card.Header>
-          <Stack direction="horizontal">
+          <Stack direction="horizontal" gap={3}>
             <Button>Click me</Button>
-            <div className="p-2 ms-auto">{Title}</div>
-            <div className="p-2">
-              <ButtonGroup aria-label="Basic example">
+            <span className="p-2 text-start text-wrap fw-bold fs-6">
+              {Title}
+            </span>
+            <div className="p-2 ms-auto"></div>
+            <div className="p-2 ">
+              <ButtonGroup className="" aria-label="Basic example">
                 <div className={kiemTraChucNang(Xem)}>
                   <Button
                     onClick={Xem.onNavigation}
@@ -70,6 +73,7 @@ export const CommonToolbarUI = ({
                     <div>{Xem.tenChucNang}</div>
                   </Button>
                 </div>
+
                 <Button
                   onClick={Them.onNavigation}
                   as="a"
@@ -78,7 +82,8 @@ export const CommonToolbarUI = ({
                 >
                   <FontAwesomeIcon icon={faPlus} />
                   <div>{Them.tenChucNang}</div>
-                </Button>{" "}
+                </Button>
+
                 <Button
                   onClick={Sua.onNavigation}
                   as="a"

@@ -84,7 +84,7 @@ export const Toolbar = () => {
   return (
     <>
       <CommonToolbarUI
-        Title="Danh sách profile nhân viên"
+        Title="Fukuda Sơn Sản phẩm"
         Xem={Xem}
         Them={Them}
         Sua={Sua}

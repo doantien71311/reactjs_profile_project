@@ -1,6 +1,10 @@
 import { createContext, useEffect, useState, ReactNode, useRef } from "react";
 
-import { ProfileDinhHuongType, ProfileType } from "./ProfileType";
+import {
+  ProfileDinhHuongType,
+  ProfileQuaTrinhLamViecType,
+  ProfileType,
+} from "./ProfileType";
 import { useParams } from "react-router-dom";
 
 export type ProfileProps = { children: ReactNode };
@@ -15,6 +19,36 @@ export const ProfileProvider = ({ children }: ProfileProps) => {
     if (!initialized.current) {
       initialized.current = true;
       setTimeout(() => {
+        const qtlv: ProfileQuaTrinhLamViecType[] = [
+          {
+            thoigian: "08/2023 - 01/2025",
+            chucvu: "Cộng tác viên phát triển phần mềm .NET",
+            cty: "CÔNG TY TNHH THE WORLDLINK VIỆT NAM",
+            mota:
+              "<p>-Golive chức năng bán bảo hiểm xe máy, ô tô: kết nối api BSH,  ACB one connect.</p>" +
+              "<p>-Phát triển Web portal (api, blazor, devexpress): quản lý nhân viên, tính thu nhập thành viên, khảo sát thông tin ...</p>" +
+              "<p>-Tham gia app kết nối giao thương bằng Flutter-Dart.</p>" +
+              "<p>-Làm các video clip hướng dẫn sử dụng.</p>",
+          },
+          {
+            thoigian: "06/2022 - 07/2023",
+            chucvu: "Nhân viên lập trình C#, Winform",
+            cty: "CÔNG TY CỔ PHẦN THÀNH CÔNG SOFTWARE",
+            mota: "<p>-Tham gia dự án phần mềm mini ERP gia công sắt thép (kho, sản xuất).</p>",
+          },
+          {
+            thoigian: "02/2021 - 05/2022",
+            chucvu: "Nhân viên Lập trình C#, Winform, Web Blazor, Web Api",
+            cty: "CÔNG TY TNHH GIẢI PHÁP DNCS",
+            mota: "<p>-Tham gia dự án quản lý nhà hàng: phát triển web api kết nối sql server, code back end.</p><p>-Tham gia dự án phần mềm dịch vụ thuế:  Kết nối hóa đơn điện tử Easyinvoice; Import file hóa đơn xml vào phần mềm.</p> <p>-Bảo trì, chỉnh sửa lỗi trên phần mềm.</p>",
+          },
+          {
+            thoigian: "08/2017 - 01/2021",
+            chucvu: "Chuyên viên lập trình C#, Winform, Devexpress, Sql server",
+            cty: "CÔNG TY CỔ PHẦN GIẢI PHÁP PHẦN MỀM  ENTERSOFT",
+            mota: "<p>-Tham gia dự án phần mềm ERP trên nền tảng .Net framework (chủ yếu về phân hệ kho, sản xuất) cho khách hàng trong các lĩnh vục:  In bao bì; Gia công thuốc bảo vệ thực vật; Dược thú y.</p><p>-Làm việc qua sky với khách hàng để hỗ trợ và chỉnh sửa phần mềm</p><p>-Phối hợp với quản lý để chỉnh sửa và phát triển chức năng phần mềm</p>",
+          },
+        ];
         const dh: ProfileDinhHuongType[] = [
           {
             noidung:
@@ -30,6 +64,7 @@ export const ProfileProvider = ({ children }: ProfileProps) => {
           },
         ];
         const data: ProfileType = {
+          qtlv: qtlv,
           dh: dh,
           ma_nv: ma_nv,
           ten_nv: "NGUYỄN VĂN NAM",

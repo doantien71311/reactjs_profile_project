@@ -1,3 +1,4 @@
+/* #region bố cục dùng chung proflie */
 .profile {
   display: grid;
   height: 100vh;
@@ -42,9 +43,98 @@
 
 .profile-item {
   background-color: var(--primary-color);
+  border: var(--value-border-item) solid var(--color-border-item);
+  border-radius: var(--value-border-radius);
+  box-shadow: 3px 3px 5px var(--color-box-shadow-item);
 }
 
-/* region profile-dinhhuong */
+/* #endregion bố cục dùng chung proflie */
+
+/* #region các thành phần dùng chung */
+.common-title {
+  /* height: 100px; */
+  background-color: blueviolet;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-top-right-radius: calc(var(--value-border-radius) / 2);
+  border-top-left-radius: calc(var(--value-border-radius) / 2);
+  border-bottom: var(--value-border-item) solid var(--color-border-item);
+
+  /* margin: 3px 3px 3px 3px; */
+}
+
+.common-title span {
+  font-size: x-large;
+  font-weight: bold;
+  width: 100%;
+  margin: auto auto auto 5px;
+}
+
+.common-title i {
+  /* max-width: 100px;
+  max-height: 100px; */
+  width: 10rem;
+  height: 5rem;
+  text-align: center;
+  align-content: center;
+  border-left: var(--value-border-item) solid var(--color-border-item);
+  /* border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-right: 10px solid; */
+}
+
+/* #endregion các thành phần dùng chung */
+
+/* #region thông tin các nhân */
+.profile_thongtincanhan_tieude {
+}
+
+.profile_thongtincanhan_noidung {
+  background-color: blue;
+}
+.profile_thongtincanhan_item {
+  background-color: yellow;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  /* align-items: end; */
+  /* position: relative; */
+  /* flex: 100px auto; */
+}
+.profile_thongtincanhan_item i {
+  /* border: 2px solid; */
+  /* border-radius: 50%; */
+  max-width: 100px;
+  max-height: 100px;
+  width: 2.5rem; /*2 lần kích thước font hiện hành theo thẻ root*/
+  height: 2.5rem; /*2 lần kích thước font hiện hành theo thẻ root*/
+  /* height: 100px; */
+  /* align-self: flex-end; */
+  /* display: inline-block; */
+  /* margin: auto 0px auto auto; */
+  text-align: end;
+  /* text-align: center; */
+  align-content: center;
+  /* align-content: end; */
+}
+.profile_thongtincanhan_item span {
+  /* font-style: italic; */
+  width: 100%;
+  /* height: 100px; */
+  font-weight: bold;
+  text-align: start;
+  margin: auto auto auto 5px;
+  /* align-self: left; */
+  /* align-items: end; */
+  /* border: 1px solid; */
+}
+/* #endregion thông tin các nhân */
+
+/* #region profile-dinhhuong */
 .profile-dinhhuong-item {
   border: 2px solid;
   border-radius: 20px;
@@ -75,7 +165,67 @@
   border-color: var(--secondary-color);
   color: tomato;
 }
-/* endregion profile-dinhhuong */
+/* #endregion profile-dinhhuong */
+
+/* #region quá trình làm việc */
+.profile-quatrinhlamviec-item {
+  border: 2px solid;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  /* flex: 300px 1; */
+  background-color: var(--primary-color);
+}
+.profile-quatrinhlamviec-item-left {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  flex-direction: column;
+  background-color: aqua;
+  align-items: center;
+  justify-content: flex-start;
+}
+.profile-quatrinhlamviec-item-left span:first-child {
+  display: inline;
+  background-color: chartreuse;
+}
+.profile-quatrinhlamviec-item-left span:last-child {
+  display: inline;
+  text-align: center;
+  align-content: center;
+  height: 100%;
+  background-color: blueviolet;
+  font-style: normal;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.profile-quatrinhlamviec-item-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: bisque;
+
+  /* align-items: start;
+  justify-content: flex-end; */
+}
+
+.profile-quatrinhlamviec-item-right span:first-child {
+  background-color: saddlebrown;
+  display: inline;
+  text-align: center;
+  align-content: center;
+  height: 100%;
+  background-color: blueviolet;
+  font-style: normal;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.profile-quatrinhlamviec-item-right-mota {
+}
+
+/* #endregion quá trình làm việc */
 
 /*Ipad ngang(1024 x 768)*/
 @media screen and (max-width: 1024px) {

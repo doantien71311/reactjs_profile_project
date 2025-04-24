@@ -16,11 +16,6 @@ export const MenuIndex = () => {
 
   useEffect(() => {
     if (!initialized.current) {
-
-      
-
-
-
       initialized.current = true;
       const _dataMenu: MenuType[] = [];
       _dataMenu.push({
@@ -89,10 +84,12 @@ export const MenuIndex = () => {
   return (
     <>
       <nav
-        style={{
-          height: "1000px",
-          backgroundColor: "red",
-        }}
+        className="menu_left"
+        // style={{
+        //   height: "100%",
+        //   width: "100%",
+        //   backgroundColor: "red",
+        // }}
       >
         <>
           <Accordion defaultActiveKey={["0", "1"]} alwaysOpen={true}>
