@@ -9,6 +9,7 @@ export type ProfileType = {
   diachi_thuongtru?: string;
   qtlv?: ProfileQuaTrinhLamViecType[];
   dh?: ProfileDinhHuongType[];
+  kn?: ProfileKyNangType[];
   mota?: string;
 };
 
@@ -19,6 +20,11 @@ export type ProfileQuaTrinhLamViecType = {
   chucvu?: string;
   thoigian?: string;
   mota?: string;
+  stt?: number;
+};
+export type ProfileKyNangType = {
+  ten_kynang?: string;
+  phantram?: number;
   stt?: number;
 };
 

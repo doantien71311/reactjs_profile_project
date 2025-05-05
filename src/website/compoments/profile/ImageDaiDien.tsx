@@ -9,8 +9,14 @@ export const ImageDaiDien = () => {
     console.log(useData.url_hinhanh);
   }
   return (
-    <div className="profile-anhdaidien profile-item">
-      <img src={useData.url_hinhanh ?? ""} alt="ảnh đại diện" role="img"></img>
+    <div className="profile-item profile-anhdaidien">
+      <div data-wow-delay="1.5s" className="wow bounceInRight">
+        <img
+          src="http://www.detectiveconanworld.com/wiki/images/9/92/Ran_Mouri_Profile.jpg"
+          height="200"
+        />
+        {/* <img src={useData.url_hinhanh ?? ""} alt="ảnh đại diện" role="img"></img> */}
+      </div>
     </div>
   );
 };

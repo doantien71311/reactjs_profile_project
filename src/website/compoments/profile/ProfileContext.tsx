@@ -2,6 +2,7 @@ import { createContext, useEffect, useState, ReactNode, useRef } from "react";
 
 import {
   ProfileDinhHuongType,
+  ProfileKyNangType,
   ProfileQuaTrinhLamViecType,
   ProfileType,
 } from "./ProfileType";
@@ -19,6 +20,32 @@ export const ProfileProvider = ({ children }: ProfileProps) => {
     if (!initialized.current) {
       initialized.current = true;
       setTimeout(() => {
+        const kn: ProfileKyNangType[] = [
+          {
+            ten_kynang: "C#, Winform, DevExpress",
+            phantram: 90,
+          },
+          {
+            ten_kynang: "SQL Server",
+            phantram: 70,
+          },
+          {
+            ten_kynang: "XML, JSON",
+            phantram: 70,
+          },
+          {
+            ten_kynang: "Web API .NET",
+            phantram: 80,
+          },
+          {
+            ten_kynang: "Web Blazor, DevExpress",
+            phantram: 90,
+          },
+          {
+            ten_kynang: "Adobe Premiere",
+            phantram: 50,
+          },
+        ];
         const qtlv: ProfileQuaTrinhLamViecType[] = [
           {
             thoigian: "08/2023 - 01/2025",
@@ -64,6 +91,7 @@ export const ProfileProvider = ({ children }: ProfileProps) => {
           },
         ];
         const data: ProfileType = {
+          kn: kn,
           qtlv: qtlv,
           dh: dh,
           ma_nv: ma_nv,
