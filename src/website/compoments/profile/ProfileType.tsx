@@ -6,11 +6,18 @@ export type ProfileType = {
   email?: string;
   facebook?: string;
   zalo?: string;
+  mota?: string;
   diachi_thuongtru?: string;
   qtlv?: ProfileQuaTrinhLamViecType[];
   dh?: ProfileDinhHuongType[];
   kn?: ProfileKyNangType[];
-  mota?: string;
+  hv?: ProfileHocVanType[];
+  ha?: ProfileHinhAnhType[];
+};
+
+export type ProfileHinhAnhType = {
+  ma_nv?: string;
+  url_hinhanh?: string;
 };
 
 export type ProfileQuaTrinhLamViecType = {
@@ -30,4 +37,12 @@ export type ProfileKyNangType = {
 
 export type ProfileDinhHuongType = {
   noidung?: string;
+};
+
+export type ProfileHocVanType = {
+  stt?: number;
+  thoigian_daotao?: string;
+  ten_truong?: string;
+  chuyen_nganh?: string;
+  bang_cap?: string;
 };

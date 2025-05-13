@@ -16,6 +16,17 @@ import UrlApi from "./UrlApi";
 //   });
 // };
 
+const _getArrayData = (token: string, api: string) => {
+  return fetch(`${UrlApi.api_http}${api}`, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
+/*#region các hàm publish */
+
 export const getToken = () => {
   const api = `${UrlApi.api_http}${UrlApi.api_auth_token}`;
   // console.log(api);
@@ -54,29 +65,6 @@ export const getTokenString = (): Promise<string> => {
   });
 };
 
-export const getRowData = <T,>(api: string): Promise<T> => {
-  return new Promise<T>((resolve) => {
-    fetch(`http://localhost:3000/${api}`)
-      .then((res) => res.json())
-      .then((json) => {
-        const value: T = json.data as T;
-        resolve(value);
-      })
-      .catch(() => {
-        // resolve();
-      });
-  });
-};
-
-const _getArrayData = (token: string, api: string) => {
-  return fetch(`${UrlApi.api_http}${api}`, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
-};
-
 export const getArrayData = (api: string) => {
   getToken()
     .then((res) => res.json())
@@ -105,3 +93,26 @@ export const getArrayDataPromise = <T,>(api: string): Promise<Array<T>> => {
     });
   });
 };
+
+export const getRowData = <T,>(api: string): Promise<T> => {
+  return new Promise<T>((resolve) => {
+    getTokenString().then((token) => {
+      fetch(`${UrlApi.api_http}${api}`, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          const value: T = json.data.google_drive as T;
+          return resolve(value);
+        })
+        .catch(() => {
+          // return resolve([]);
+        });
+    });
+  });
+};
+
+/*#endregion các hàm publish */

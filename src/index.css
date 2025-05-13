@@ -1,7 +1,9 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: system-ui, Vanir, Helvetica, Arial, sans-serif;
+
+  /* line-height: 1.5; */
   /* font-weight: 400;
+  
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -15,11 +17,17 @@
   padding: 0px;
   box-sizing: border-box;
   /*  */
-  --primary-color: #ffa400;
-  --secondary-color: gray;
+  --primary-color: #ffe30d;
+  --primary-second-right-color: #96ff0d;
+  --primary-one-right-color: #ffa80d;
+  --primary-second-left-color: #ffc50d;
+  --primary-one-left-color: #fbff0d;
+  --complementary-first-color: #370dff;
+  --complementary-second-color: #5441aa;
+  --complementary-three-color: #413d55;
   --color-border-item: gray;
-  --value-border-item: 3px;
-  --value-border-radius: 7px;
+  --value-border-item: 5px;
+  --value-border-radius: 25px;
   --value-border-radius-child: 3px;
   --color-box-shadow-item: royalblue;
 }
