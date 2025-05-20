@@ -4,8 +4,11 @@ class ChucNangUrl {
   };
   static toQueryDanhMuc = "/:keyString/:isAddNew";
   ///
+  static administrator_nhanvien = "administrator/nhanvien";
   ///
   static administrator_profile = "administrator/profile";
+  static administrator_profile_edit = "administrator/profile-edit";
+  //
   static administrator_fukuda_son_dondathang =
     "administrator/fukuda-son-dondathang";
   static administrator_fukuda_son_sanpham = "/administrator/fukuda-son-sanpham";

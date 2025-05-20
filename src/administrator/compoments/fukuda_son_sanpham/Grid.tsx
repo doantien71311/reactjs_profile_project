@@ -1,9 +1,11 @@
-import { useContext, useRef, useState } from "react";
+import { createContext, useContext, useMemo, useRef, useState } from "react";
 import { FukudaSonSanPhamType } from "../../../model/FukudaSonSanPhamType";
 import {
   CellClickArgs,
   CellMouseEvent,
   CellSelectArgs,
+  Column,
+  RenderHeaderCellProps,
   type DataGridHandle,
 } from "react-data-grid";
 import { DataGrid } from "react-data-grid";
@@ -13,6 +15,38 @@ import {
 } from "./FukudaSonSanPhamBEContext";
 import BEConstCSS from "../BEConstCSS";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
+
+// Context is needed to read filter values otherwise columns are
+// re-created when filters are changed and filter loses focus
+const FilterContext = createContext<Filter | undefined>(undefined);
+
+interface Filter extends Omit<FukudaSonSanPhamType, "id" | "complete"> {
+  ten_hh: string | undefined;
+  complete: number | undefined;
+  enabled: boolean;
+}
+
+function FilterRenderer<R>({
+  tabIndex,
+  column,
+  children,
+}: RenderHeaderCellProps<R> & {
+  children: (args: { tabIndex: number; filters: Filter }) => React.ReactElement;
+}) {
+  const filters = useContext(FilterContext)!;
+  return (
+    <>
+      <div>{column.name}</div>
+      {/* {filters.enabled && <div>{children({ tabIndex, filters })}</div>} */}
+      <div>{children({ tabIndex, filters })}</div>
+    </>
+  );
+}
+function inputStopPropagation(event: React.KeyboardEvent<HTMLInputElement>) {
+  if (["ArrowLeft", "ArrowRight"].includes(event.key)) {
+    event.stopPropagation();
+  }
+}
 
 export const Grid = () => {
   const context = useContext<FukudaSonSanPhamBEContextProps>(
@@ -26,40 +60,60 @@ export const Grid = () => {
   //
   const gridRef = useRef<DataGridHandle>(null);
 
-  const columns = [
-    {
-      key: "ma_hh_nhacungcap",
-      name: "Mã hàng NCC",
-      // width: "10%",
-      minWidth: 150,
-      width: "max-content",
-      // maxWidth: 100,
-    },
-    {
-      key: "ten_hh",
-      name: "Tên hàng hóa",
-      // width: "minmax(100px, max-content)",
-      width: "max-content",
-      minWidth: 200,
-      // maxWidth: 100,
-    },
-    {
-      key: "ma_hh",
-      name: "Mã hàng hóa",
-      // width: "10%",
-      minWidth: 150,
-      width: "max-content",
-      // maxWidth: 100,
-    },
-    {
-      key: "id",
-      name: "ID",
-      // width: "5%",
-      width: "max-content",
-      minWidth: 50,
-      // maxWidth: 100,
-    },
-  ];
+  const columns = useMemo((): readonly Column<FukudaSonSanPhamType>[] => {
+    return [
+      {
+        key: "ma_hh_nhacungcap",
+        name: "Mã hàng NCC",
+        // width: "10%",
+        minWidth: 150,
+        width: "max-content",
+        // maxWidth: 100,
+      },
+      {
+        key: "ten_hh",
+        name: "Tên hàng hóa",
+        // width: "minmax(100px, max-content)",
+        width: "max-content",
+        minWidth: 200,
+        // maxWidth: 100,
+        renderHeaderCell: (p) => (
+          <FilterRenderer<FukudaSonSanPhamType> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                // className={filterClassname}
+                value={filters.ten_hh ?? ""}
+                onChange={(e) =>
+                  setFilters({
+                    ...filters,
+                    ten_hh: e.target.value,
+                  })
+                }
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterRenderer>
+        ),
+      },
+      {
+        key: "ma_hh",
+        name: "Mã hàng hóa",
+        // width: "10%",
+        minWidth: 150,
+        width: "max-content",
+        // maxWidth: 100,
+      },
+      {
+        key: "id",
+        name: "ID",
+        // width: "5%",
+        width: "max-content",
+        minWidth: 50,
+        // maxWidth: 100,
+      },
+    ];
+  }, []);
 
   const [selectedRows, setSelectedRows] = useState(
     (): ReadonlySet<string> => new Set()
@@ -88,25 +142,39 @@ export const Grid = () => {
     context.setSelectRow(context.selectRow);
     // console.log("onSelectedCellChange: " + selectRow.id);
   }
+
+  const [filters, setFilters] = useState(
+    (): Filter => ({
+      ten_hh: "",
+      ma_hh_nhacungcap: "",
+      ma_hh: "",
+      // id: "",
+      complete: undefined,
+      enabled: true,
+    })
+  );
+
   return (
     <>
-      <DataGrid
-        ref={gridRef}
-        className={BEConstCSS.grid_fill}
-        rowKeyGetter={rowKeyGetter}
-        columns={columns}
-        rows={context.dataApi}
-        selectedRows={selectedRows}
-        onSelectedRowsChange={setSelectedRows}
-        onSelectedCellChange={onSelectedCellChange}
-        onCellClick={onCellClick}
-        defaultColumnOptions={{
-          minWidth: 50,
-          resizable: true,
-          sortable: true,
-          draggable: true,
-        }}
-      />
+      <FilterContext value={filters}>
+        <DataGrid
+          ref={gridRef}
+          className={`rdg-light ${BEConstCSS.grid_fill}`}
+          rowKeyGetter={rowKeyGetter}
+          columns={columns}
+          rows={context.dataApi}
+          selectedRows={selectedRows}
+          onSelectedRowsChange={setSelectedRows}
+          onSelectedCellChange={onSelectedCellChange}
+          onCellClick={onCellClick}
+          defaultColumnOptions={{
+            minWidth: 50,
+            resizable: true,
+            sortable: true,
+            draggable: true,
+          }}
+        />
+      </FilterContext>
 
       {context.isLoadingApi ? (
         <>

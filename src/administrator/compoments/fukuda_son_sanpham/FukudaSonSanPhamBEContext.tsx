@@ -7,7 +7,6 @@ import UrlApi from "../../../services/UrlApi";
 import { getArrayDataPromise } from "../../../services/HttpServices";
 //
 
-
 export type FukudaSonSanPhamBEProps = { children: ReactNode };
 export type FukudaSonSanPhamBEContextProps = {
   isLoadingApi: boolean;

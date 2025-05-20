@@ -8,6 +8,16 @@ class UrlApi {
   static api_fukuda_son_san_pham_lay_ds: string =
     "/api/fukuda-son-san-pham-lay-ds";
 
+  //
   static api_profile_nhan_vien_lay_ds: string = "/api/profile-nhan-vien-lay-ds";
+  static api_profile_nhan_vien_cap_nhat: string =
+    "/api/profile-nhan-vien-cap-nhat";
+  //
+
+  static api_he_thong_chuc_nang_lay_ds: string =
+    "/api/he-thong-chuc-nang-lay-ds";
+
+  static api_danh_muc_nhan_vien_lay_ds: string =
+    "/api/danh-muc-nhan-vien-lay-ds";
 }
 export default UrlApi;
