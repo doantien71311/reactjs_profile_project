@@ -1,10 +1,16 @@
 export interface NhanVienType {
-  id: string;
-  ma_hh: string;
-  ma_hh_nhacungcap?: string;
-  ten_hh?: string;
+  soid: string;
+  ma_nv?: string;
+  ten_nv?: string;
+  url_hinhanh?: string;
+  dienthoai?: string;
+  email?: string;
+  facebook?: string;
+  zalo?: string;
+  mota?: string;
 }
 export const NhanVienTypeDefault: NhanVienType = {
-  id: "",
-  ma_hh: "",
+  soid: "",
+  ma_nv: "",
+  ten_nv: "",
 };

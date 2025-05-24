@@ -3,9 +3,9 @@ import {
   DataGrid,
   DataGridHandle,
   RenderCellProps,
-  RenderHeaderCellProps,
-  useHeaderRowSelection,
-  useRowSelection,
+  // RenderHeaderCellProps,
+  // useHeaderRowSelection,
+  // useRowSelection,
 } from "react-data-grid";
 // import BEConstCSS from "../../../BEConstCSS";
 import {
@@ -15,10 +15,7 @@ import {
 
 import { Accordion, Button, Form, Modal } from "react-bootstrap";
 import BEConstCSS from "../../BEConstCSS";
-import {
-  ProfileNhanVienType,
-  ProfileQuaTrinhLamViecType,
-} from "../../../../model/ProfileNhanVienType";
+import { ProfileQuaTrinhLamViecType } from "../../../../model/ProfileNhanVienType";
 import { useQuill } from "react-quilljs";
 import {
   CommonButtonAddDataGrid,
@@ -26,41 +23,41 @@ import {
 } from "../../common_ui/CommonUI";
 import { v4 as uuidv4 } from "uuid";
 
-function HeaderRenderer(props: RenderHeaderCellProps<ProfileNhanVienType>) {
-  const { isIndeterminate, isRowSelected, onRowSelectionChange } =
-    useHeaderRowSelection();
+// function HeaderRenderer(props: RenderHeaderCellProps<ProfileNhanVienType>) {
+//   const { isIndeterminate, isRowSelected, onRowSelectionChange } =
+//     useHeaderRowSelection();
 
-  return (
-    <div></div>
-    // <SelectCellFormatter
-    //   aria-label="Select All"
-    //   tabIndex={props.tabIndex}
-    //   indeterminate={isIndeterminate}
-    //   value={isRowSelected}
-    //   onChange={(checked) => {
-    //     onRowSelectionChange({ checked: isIndeterminate ? false : checked });
-    //   }}
-    // />
-  );
-}
+//   return (
+//     <div></div>
+//     // <SelectCellFormatter
+//     //   aria-label="Select All"
+//     //   tabIndex={props.tabIndex}
+//     //   indeterminate={isIndeterminate}
+//     //   value={isRowSelected}
+//     //   onChange={(checked) => {
+//     //     onRowSelectionChange({ checked: isIndeterminate ? false : checked });
+//     //   }}
+//     // />
+//   );
+// }
 
-function SelectFormatter(props: RenderCellProps<ProfileNhanVienType>) {
-  const { isRowSelectionDisabled, isRowSelected, onRowSelectionChange } =
-    useRowSelection();
+// function SelectFormatter(props: RenderCellProps<ProfileNhanVienType>) {
+//   const { isRowSelectionDisabled, isRowSelected, onRowSelectionChange } =
+//     useRowSelection();
 
-  return (
-    <div></div>
-    // <SelectCellFormatter
-    //   aria-label="Select"
-    //   tabIndex={props.tabIndex}
-    //   disabled={isRowSelectionDisabled}
-    //   value={isRowSelected}
-    //   onChange={(checked, isShiftClick) => {
-    //     onRowSelectionChange({ row: props.row, checked, isShiftClick });
-    //   }}
-    // />
-  );
-}
+//   return (
+//     <div></div>
+//     // <SelectCellFormatter
+//     //   aria-label="Select"
+//     //   tabIndex={props.tabIndex}
+//     //   disabled={isRowSelectionDisabled}
+//     //   value={isRowSelected}
+//     //   onChange={(checked, isShiftClick) => {
+//     //     onRowSelectionChange({ row: props.row, checked, isShiftClick });
+//     //   }}
+//     // />
+//   );
+// }
 
 export const ProfileBEQuaTrinhLamViecIndex = () => {
   const { quill, quillRef } = useQuill();
@@ -177,37 +174,44 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
       },
     },
     {
-      key: "stt",
-      name: "STT",
-      width: "70px",
-      minWidth: 50,
-      //   width: "max-content",
-      // maxWidth: 100,
-    },
-    {
       key: "thoigian_qtlv",
       name: "Thời gian làm việc",
-      width: "minmax(10%, max-content)",
+      width: "minmax(15%, max-content)",
     },
     {
       key: "congty_qtlv",
       name: "Tên công ty",
-      width: "minmax(10%, max-content)",
+      width: "minmax(30%, max-content)",
       // maxWidth: 100,
     },
 
     {
       key: "vitri_qtlv",
       name: "Chức vụ",
-      width: "minmax(10%, max-content)",
+      width: "minmax(30%, max-content)",
       // width: "max-content",
       // maxWidth: 100,
     },
     {
       key: "mota_qtlv",
       name: "Mô tả công việc",
-      width: "minmax(50%, max-content)",
-
+      width: "minmax(100%, max-content)",
+      renderCell(props: RenderCellProps<ProfileQuaTrinhLamViecType>) {
+        return (
+          <div
+            style={{ width: "100%", height: "100%", overflowY: "scroll" }}
+            dangerouslySetInnerHTML={{ __html: `${props.row.mota_qtlv}` }}
+          ></div>
+        );
+      },
+      // maxWidth: 100,
+    },
+    {
+      key: "stt",
+      name: "STT",
+      width: "70px",
+      minWidth: 50,
+      //   width: "max-content",
       // maxWidth: 100,
     },
     // {
@@ -225,7 +229,7 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
 
   return (
     <>
-      <Modal show={showKyNang} onHide={handleKyNangClose}>
+      <Modal show={showKyNang} size="lg" onHide={handleKyNangClose}>
         <Modal.Header closeButton>
           <Modal.Title>Cập nhật quá trình làm việc</Modal.Title>
         </Modal.Header>
@@ -281,6 +285,7 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
             // rowKeyGetter={rowKeyGetter}
             columns={columns}
             rows={useData.profile_nhanvien_quatrinhlamviec ?? []}
+            rowHeight={100}
             // selectedRows={selectedRows}
             // onSelectedRowsChange={setSelectedRows}
             // onSelectedCellChange={onSelectedCellChange}

@@ -4,7 +4,7 @@ import {
   motion,
   useMotionValueEvent,
   useScroll,
-  useTransform,
+  // useTransform,
 } from "motion/react";
 
 export const ImageDaiDien = () => {
@@ -14,7 +14,9 @@ export const ImageDaiDien = () => {
 
   const initialized = useRef(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  //
 
+  //
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const { scrollXProgress } = useScroll({
     // layoutEffect: false,
@@ -58,6 +60,20 @@ export const ImageDaiDien = () => {
   }, [isLoadingApi, imageContainerRef]);
 
   //#region các private funtion
+  const getImageBottomBorder = (newIndex: number) => {
+    let result: string = "2px solid transparent";
+    if (newIndex === currentIndex)
+      // result = "2px solid var(--primary-color)";
+      result = "2px solid var(--primary-second-right-color)";
+    // console.log(result);
+    return result;
+  };
+  const getImageBottomBorderRadius = (newIndex: number) => {
+    let result: string = "0";
+    if (newIndex === currentIndex) result = "5px";
+    // console.log(result);
+    return result;
+  };
   const getScale = (newIndex: number) => {
     const valueIndex = Math.abs(newIndex - currentIndex);
     if (valueIndex == 0) return 1.2;
@@ -171,6 +187,10 @@ export const ImageDaiDien = () => {
               key={`${item.stt}-ct`}
               src={item.url_hinhanh ?? ""}
               alt={item.ten_hinhanh ?? ""}
+              style={{
+                border: `${getImageBottomBorder(index)}`,
+                borderRadius: `${getImageBottomBorderRadius(index)}`,
+              }}
               role="button"
               onClick={() => onHandImageClick(index)}
             />

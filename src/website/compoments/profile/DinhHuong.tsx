@@ -27,7 +27,7 @@ export const DinhHuong = () => {
                 duration: 0.7,
               },
             }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className="profile-dinhhuong-item"
           >
             <i className="fas fa-star fa-2x"></i>

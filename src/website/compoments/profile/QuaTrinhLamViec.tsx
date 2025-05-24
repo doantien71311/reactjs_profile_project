@@ -39,7 +39,7 @@ export const QuaTrinhLamViec = () => {
                   duration: 0.5,
                 },
               }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               className="profile_quatrinhlamviec_item"
             >
               <div className="profile_quatrinhlamviec_item_left">

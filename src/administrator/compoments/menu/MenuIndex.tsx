@@ -8,9 +8,22 @@ import { useState, useEffect, useRef } from "react";
 // import { NavLink, useNavigate } from "react-router-dom";
 
 import { MenuType } from "../../../model/MenuType";
-import { InputGroup, Form, Button } from "react-bootstrap";
+import {
+  InputGroup,
+  Form,
+  Button,
+  Navbar,
+  Image,
+  Stack,
+} from "react-bootstrap";
 import { getArrayDataPromise } from "../../../services/HttpServices";
 import UrlApi from "../../../services/UrlApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFilter,
+  faFolderOpen,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const MenuIndex = () => {
   //
@@ -150,27 +163,33 @@ export const MenuIndex = () => {
   // console.log("MenuIndex moi");
   // console.log(dataMenu);
   return (
-    <>
+    <div className="menu_left">
       <InputGroup className="mb-3">
         <Form.Control
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
         />
-        <Button onClick={moRongClick}>{isExpandMenu ? "MO" : "Thu"}</Button>
+        <Button onClick={moRongClick}>
+          <FontAwesomeIcon icon={faTimes} className="" />
+        </Button>
+
+        <Button onClick={moRongClick}>
+          <FontAwesomeIcon icon={faFilter} className="" />
+        </Button>
       </InputGroup>
       {isLoadingMenu ? (
         <h6>Loading...</h6>
       ) : (
         <nav
-          className="menu_left"
-          // style={{
-          //   height: "100%",
-          //   width: "100%",
-          //   backgroundColor: "red",
-          // }}
+        // style={{
+        //   height: "100%",
+        //   width: "100%",
+        //   backgroundColor: "red",
+        // }}
         >
           <>
             <Accordion
+              className="p-2 menu_left_accordion"
               // ref={accordionMenu}
               // defaultActiveKey={["HCNS", "SonFuKuDa"]}
               key={"accordion_menu_left"}
@@ -181,16 +200,118 @@ export const MenuIndex = () => {
               {(() =>
                 getMenuCha().map((item) => (
                   <Accordion.Item
+                    className="menu_left_accordion_item"
                     key={item.ma_chucnang}
                     eventKey={item.ma_chucnang}
                   >
-                    <Accordion.Header>{item.ten_chucnang}</Accordion.Header>
-                    <Accordion.Body key={`${item.ma_chucnang}"_body"`}>
+                    <Accordion.Header className="menu_left_accordion_header">
+                      {/* <i className="fas fa-yen-sign"></i> */}
+                      <div
+                        className="p-0 ms-auto text-dark text-wrap font-weight-bold"
+                        style={{
+                          // border: "1px solid red",
+                          width: "100%",
+                        }}
+                      >
+                        <Image
+                          // src="/src/assets/image/logo_dai_viet.png"
+                          src={item.image_url_chucnang ?? ""}
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            // paddingTop: "5px",
+                            // paddingBottom: "5px",
+                            display: "block",
+                            marginRight: "auto",
+                            marginLeft: "auto",
+                            marginTop: "5px",
+                            marginBottom: "5px",
+                            objectFit: "cover",
+                            // alignItems: "center",
+                            // alignContent: "center",
+                            // alignSelf: "center",
+                          }}
+                          thumbnail
+                        ></Image>
+                        <div className="fs-6 text-center">
+                          {item.ten_chucnang}
+                        </div>
+                      </div>
+                    </Accordion.Header>
+                    <Accordion.Body
+                      key={`${item.ma_chucnang}"_body"`}
+                      className="menu_left_accordion_body"
+                    >
                       {getMenuCon(item.ma_chucnang).map((map) => (
-                        <div key={`${item.ma_chucnang}_body_div`}>
-                          <NavLink to={map.url_chucnang ?? ""}>
-                            {map.ten_chucnang ?? "Chưa có tên"}
-                          </NavLink>
+                        <div
+                          key={`${item.ma_chucnang}_body_div`}
+                          // style={{ backgroundColor: "red" }}
+                        >
+                          {/* <Nav.Item as="li">
+                            <Nav.Link href={map.url_chucnang ?? ""}>
+                              {" "}
+                              {map.ten_chucnang ?? "Chưa có tên"}
+                            </Nav.Link>
+                          </Nav.Item> */}
+
+                          {/* <Navbar style={{ width: "100%" }}>
+                            <NavLink
+                              style={{ width: "100%" }}
+                              to={map.url_chucnang ?? ""}
+                            >
+                              <Button
+                                variant="link"
+                                className="ms-auto w-100"
+                                // style={{
+                                //   width: "100%",
+                                //   position: "absolute",
+                                // }}
+                              >
+                                <FontAwesomeIcon icon={faBookmark} />
+                                <span className="p-0 ms-auto text-start text-wrap">
+                                  {map.ten_chucnang ?? "Chưa có tên"}
+                                </span>
+                              </Button>
+                            </NavLink>
+                          </Navbar> */}
+                          <Navbar
+                            style={
+                              {
+                                // border: "1px solid back",
+                              }
+                            }
+                          >
+                            <NavLink
+                              style={{
+                                width: "100%",
+                                // , position: "absolute"
+                              }}
+                              to={map.url_chucnang ?? ""}
+                            >
+                              <Stack
+                                // as="button"
+                                direction="horizontal"
+                                gap={2}
+                                style={
+                                  {
+                                    // width: "100%",
+                                    // , position: "absolute"
+                                  }
+                                }
+                              >
+                                {/* <FontAwesomeIcon
+                                  className="p-0"
+                                  icon={faStickyNote}
+                                /> */}
+                                {/* <FontAwesomeIcon icon={faBookmark} /> */}
+                                <FontAwesomeIcon icon={faFolderOpen} />
+                                {/* <FontAwesomeIcon icon={faBook} /> */}
+                                <span className="p-0 text-left text-primary text-wrap">
+                                  {map.ten_chucnang ?? "Chưa có tên"}
+                                </span>
+                              </Stack>
+                            </NavLink>
+                          </Navbar>
                         </div>
                       ))}
                     </Accordion.Body>
@@ -200,6 +321,6 @@ export const MenuIndex = () => {
           </>
         </nav>
       )}
-    </>
+    </div>
   );
 };

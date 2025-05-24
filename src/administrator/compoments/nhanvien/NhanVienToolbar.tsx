@@ -40,12 +40,12 @@ export const NhanVienToolbar = () => {
     isShowChucnang: true,
     onNavigation: () => {
       if (!context.selectRow) return;
-      if (!context.selectRow.id) return;
-      if (context.selectRow.id === "") return;
+      if (!context.selectRow.soid) return;
+      if (context.selectRow.soid === "") return;
       navigate(
         ChucNangUrl.toUrlDanhMuc(
           ChucNangUrl.administrator_fukuda_son_sanpham_edit,
-          context.selectRow.id ?? "",
+          context.selectRow.soid ?? "",
           false
         )
       );
@@ -53,7 +53,7 @@ export const NhanVienToolbar = () => {
       // navigate(
       //   ChucNangUrl.administrator_fukuda_son_sanpham_edit +
       //     "/" +
-      //     selectRow.id +
+      //     selectRow.soid +
       //     "/" +
       //     "false",
       //   {

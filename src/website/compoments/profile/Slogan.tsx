@@ -15,13 +15,11 @@ export const Slogan = () => {
         <div className="profile_slogan_line"></div>
       </div>
       <div className="profile_slogan_text">
-        <div></div>
-        <svg viewBox="0 0 1000 400">
-          <text x="10%" y="50%" dy="40px" className="profile_slogan_text_abc">
+        <svg viewBox="0 0 350 50">
+          <text x="0px" y="35px" className="profile_slogan_text_abc">
             Đổi mới-Chăm chỉ-Hòa đồng
           </text>
         </svg>
-        {/* <h2></h2> */}
       </div>
     </section>
   );

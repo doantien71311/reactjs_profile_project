@@ -38,6 +38,7 @@ export const NhanVienProvider = ({ children }: NhanVienProps) => {
       `${UrlApi.api_danh_muc_nhan_vien_lay_ds}?ma_nv=ADMIN`
     );
     console.log("Cách 2 NhanVienProvider:");
+    console.log(data);
     // ...
     setUseDataApi(data);
     setUseSelectRow(NhanVienTypeDefault);

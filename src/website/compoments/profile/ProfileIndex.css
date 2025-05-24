@@ -43,6 +43,7 @@
 
 .profile-anhdaidien {
   grid-area: anhdaidien;
+  /* border: 1px solid black; */
   /* display: flex; */
   /* flex-direction: column; */
   /* gap: 5px; */
@@ -160,26 +161,53 @@
   background-color: var(--primary-color);
 }
 .profile_slogan_text {
+  /* border: 1px solid black; */
 }
 .profile_slogan_text svg {
-  background-color: blueviolet;
-  border: 1px solid black;
+  /* background-color: blueviolet; */
+  /* border: 1px solid black; */
+  max-height: 100px;
+  max-width: 350px;
+  width: 350px;
+  height: 50px;
+  min-width: 300px;
+  display: block;
+  margin-right: 0;
+  margin-left: auto;
+  /* position: absolute; */
+  /* vertical-align: middle; */
 }
 
 .profile_slogan_text svg text {
-  margin: 0 auto 0 0px;
-  text-align: end;
-  font-weight: 500;
+  margin-right: 0;
+  margin-left: auto;
+  font-weight: bolder;
+  font-size: 1.6rem;
+
+  /* fill: var(--complementary-first-color);
+  stroke-width: 2;
+  stroke-dasharray: 60;
+  stroke: var(--color-border-item); */
+
+  /* fill: transparent;
+  stroke-width: 2;
+  stroke-dasharray: 5%, 25%;
+  stroke-dashoffset: 0;
+  stroke: var(--complementary-first-color); */
 
   fill: var(--complementary-first-color);
-  font-weight: 1000;
-  font-size: 50px;
-  stroke-width: 2;
-  /* stroke-dashoffset: 50; */
-  stroke-dasharray: 60;
-  stroke: var(--primary-second-right-color);
-  /* text-transform: uppercase; */
-  animation: textChange 5s alternate;
+  stroke: var(--complementary-first-color);
+  stroke-width: 0;
+  stroke-dashoffset: 0;
+  stroke-dasharray: 0;
+
+  /* fill: transparent;
+  stroke: var(--complementary-first-color);
+  stroke-dasharray: 100%;
+  stroke-dashoffset: 100%;
+  stroke-width: 2; */
+
+  animation: textChange 3s alternate;
 
   /* color: var(--complementary-three-color); */
   /* text-shadow: 1px 1px 1px var(--complementary-first-color),
@@ -189,28 +217,37 @@
 
 @keyframes textChange {
   0% {
-    fill: rgba(56, 82, 79, 0);
-    stroke: rgba(56, 95, 160, 1);
+    /* fill: transparent; */
     stroke-width: 2;
-    stroke-dashoffset: 25%;
-    stroke-dasharray: 0 50%;
+    stroke-dasharray: 10%;
+    stroke-dashoffset: 0;
+    stroke: var(--complementary-first-color);
+  }
+  20% {
+    fill: transparent;
   }
   70% {
-    fill: rgba(56, 82, 79, 0);
-    stroke: rgba(56, 95, 160, 1);
+    fill: transparent;
+    stroke: var(--complementary-first-color);
+    fill: transparent;
+    stroke: var(--complementary-first-color);
+    /* stroke-dasharray: 100%; */
+    stroke-dashoffset: 25%;
+    stroke-width: 2;
   }
   80% {
-    fill: rgba(56, 82, 79, 0);
-    stroke: rgba(56, 95, 160, 1);
-    stroke: rgba(56, 95, 160, 1);
-    stroke-width: 3;
+    fill: transparent;
+    stroke-width: 2;
+    stroke-dasharray: 10%;
+    stroke-dashoffset: -25%;
+    stroke: var(--complementary-first-color);
   }
   100% {
     fill: var(--complementary-first-color);
-    stroke: var(--primary-one-left-color);
+    stroke: var(--complementary-first-color);
     stroke-width: 0;
-    stroke-dashoffset: -25%;
-    stroke-dasharray: 50% 0;
+    stroke-dashoffset: 0;
+    stroke-dasharray: 0;
   }
 }
 /*#endregion slogan */
@@ -218,7 +255,6 @@
 /*#region anh dai dien */
 
 .profile_anhdaidien_top {
-  border: 4px solid blue;
   max-height: calc(100% - 70px);
   height: 70%;
   width: 100%;
@@ -227,8 +263,9 @@
   display: inline-flex;
   overflow: hidden;
   overflow-y: hidden;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
 
+  /* border: 4px solid blue; */
   /* scroll-snap-type: x mandatory; */
   /* gap: 0px; */
 }
@@ -275,14 +312,15 @@
   width: 10rem;
   object-fit: scale-down;
   background-position: center;
-  background-color: var(--primary-second-left-color);
+  background-color: rgba(var(--primary-second-left-color), 0.7);
   /* border: 1px solid red; */
   align-self: center;
   border-radius: 1rem;
   margin: auto 5px auto 5px;
-  pointer-events: none;
+  /* pointer-events: none; */
   display: block;
-
+  box-shadow: 0px 0px 17px grey;
+  /* box-shadow: none; */
   /* background-color: var(--primary-color); */
   /* scroll-snap-align: start; */
 }
@@ -294,24 +332,33 @@
   display: flex;
 
   flex-direction: row;
-  gap: 5px;
+  /* gap: 5px; */
   justify-content: start;
   bottom: 0px;
   position: absolute;
+  overflow: hidden;
   overflow-x: auto;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .profile_anhdaidien_bottom img {
   width: 50px;
   height: 50px;
   align-self: center;
+  object-fit: contain;
+  border-radius: 0;
+  border: 2px transparent;
+  margin: 5px;
+  background-position: center;
+
   /* height: 100%; */
-  object-fit: cover;
+  /* object-fit: fill; */
+
   /* object-fit: fill; */
   /* object-fit: scale-down; */
   /* object-fit: contain; */
-  border: 1px solid gray;
+  /* border: 2px solid var(--primary-second-right-color);
+  border-radius: 5px; */
 }
 
 /*#endregion anh dai dien */
@@ -863,16 +910,16 @@
 /*Ipad dọc(768 x 1024)*/
 @media screen and (max-width: 768px) {
   .profile {
-    grid-template-columns: repeat(1, 1fr);
+    /* grid-template-columns: repeat(1, 1fr); */
     grid-template-areas:
-      "slogan"
-      "anhdaidien"
-      "dinhhuong"
-      "nangluc"
-      "quatrinhlamviec"
-      "thongtincanhan"
-      "hocvan"
-      "mota";
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota";
   }
   .profile-dinhhuong-item span {
     font-size: large;
@@ -886,10 +933,43 @@
 }
 /*Tablet nhỏ(480 x 640)*/
 @media screen and (max-width: 480px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota";
+  }
 }
 /*Iphone(480 x 640)*/
 @media screen and (max-width: 320px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota mota";
+  }
 }
 /*Smart phone nhỏ*/
 @media screen and (max-width: 240px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota mota";
+  }
 }

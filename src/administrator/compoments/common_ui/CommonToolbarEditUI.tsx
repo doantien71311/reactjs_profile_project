@@ -1,7 +1,7 @@
 // import Button from "react-bootstrap/Button";
 // or less ideally
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRotate } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faRotate } from "@fortawesome/free-solid-svg-icons";
 import { Accordion, Button, Card, Stack } from "react-bootstrap";
 import { ButtonGroup } from "react-bootstrap";
 import { TCommonToolbar } from "../common_props/CommonToolbarProps";
@@ -42,12 +42,14 @@ export const CommonToolbarEditUI = ({
       <Card>
         <Card.Header>
           <Stack direction="horizontal" gap={3}>
-            <Button>Click me</Button>
-            <span className="p-2 text-start text-wrap fw-bold fs-6">
+            <Button variant="link">
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </Button>
+            <span className="p-0 text-primary text-start text-wrap fw-bold fs-6">
               {Title}
             </span>
-            <div className="p-2 ms-auto"></div>
-            <div className="p-2 ">
+            <div className="p-0 ms-auto"></div>
+            <div className="p-1 ">
               <ButtonGroup className="" aria-label="Basic example">
                 <div className={kiemTraChucNang(CapNhat)}>
                   <Button
@@ -57,7 +59,7 @@ export const CommonToolbarEditUI = ({
                     size={str_size}
                   >
                     <FontAwesomeIcon icon={faRotate} />
-                    <div>{CapNhat.tenChucNang}</div>
+                    <span>{CapNhat.tenChucNang}</span>
                   </Button>
                 </div>
               </ButtonGroup>

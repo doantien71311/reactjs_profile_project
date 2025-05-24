@@ -1,6 +1,7 @@
 // import { nhanvienType } from "../model/nhanvienType";
 
 import { ResponseApiType } from "../model/ResponseApiType";
+import { ResponseFileUploadApiType } from "../model/ResponseFileUploadApiType";
 import UrlApi from "./UrlApi";
 
 // export const getData = (api: string) => {
@@ -143,6 +144,38 @@ export const postRowData = <T,>(
         })
         .catch(() => {
           // return resolve([]);
+        });
+    });
+  });
+};
+
+export const uploadSingleImage = (
+  api: string,
+  data: File
+): Promise<ResponseFileUploadApiType> => {
+  return new Promise<ResponseFileUploadApiType>((resolve) => {
+    getTokenString().then((token) => {
+      const api_url_post = `${UrlApi.api_http}${api}`;
+      const formData = new FormData();
+      formData.append("fileImage", data);
+      console.log(formData);
+      fetch(api_url_post, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          //Lưu ý không cần conten type vì tự hiểu trong form data
+          // "Content-type": "multipart/form-data",
+        },
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          const value = json.data.google_drive
+            .data as ResponseFileUploadApiType;
+          return resolve(value);
+        })
+        .catch(() => {
+          return resolve({});
         });
     });
   });

@@ -1,4 +1,5 @@
 export type ProfileNhanVienType = {
+  soid?: string;
   ma_nv?: string;
   ten_nv?: string;
   url_hinhanh?: string;

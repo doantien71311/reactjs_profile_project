@@ -6,11 +6,20 @@ import {
   faTrash,
   faRotate,
   faPen,
+  faChevronDown,
+  faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { Accordion, Button, Card, Stack } from "react-bootstrap";
-import { ButtonGroup } from "react-bootstrap";
+import {
+  Accordion,
+  AccordionContext,
+  Button,
+  ButtonToolbar,
+  Card,
+  Stack,
+  useAccordionButton,
+} from "react-bootstrap";
 import { TCommonToolbar } from "../common_props/CommonToolbarProps";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useContext, useEffect, useRef } from "react";
 
 export const CommonToolbarUI = ({
   Title,
@@ -37,6 +46,29 @@ export const CommonToolbarUI = ({
 
   const initialized = useRef(false);
 
+  function ContextAwareToggle({ eventKey }: { eventKey: string }) {
+    const { activeEventKey } = useContext(AccordionContext);
+
+    // const decoratedOnClick = useAccordionButton(
+    //   eventKey,
+    //   () => callback && callback(eventKey)
+    // );
+
+    const decoratedOnClick = useAccordionButton(eventKey, () => {});
+
+    const isCurrentEventKey = activeEventKey === eventKey;
+
+    return (
+      <Button type="button" variant="link" onClick={decoratedOnClick}>
+        {isCurrentEventKey ? (
+          <FontAwesomeIcon icon={faChevronUp} />
+        ) : (
+          <FontAwesomeIcon icon={faChevronDown} />
+        )}
+      </Button>
+    );
+  }
+
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true;
@@ -55,49 +87,60 @@ export const CommonToolbarUI = ({
       <Card>
         <Card.Header>
           <Stack direction="horizontal" gap={3}>
-            <Button>Click me</Button>
-            <span className="p-2 text-start text-wrap fw-bold fs-6">
+            {/* <Button>Click me</Button> */}
+            <ContextAwareToggle eventKey="0"></ContextAwareToggle>
+
+            <span className="p-0 text-start text-primary text-wrap fw-bold fs-6">
               {Title}
             </span>
-            <div className="p-2 ms-auto"></div>
+            <div className="p-0 ms-auto"></div>
             <div className="p-2 ">
-              <ButtonGroup className="" aria-label="Basic example">
+              <ButtonToolbar className="" aria-label="Basic example">
                 <div className={kiemTraChucNang(Xem)}>
                   <Button
                     onClick={Xem.onNavigation}
                     as="a"
                     variant={str_variant}
                     size={str_size}
+                    className="me-1"
                   >
-                    <FontAwesomeIcon icon={faRotate} />
-                    <div>{Xem.tenChucNang}</div>
+                    <FontAwesomeIcon className="px-1" icon={faRotate} />
+                    <span>{Xem.tenChucNang}</span>
+                  </Button>
+
+                  <Button
+                    onClick={Them.onNavigation}
+                    as="a"
+                    variant={str_variant}
+                    size={str_size}
+                    className="me-1"
+                  >
+                    <FontAwesomeIcon icon={faPlus} className="px-1" />
+                    <span>{Them.tenChucNang}</span>
+                  </Button>
+
+                  <Button
+                    onClick={Sua.onNavigation}
+                    as="a"
+                    variant={str_variant}
+                    size={str_size}
+                    className="me-1"
+                  >
+                    <FontAwesomeIcon icon={faPen} className="px-1" />
+                    <span>{Sua.tenChucNang}</span>
+                  </Button>
+
+                  <Button
+                    as="a"
+                    variant={str_variant}
+                    size={str_size}
+                    className="me-1"
+                  >
+                    <FontAwesomeIcon icon={faTrash} className="px-1" />
+                    <span>{Xoa.tenChucNang}</span>
                   </Button>
                 </div>
-
-                <Button
-                  onClick={Them.onNavigation}
-                  as="a"
-                  variant={str_variant}
-                  size={str_size}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                  <div>{Them.tenChucNang}</div>
-                </Button>
-
-                <Button
-                  onClick={Sua.onNavigation}
-                  as="a"
-                  variant={str_variant}
-                  size={str_size}
-                >
-                  <FontAwesomeIcon icon={faPen} />
-                  <div>{Sua.tenChucNang}</div>
-                </Button>
-                <Button as="a" variant={str_variant} size={str_size}>
-                  <FontAwesomeIcon icon={faTrash} />
-                  <div>{Xoa.tenChucNang}</div>
-                </Button>
-              </ButtonGroup>
+              </ButtonToolbar>
             </div>
           </Stack>
         </Card.Header>

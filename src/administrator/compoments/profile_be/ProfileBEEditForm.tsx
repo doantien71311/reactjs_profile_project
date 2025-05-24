@@ -1,5 +1,4 @@
-import { Accordion, Col, Container, Form, Row } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
+import { Accordion, Container, Form, Row } from "react-bootstrap";
 import {
   ProfileBEEditContext,
   ProfileBEEditContextProps,
@@ -8,6 +7,7 @@ import { useContext, useEffect } from "react";
 import { useQuill } from "react-quilljs";
 import { ProfileBEKyNangIndex } from "./profile_edit/profile_kynang/ProfileBEKyNangIndex";
 import { ProfileBEQuaTrinhLamViecIndex } from "./profile_edit/ProfileBEQuaTrinhLamViecIndex";
+import { ProfileBEAnhDaiDienIndex } from "./profile_edit/ProfileBEAnhDaiDienIndex";
 
 export const ProfileBEEditForm = () => {
   // const initialized = useRef(false);
@@ -65,6 +65,7 @@ export const ProfileBEEditForm = () => {
         style={{ width: "100%", height: "300px", position: "absolute" }}
         defaultActiveKey={[
           "thongtincanhan",
+          "hinhanh",
           "kynang",
           "quatrinhlamviec",
           "hocvan",
@@ -119,7 +120,7 @@ export const ProfileBEEditForm = () => {
           </Accordion.Body>
         </Accordion.Item>
 
-        <Accordion.Item eventKey="34">
+        {/* <Accordion.Item eventKey="34">
           <Accordion.Header>HÌNH ẢNH</Accordion.Header>
           <Accordion.Body>
             <Container>
@@ -132,7 +133,8 @@ export const ProfileBEEditForm = () => {
               </Col>
             </Container>
           </Accordion.Body>
-        </Accordion.Item>
+        </Accordion.Item> */}
+        <ProfileBEAnhDaiDienIndex></ProfileBEAnhDaiDienIndex>
 
         <ProfileBEKyNangIndex></ProfileBEKyNangIndex>
 

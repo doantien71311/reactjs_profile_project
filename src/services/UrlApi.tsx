@@ -19,5 +19,10 @@ class UrlApi {
 
   static api_danh_muc_nhan_vien_lay_ds: string =
     "/api/danh-muc-nhan-vien-lay-ds";
+
+  //
+  static api_image_upload_anh_dai_dien: string =
+    "/api/image-upload-anh-dai-dien";
+  //
 }
 export default UrlApi;
