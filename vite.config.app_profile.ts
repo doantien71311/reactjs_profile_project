@@ -19,6 +19,9 @@ export default defineConfig({
       input: {
         index: "./index.html",
         src: resolve(__dirname, "src/mainProfile.tsx"),
+        main: resolve(__dirname, "src/mainProfile.tsx"),
+        module: resolve(__dirname, "src/mainProfile.tsx"),
+        
       },
       output: {
         // Output configuration for app1
