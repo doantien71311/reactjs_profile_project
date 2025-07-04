@@ -14,7 +14,6 @@ import {
   FukudaSonSanPhamBEContextProps,
 } from "./FukudaSonSanPhamBEContext";
 import BEConstCSS from "../BEConstCSS";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
 
 // Context is needed to read filter values otherwise columns are
 // re-created when filters are changed and filter loses focus
@@ -75,14 +74,20 @@ export const Grid = () => {
         name: "Tên hàng hóa",
         // width: "minmax(100px, max-content)",
         width: "max-content",
-        minWidth: 200,
+        minWidth: 300,
         // maxWidth: 100,
+        headerCellClass: "filter-cell",
         renderHeaderCell: (p) => (
           <FilterRenderer<FukudaSonSanPhamType> {...p}>
             {({ filters, ...rest }) => (
               <input
                 {...rest}
-                // className={filterClassname}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
                 value={filters.ten_hh ?? ""}
                 onChange={(e) =>
                   setFilters({
@@ -154,19 +159,38 @@ export const Grid = () => {
     })
   );
 
+  const filteredRows = useMemo(() => {
+    return context.dataApi.filter((r) => {
+      return filters.ten_hh ? (r.ten_hh ?? "").includes(filters.ten_hh) : true;
+      //&&
+      // (filters.priority !== "All" ? r.priority === filters.priority : true) &&
+      // (filters.issueType !== "All"
+      //   ? r.issueType === filters.issueType
+      //   : true) &&
+      // (filters.developer
+      //   ? r.developer
+      //       .toLowerCase()
+      //       .startsWith(filters.developer.toLowerCase())
+      //   : true) &&
+      // (filters.complete !== undefined ? r.complete >= filters.complete : true)
+    });
+  }, [context.dataApi, filters]);
+
   return (
     <>
       <FilterContext value={filters}>
         <DataGrid
           ref={gridRef}
-          className={`rdg-light ${BEConstCSS.grid_fill}`}
+          className={`rdg-light ${BEConstCSS.grid_fill} fill_filter`}
           rowKeyGetter={rowKeyGetter}
           columns={columns}
-          rows={context.dataApi}
+          // rows={context.dataApi}
+          rows={filteredRows}
           selectedRows={selectedRows}
           onSelectedRowsChange={setSelectedRows}
           onSelectedCellChange={onSelectedCellChange}
           onCellClick={onCellClick}
+          headerRowHeight={100}
           defaultColumnOptions={{
             minWidth: 50,
             resizable: true,
@@ -175,37 +199,6 @@ export const Grid = () => {
           }}
         />
       </FilterContext>
-
-      {context.isLoadingApi ? (
-        <>
-          <div className={BEConstCSS.grid_fill_loading}></div>
-          <Container fluid>
-            <Row className="position-absolute bottom-50 end-50">
-              <Col className="d-flex align-items-center justify-content-center h-auto w-auto p-0">
-                <Spinner animation="border" variant="primary"></Spinner>
-                <span className="opacity-100 align-items-center justify-content-center h-auto w-auto p-0 text-info w-100 p-3 fw-bold">
-                  Đang tải dữ liệu...
-                </span>
-              </Col>
-            </Row>
-
-            {/* <Row className="align-items-center justify-content-center h-auto w-auto p-3 position-absolute bottom-50 end-50 bg-danger">
-            <Col className="bg-success align-items-center justify-content-center h-100 d-inline-block">
-              <Spinner animation="border" variant="primary"></Spinner>
-            </Col>
-          </Row>
-          <Row>
-            <Col className="bg-success align-items-center justify-content-center h-100 d-inline-block">
-              <span className="text-info w-100 p-3 fw-bold align-middle">
-                Đang tải dữ liệu...
-              </span>
-            </Col>
-          </Row> */}
-          </Container>
-        </>
-      ) : (
-        <></>
-      )}
     </>
   );
 };

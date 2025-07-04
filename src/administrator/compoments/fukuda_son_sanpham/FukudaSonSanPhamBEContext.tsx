@@ -1,10 +1,18 @@
-import { useState, createContext, ReactNode, useEffect, useRef } from "react";
+import {
+  useState,
+  createContext,
+  ReactNode,
+  useEffect,
+  useRef,
+  useContext,
+} from "react";
 import {
   FukudaSonSanPhamType,
   FukudaSonSanPhamTypeDefault,
 } from "../../../model/FukudaSonSanPhamType";
 import UrlApi from "../../../services/UrlApi";
 import { getArrayDataPromise } from "../../../services/HttpServices";
+import { BEContext, BEContextProps } from "../BEContext";
 //
 
 export type FukudaSonSanPhamBEProps = { children: ReactNode };
@@ -31,8 +39,10 @@ export const FukudaSonSanPhamBEContext =
 export const FukudaSonSanPhamBEProvider = ({
   children,
 }: FukudaSonSanPhamBEProps) => {
-  const initialized = useRef(false);
+  const { setIsCommonLoadingApi } = useContext<BEContextProps>(BEContext);
+  //
 
+  const initialized = useRef(false);
   const [isUseLoadingApi, setUseIsLoadingApi] = useState<boolean>(true);
   const [useDataApi, setUseDataApi] = useState<FukudaSonSanPhamType[]>([]);
   const [useSelectRow, setUseSelectRow] = useState<FukudaSonSanPhamType>(
@@ -52,14 +62,18 @@ export const FukudaSonSanPhamBEProvider = ({
   }
   useEffect(() => {
     if (initialized.current) return;
-    initialized.current = false;
+    initialized.current = true;
     fetchData();
     return () => {
-      console.log(
-        "Cách 2 FukudaSonSanPhamBEProvider: useEffect - count - cleanup"
-      );
+      console.log("FukudaSonSanPhamBEProvider: useEffect - count - cleanup");
     };
   }, []);
+  useEffect(() => {
+    setIsCommonLoadingApi(isUseLoadingApi);
+    return () => {
+      console.log("FukudaSonSanPhamBEProvider: useEffect - count - cleanup");
+    };
+  }, [isUseLoadingApi, setIsCommonLoadingApi]);
 
   return (
     <FukudaSonSanPhamBEContext.Provider

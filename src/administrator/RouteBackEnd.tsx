@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import { BEIndex } from "./compoments/BEIndex";
 import { FukudaSonDonDatHangBEIndex } from "./compoments/fukuda_son_dondathang_be/FukudaSonDonDatHangBEIndex";
-import { ProfileBEIndex } from "./compoments/profile_be/ProfileBEIndex";
+import { ProfileBEIndex } from "./compoments/profile_nhanvien_edit/profile_temp/ProfileBEIndex";
 import ChucNangUrl from "./ChucNangUrl";
 import { FukudaSonSanPhamBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamBEIndex";
 import { FukudaSonSanPhamEditBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamEditBEIndex";
-import { ProfileBEEditIndex } from "./compoments/profile_be/profile_edit/ProfileBEEditIndex";
+import { ProfileBEEditIndex } from "./compoments/profile_nhanvien_edit/profile_edit/ProfileBEEditIndex";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import { NhanVienIndex } from "./compoments/nhanvien/NhanVienIndex";
 import { BEProvider } from "./compoments/BEContext";

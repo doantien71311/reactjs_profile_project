@@ -1,7 +1,10 @@
 // import Button from "react-bootstrap/Button";
 // or less ideally
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faRotate } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { Accordion, Button, Card, Stack } from "react-bootstrap";
 import { ButtonGroup } from "react-bootstrap";
 import { TCommonToolbar } from "../common_props/CommonToolbarProps";
@@ -27,20 +30,15 @@ export const CommonToolbarEditUI = ({
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true;
-      // getArrayData<INhanVienModel>(UrlApi.api_nhanvien_layds).then((value) => {
-      //   value.forEach((item) => {
-      //     console.log(item.ma_nv ?? "");
-      //     console.log(item.ten_nv ?? "");
-      //   });
-      // });
-      return () => console.log(`Cleanup..${initialized.current}`);
+      return () =>
+        console.log(`CommonToolbarEditUI Cleanup..${initialized.current}`);
     }
   }, []);
 
   return (
     <Accordion defaultActiveKey="0" style={{ width: "100%", height: "100%" }}>
       <Card>
-        <Card.Header>
+        <Card.Header className="row_body_edit_toolbar_top_accordion_car_header">
           <Stack direction="horizontal" gap={3}>
             <Button variant="link">
               <FontAwesomeIcon icon={faChevronLeft} />
@@ -58,7 +56,8 @@ export const CommonToolbarEditUI = ({
                     variant={str_variant}
                     size={str_size}
                   >
-                    <FontAwesomeIcon icon={faRotate} />
+                    {/* <FontAwesomeIcon icon={faCheckCircle} /> */}
+                    <FontAwesomeIcon className="px-1" icon={faCheckCircle} />
                     <span>{CapNhat.tenChucNang}</span>
                   </Button>
                 </div>

@@ -1,9 +1,18 @@
 class UrlApi {
-  static api_http: string = "https://nodejs-app-publish-project.onrender.com";
+  static getApiHttp = () => {
+    return import.meta.env.VITE_api_http;
+  };
+  static getApiUsername = () => {
+    return import.meta.env.VITE_api_username;
+  };
+  static getApiPassword = () => {
+    return import.meta.env.VITE_api_password;
+  };
+  // static api_http: string = "https://nodejs-app-publish-project.onrender.com";
   static api_auth_token: string = "/api/auth-token";
 
-  static username: string = "B8BAC6B049709B134AB4B54F57D9E1C0DB068E91091B1047";
-  static password: string = "6CC0BCCBEA7D5E8F678F14FC5400E251";
+  // static username: string = "B8BAC6B049709B134AB4B54F57D9E1C0DB068E91091B1047";
+  // static password: string = "6CC0BCCBEA7D5E8F678F14FC5400E251";
 
   static api_fukuda_son_san_pham_lay_ds: string =
     "/api/fukuda-son-san-pham-lay-ds";

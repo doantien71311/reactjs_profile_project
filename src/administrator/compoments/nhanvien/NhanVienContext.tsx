@@ -1,7 +1,15 @@
-import { useState, createContext, ReactNode, useEffect, useRef } from "react";
+import {
+  useState,
+  createContext,
+  ReactNode,
+  useEffect,
+  useRef,
+  useContext,
+} from "react";
 import { NhanVienType, NhanVienTypeDefault } from "../../../model/NhanVienType";
 import UrlApi from "../../../services/UrlApi";
 import { getArrayDataPromise } from "../../../services/HttpServices";
+import { BEContext, BEContextProps } from "../BEContext";
 //
 
 export type NhanVienProps = { children: ReactNode };
@@ -25,14 +33,16 @@ export const NhanVienContext = createContext<NhanVienContextProps>({
 });
 
 export const NhanVienProvider = ({ children }: NhanVienProps) => {
+  const { setIsCommonLoadingApi } = useContext<BEContextProps>(BEContext);
+  //
   const initialized = useRef(false);
-
   const [isUseLoadingApi, setUseIsLoadingApi] = useState<boolean>(true);
   const [useDataApi, setUseDataApi] = useState<NhanVienType[]>([]);
   const [useSelectRow, setUseSelectRow] =
     useState<NhanVienType>(NhanVienTypeDefault);
   async function fetchData() {
     setUseIsLoadingApi(true);
+    //setIsCommonLoadingApi(true);
     // You can await here
     const data = await getArrayDataPromise<NhanVienType>(
       `${UrlApi.api_danh_muc_nhan_vien_lay_ds}?ma_nv=ADMIN`
@@ -43,15 +53,25 @@ export const NhanVienProvider = ({ children }: NhanVienProps) => {
     setUseDataApi(data);
     setUseSelectRow(NhanVienTypeDefault);
     setUseIsLoadingApi(false);
+    // setIsCommonLoadingApi(false);
   }
   useEffect(() => {
     if (initialized.current) return;
-    initialized.current = false;
+    initialized.current = true;
     fetchData();
     return () => {
-      console.log("Cách 2 NhanVienProvider: useEffect - count - cleanup");
+      console.log("NhanVienProvider: useEffect - count - cleanup");
     };
   }, []);
+  //
+  useEffect(() => {
+    setIsCommonLoadingApi(isUseLoadingApi);
+    return () => {
+      console.log(
+        "NhanVienProvider: useEffect setIsCommonLoadingApi - count - cleanup"
+      );
+    };
+  }, [isUseLoadingApi, setIsCommonLoadingApi]);
 
   return (
     <NhanVienContext.Provider

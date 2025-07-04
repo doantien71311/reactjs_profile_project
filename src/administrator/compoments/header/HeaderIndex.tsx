@@ -47,7 +47,7 @@ export const HeaderIndex = () => {
           </Button>
         </div>
         <div className="p-2 ms-auto">
-          <span>{isShowMenu.toString()}</span>
+          {/* <span>{isShowMenu.toString()}</span> */}
         </div>
         <div className="p-2">
           <DropdownButton

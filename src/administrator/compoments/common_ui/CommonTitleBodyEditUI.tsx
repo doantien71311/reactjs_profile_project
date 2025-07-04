@@ -1,29 +1,50 @@
-import { ReactNode } from "react";
-import { Col, Form, Modal } from "react-bootstrap";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import {
+  Col,
+  Container,
+  Row,
+  Spinner,
+  Toast,
+  ToastContainer,
+} from "react-bootstrap";
+import { BEContext, BEContextProps } from "../BEContext";
+import BEConstCSS from "../BEConstCSS";
 
 // export type CommonTitleBodyEditUIProps = { title: ReactNode; body: ReactNode };
 export const CommonTitleBodyEditUI = ({
   title,
   body,
-  isSavingData,
 }: {
   title: ReactNode;
   body: ReactNode;
-  isSavingData: boolean;
 }) => {
+  const { isCommonLoadingApi, isCommonPostingApi } =
+    useContext<BEContextProps>(BEContext);
+  const [show, setShow] = useState(false);
+  //
+  useEffect(() => {
+    setShow(isCommonPostingApi);
+    return () => {
+      // console.log(
+      //   "ProfileBEEditProvider: useEffect setIsCommonLoadingApi - count - cleanup"
+      // );
+    };
+  }, [isCommonPostingApi]);
+
   return (
     <>
-      <Modal show={isSavingData}>
-        <Modal.Header closeButton>
-          <Modal.Title>Cập nhật dữ liệu XXXX</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Label>Đang lưu dữ liệu .......</Form.Label>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-      </Modal>
+      <ToastContainer
+        className="p-3"
+        position="top-center"
+        style={{ zIndex: 1 }}
+      >
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">Thông báo</strong>
+          </Toast.Header>
+          <Toast.Body>Lưu thành công</Toast.Body>
+        </Toast>
+      </ToastContainer>
       <Col
         md={12}
         className="w-100 h-100 row_body_edit_toolbar_top"
@@ -34,6 +55,40 @@ export const CommonTitleBodyEditUI = ({
 
       <Col md={12} className="w-100 h-100 row_body_edit_grid_bottom">
         {body}
+        {isCommonLoadingApi ? (
+          <>
+            <div className={BEConstCSS.grid_fill_loading}></div>
+            <Container fluid>
+              <Row className="position-absolute bottom-50 end-50">
+                <Col className="d-flex align-items-center justify-content-center h-auto w-auto p-0">
+                  <Spinner animation="border" variant="primary"></Spinner>
+                  <span className="opacity-100 align-items-center justify-content-center h-auto w-auto p-0 text-info w-100 p-3 fw-bold">
+                    Đang tải dữ liệu...
+                  </span>
+                </Col>
+              </Row>
+            </Container>
+          </>
+        ) : (
+          <></>
+        )}
+        {isCommonPostingApi ? (
+          <>
+            <div className={BEConstCSS.grid_fill_loading}></div>
+            <Container fluid>
+              <Row className="bottom-50 end-50">
+                <Col className="d-flex align-items-center justify-content-center h-auto w-auto p-0">
+                  <Spinner animation="border" variant="primary"></Spinner>
+                  <span className="opacity-100 align-items-center justify-content-center h-auto w-auto p-0 text-info w-100 p-3 fw-bold">
+                    Đang lưu dữ liệu...
+                  </span>
+                </Col>
+              </Row>
+            </Container>
+          </>
+        ) : (
+          <></>
+        )}
       </Col>
     </>
   );

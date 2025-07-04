@@ -5,13 +5,14 @@ import {
   CellMouseEvent,
   CellSelectArgs,
   Column,
+  RenderCellProps,
   SortColumn,
   type DataGridHandle,
 } from "react-data-grid";
 import { DataGrid } from "react-data-grid";
 import { NhanVienContext, NhanVienContextProps } from "./NhanVienContext";
 import BEConstCSS from "../BEConstCSS";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 
 interface SummaryRow {
   id: string;
@@ -76,7 +77,7 @@ export const NhanVienGrid = () => {
         name: "Mã nhân viên",
         // minWidth: 100,
         width: "minmax(100px, max-content)",
-        frozen: true,
+        // frozen: true,
         renderSummaryCell() {
           return <strong>Tổng cộng</strong>;
         },
@@ -153,9 +154,29 @@ export const NhanVienGrid = () => {
       },
       {
         key: "url_hinhanh",
-        name: "Hình ảnh",
-        width: "minmax(300px, max-content)",
-        minWidth: 300,
+        name: "Ảnh",
+        width: 50,
+        frozen: true,
+        minWidth: 70,
+        maxWidth: 70,
+        renderCell(props: RenderCellProps<NhanVienType, SummaryRow>) {
+          return (
+            <Image
+              key={props.row.soid ?? ""}
+              style={{
+                width: "50px",
+                height: "50px",
+                // objectFit: "scale-down",
+                objectFit: "cover",
+                boxShadow: "1px 1px 3px grey",
+              }}
+              src={props.row.url_hinhanh ?? ""}
+              fluid
+              // thumbnail
+              roundedCircle
+            />
+          );
+        },
       },
       {
         key: "ma_nv_tuyendung",
@@ -171,7 +192,7 @@ export const NhanVienGrid = () => {
       },
       {
         key: "id",
-        name: "ID",
+        name: "id",
         // width: "5%",
         width: "max-content",
         minWidth: 50,
@@ -222,10 +243,11 @@ export const NhanVienGrid = () => {
   // );
 
   return (
-    <>
+    <div>
       {/* <FilterContext value={filters}> */}
       <DataGrid
         ref={gridRef}
+        key={"nhanvien"}
         className={`${BEConstCSS.rdg_light} ${BEConstCSS.grid_fill}`}
         rowKeyGetter={rowKeyGetter}
         columns={columns}
@@ -245,39 +267,9 @@ export const NhanVienGrid = () => {
         bottomSummaryRows={summaryRows}
         sortColumns={sortColumns}
         onSortColumnsChange={setSortColumns}
+        rowHeight={55}
       />
       {/* </FilterContext> */}
-
-      {context.isLoadingApi ? (
-        <>
-          <div className={BEConstCSS.grid_fill_loading}></div>
-          <Container fluid>
-            <Row className="position-absolute bottom-50 end-50">
-              <Col className="d-flex align-items-center justify-content-center h-auto w-auto p-0">
-                <Spinner animation="border" variant="primary"></Spinner>
-                <span className="opacity-100 align-items-center justify-content-center h-auto w-auto p-0 text-info w-100 p-3 fw-bold">
-                  Đang tải dữ liệu...
-                </span>
-              </Col>
-            </Row>
-
-            {/* <Row className="align-items-center justify-content-center h-auto w-auto p-3 position-absolute bottom-50 end-50 bg-danger">
-            <Col className="bg-success align-items-center justify-content-center h-100 d-inline-block">
-              <Spinner animation="border" variant="primary"></Spinner>
-            </Col>
-          </Row>
-          <Row>
-            <Col className="bg-success align-items-center justify-content-center h-100 d-inline-block">
-              <span className="text-info w-100 p-3 fw-bold align-middle">
-                Đang tải dữ liệu...
-              </span>
-            </Col>
-          </Row> */}
-          </Container>
-        </>
-      ) : (
-        <></>
-      )}
-    </>
+    </div>
   );
 };

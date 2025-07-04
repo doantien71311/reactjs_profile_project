@@ -2,7 +2,7 @@ import Accordion from "react-bootstrap/Accordion";
 // import { Navigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 
 // import { useNavigate } from "react-router-dom";
 // import { NavLink, useNavigate } from "react-router-dom";
@@ -24,15 +24,19 @@ import {
   faFolderOpen,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import { BEContext, BEContextProps } from "../BEContext";
 
 export const MenuIndex = () => {
   //
+  const { isMobile } = useContext<BEContextProps>(BEContext);
+  const { setIsShowMenu } = useContext<BEContextProps>(BEContext);
   const [dataMenu, setDataMenu] = useState<MenuType[]>([]);
   const [isLoadingMenu, setIsLoadingMenu] = useState<boolean>(true);
   const [isExpandMenu, setIsExpandgMenu] = useState<boolean>(true);
   const [activeKeyMenu, setActiveKeyMenu] = useState<string[]>([]);
   const initialized = useRef(false);
   //
+
   async function fetchData() {
     setIsLoadingMenu(true);
     // You can await here
@@ -46,74 +50,89 @@ export const MenuIndex = () => {
   }
   //
   useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
+    if (initialized.current) return;
 
-      //#region khóa lại//
-      // const _dataMenu: MenuType[] = [];
-      // _dataMenu.push({
-      //   ma_chucnang: "HCNS",
-      //   ten_chucnang: "Hành chính nhân sự",
-      //   ma_chucnang_cha: "",
-      //   url_chucnang: "",
-      //   sott: "01",
-      // });
-      // _dataMenu.push({
-      //   ma_chucnang: "Nhan_Vien",
-      //   ten_chucnang: "Nhân viên",
-      //   ma_chucnang_cha: "HCNS",
-      //   url_chucnang: "/administrator/nhanvien",
-      //   sott: "0101",
-      // });
-      // _dataMenu.push({
-      //   ma_chucnang: "Profile_Nhan_Vien",
-      //   ten_chucnang: "Profile Nhân viên",
-      //   ma_chucnang_cha: "HCNS",
-      //   url_chucnang: "/administrator/profile-edit",
-      //   sott: "0102",
-      // });
-      // _dataMenu.push({
-      //   ma_chucnang: "SonFuKuDa",
-      //   ten_chucnang: "Sơn FuKuDa",
-      //   ma_chucnang_cha: "",
-      //   url_chucnang: "",
-      //   sott: "02",
-      // });
-      // _dataMenu.push({
-      //   ma_chucnang: "SonFuKuDa_DDH",
-      //   ten_chucnang: "Đơn đặt hàng",
-      //   ma_chucnang_cha: "SonFuKuDa",
-      //   url_chucnang: "/administrator/fukuda-son-dondathang",
-      //   sott: "0201",
-      // });
-      // _dataMenu.push({
-      //   ma_chucnang: "SonFuKuDa_TuyenDung_NPP",
-      //   ten_chucnang: "Tuyển dụng nhà phân phối",
-      //   ma_chucnang_cha: "SonFuKuDa",
-      //   url_chucnang: "/administrator/fukuda-son-tuyendung-npp",
-      //   sott: "0202",
-      // });
-      // _dataMenu.push({
-      //   ma_chucnang: "SonFuKuDa_SanPham",
-      //   ten_chucnang: "Sản phẩm",
-      //   ma_chucnang_cha: "SonFuKuDa",
-      //   url_chucnang: "/administrator/fukuda-son-sanpham",
-      //   sott: "0203",
-      // });
-      // setIsLoadingMenu(false);
-      // setActiveKeyMenu(getActiveKey(_dataMenu));
-      // setDataMenu(_dataMenu);
-      //#endregion khóa lại//
+    initialized.current = true;
 
-      fetchData();
-    }
+    //#region khóa lại//
+    // const _dataMenu: MenuType[] = [];
+    // _dataMenu.push({
+    //   ma_chucnang: "HCNS",
+    //   ten_chucnang: "Hành chính nhân sự",
+    //   ma_chucnang_cha: "",
+    //   url_chucnang: "",
+    //   sott: "01",
+    // });
+    // _dataMenu.push({
+    //   ma_chucnang: "Nhan_Vien",
+    //   ten_chucnang: "Nhân viên",
+    //   ma_chucnang_cha: "HCNS",
+    //   url_chucnang: "/administrator/nhanvien",
+    //   sott: "0101",
+    // });
+    // _dataMenu.push({
+    //   ma_chucnang: "Profile_Nhan_Vien",
+    //   ten_chucnang: "Profile Nhân viên",
+    //   ma_chucnang_cha: "HCNS",
+    //   url_chucnang: "/administrator/profile-edit",
+    //   sott: "0102",
+    // });
+    // _dataMenu.push({
+    //   ma_chucnang: "SonFuKuDa",
+    //   ten_chucnang: "Sơn FuKuDa",
+    //   ma_chucnang_cha: "",
+    //   url_chucnang: "",
+    //   sott: "02",
+    // });
+    // _dataMenu.push({
+    //   ma_chucnang: "SonFuKuDa_DDH",
+    //   ten_chucnang: "Đơn đặt hàng",
+    //   ma_chucnang_cha: "SonFuKuDa",
+    //   url_chucnang: "/administrator/fukuda-son-dondathang",
+    //   sott: "0201",
+    // });
+    // _dataMenu.push({
+    //   ma_chucnang: "SonFuKuDa_TuyenDung_NPP",
+    //   ten_chucnang: "Tuyển dụng nhà phân phối",
+    //   ma_chucnang_cha: "SonFuKuDa",
+    //   url_chucnang: "/administrator/fukuda-son-tuyendung-npp",
+    //   sott: "0202",
+    // });
+    // _dataMenu.push({
+    //   ma_chucnang: "SonFuKuDa_SanPham",
+    //   ten_chucnang: "Sản phẩm",
+    //   ma_chucnang_cha: "SonFuKuDa",
+    //   url_chucnang: "/administrator/fukuda-son-sanpham",
+    //   sott: "0203",
+    // });
+    // setIsLoadingMenu(false);
+    // setActiveKeyMenu(getActiveKey(_dataMenu));
+    // setDataMenu(_dataMenu);
+    //#endregion khóa lại//
+
+    fetchData();
+
     return () => {
       //ComponentWillUnmount (Hủy bỏ)
       //clean up function
-      console.log("useEffect - count - cleanup");
+      console.log("MenuIndex useEffect - count - cleanup");
     };
   }, []);
 
+  useEffect(() => {
+    if (!initialized.current) return;
+    initialized.current = true;
+
+    setIsShowMenu(!isMobile);
+
+    return () => {
+      //ComponentWillUnmount (Hủy bỏ)
+      //clean up function
+      console.log("MenuIndex useEffect Check IsMobile - count - cleanup");
+    };
+  }, [isMobile]);
+
+  //#region các hàm private
   const moRongClick = () => {
     // setIsLoadingMenu(true);
     setTimeout(() => {
@@ -123,10 +142,14 @@ export const MenuIndex = () => {
     }, 1);
   };
 
-  const getMenuCha = () => {
-    console.log("getMenuCha");
-    return dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == "");
-  };
+  // const getMenuCha = () => {
+  //   console.log("MenuIndex getMenuCha");
+  //   const result = dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == "");
+  //   console.log(result);
+  //   return result;
+  // };
+
+  //const getMenuMemo = useCallback(() => getMenuCha(), []);
 
   // const getMenuCha = useMemo(() => {
   //   console.log("getMenuCha");
@@ -141,10 +164,14 @@ export const MenuIndex = () => {
   //   return dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == ma_chucnang);
   // }, []);
 
-  const getMenuCon = (ma_chucnang?: string): MenuType[] => {
-    console.log("getMenuCon");
-    return dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == ma_chucnang);
-  };
+  // const getMenuCon = (ma_chucnang?: string): MenuType[] => {
+  //   console.log("MenuIndex getMenuCon");
+  //   const result = dataMenu.filter(
+  //     (f) => (f.ma_chucnang_cha ?? "") == ma_chucnang
+  //   );
+  //   console.log(result);
+  //   return result;
+  // };
 
   const getActiveKey = (arrayMenu: MenuType[]): string[] => {
     const result = arrayMenu
@@ -152,28 +179,31 @@ export const MenuIndex = () => {
       .map((map) => {
         return map.ma_chucnang;
       });
-    // console.log("getActiveKey:");
     // console.log(result);
-
-    // const result = ["HCNS", "SonFuKuDa"];
-    console.log(result);
     return result;
   };
 
-  // console.log("MenuIndex moi");
-  // console.log(dataMenu);
+  const menuItemHandleClick = () => {
+    if (isMobile) {
+      setIsShowMenu(false);
+    }
+  };
+  //#endregion các hàm private
+
   return (
     <div className="menu_left">
       <InputGroup className="mb-3">
         <Form.Control
+          // readOnly={isLoadingMenu}
+          disabled={isLoadingMenu}
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
         />
-        <Button onClick={moRongClick}>
+        <Button disabled={isLoadingMenu} onClick={moRongClick}>
           <FontAwesomeIcon icon={faTimes} className="" />
         </Button>
 
-        <Button onClick={moRongClick}>
+        <Button disabled={isLoadingMenu} onClick={moRongClick}>
           <FontAwesomeIcon icon={faFilter} className="" />
         </Button>
       </InputGroup>
@@ -198,63 +228,75 @@ export const MenuIndex = () => {
               flush
             >
               {(() =>
-                getMenuCha().map((item) => (
-                  <Accordion.Item
-                    className="menu_left_accordion_item"
-                    key={item.ma_chucnang}
-                    eventKey={item.ma_chucnang}
-                  >
-                    <Accordion.Header className="menu_left_accordion_header">
-                      {/* <i className="fas fa-yen-sign"></i> */}
-                      <div
-                        className="p-0 ms-auto text-dark text-wrap font-weight-bold"
-                        style={{
-                          // border: "1px solid red",
-                          width: "100%",
-                        }}
-                      >
-                        <Image
-                          // src="/src/assets/image/logo_dai_viet.png"
-                          src={item.image_url_chucnang ?? ""}
-                          style={{
-                            width: "40px",
-                            height: "40px",
-                            // paddingTop: "5px",
-                            // paddingBottom: "5px",
-                            display: "block",
-                            marginRight: "auto",
-                            marginLeft: "auto",
-                            marginTop: "5px",
-                            marginBottom: "5px",
-                            objectFit: "cover",
-                            // alignItems: "center",
-                            // alignContent: "center",
-                            // alignSelf: "center",
-                          }}
-                          thumbnail
-                        ></Image>
-                        <div className="fs-6 text-center">
-                          {item.ten_chucnang}
-                        </div>
-                      </div>
-                    </Accordion.Header>
-                    <Accordion.Body
-                      key={`${item.ma_chucnang}"_body"`}
-                      className="menu_left_accordion_body"
+                //getMenuCha()
+
+                dataMenu
+                  .filter((f) => (f.ma_chucnang_cha ?? "") == "")
+                  .map((item) => (
+                    <Accordion.Item
+                      className="menu_left_accordion_item"
+                      key={item.ma_chucnang}
+                      eventKey={item.ma_chucnang}
                     >
-                      {getMenuCon(item.ma_chucnang).map((map) => (
+                      <Accordion.Header className="menu_left_accordion_header">
+                        {/* <i className="fas fa-yen-sign"></i> */}
                         <div
-                          key={`${item.ma_chucnang}_body_div`}
-                          // style={{ backgroundColor: "red" }}
+                          className="p-0 ms-auto text-dark text-wrap font-weight-bold"
+                          style={{
+                            // border: "1px solid red",
+                            width: "100%",
+                          }}
                         >
-                          {/* <Nav.Item as="li">
+                          <Image
+                            // src="/src/assets/image/logo_dai_viet.png"
+                            src={item.image_url_chucnang ?? ""}
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              // paddingTop: "5px",
+                              // paddingBottom: "5px",
+                              display: "block",
+                              marginRight: "auto",
+                              marginLeft: "auto",
+                              marginTop: "5px",
+                              marginBottom: "5px",
+                              // objectFit: "cover",
+                              objectFit: "scale-down",
+                              // alignItems: "center",
+                              // alignContent: "center",
+                              // alignSelf: "center",
+                            }}
+                            thumbnail
+                          ></Image>
+                          <div className="fs-6 text-center">
+                            {item.ten_chucnang}
+                          </div>
+                        </div>
+                      </Accordion.Header>
+                      <Accordion.Body
+                        key={`${item.ma_chucnang}"_body"`}
+                        className="menu_left_accordion_body"
+                      >
+                        {
+                          // getMenuCon(item.ma_chucnang)
+                          dataMenu
+                            .filter(
+                              (fC) =>
+                                (fC.ma_chucnang_cha ?? "") == item.ma_chucnang
+                            )
+                            .map((mapC) => (
+                              <div
+                                key={`${mapC.ma_chucnang}_body_div`}
+                                // style={{ backgroundColor: "red" }}
+                              >
+                                {/* <Nav.Item as="li">
                             <Nav.Link href={map.url_chucnang ?? ""}>
                               {" "}
                               {map.ten_chucnang ?? "Chưa có tên"}
                             </Nav.Link>
                           </Nav.Item> */}
 
-                          {/* <Navbar style={{ width: "100%" }}>
+                                {/* <Navbar style={{ width: "100%" }}>
                             <NavLink
                               style={{ width: "100%" }}
                               to={map.url_chucnang ?? ""}
@@ -274,49 +316,57 @@ export const MenuIndex = () => {
                               </Button>
                             </NavLink>
                           </Navbar> */}
-                          <Navbar
-                            style={
-                              {
-                                // border: "1px solid back",
-                              }
-                            }
-                          >
-                            <NavLink
-                              style={{
-                                width: "100%",
-                                // , position: "absolute"
-                              }}
-                              to={map.url_chucnang ?? ""}
-                            >
-                              <Stack
-                                // as="button"
-                                direction="horizontal"
-                                gap={2}
-                                style={
-                                  {
-                                    // width: "100%",
-                                    // , position: "absolute"
+                                <Navbar
+                                  style={
+                                    {
+                                      // border: "1px solid back",
+                                    }
                                   }
-                                }
-                              >
-                                {/* <FontAwesomeIcon
+                                >
+                                  <NavLink
+                                    // style={{
+                                    //   width: "100%",
+                                    //   // , position: "absolute"
+                                    // }}
+                                    style={({ isActive }) => ({
+                                      borderBottom: isActive
+                                        ? "#15b0ab solid 2px"
+                                        : "",
+                                      opacity: isActive ? 1 : "",
+                                    })}
+                                    to={mapC.url_chucnang ?? ""}
+                                    onClick={menuItemHandleClick}
+                                  >
+                                    <Stack
+                                      // as="button"
+                                      direction="horizontal"
+                                      gap={2}
+                                      style={
+                                        {
+                                          // width: "100%",
+                                          // , position: "absolute"
+                                        }
+                                      }
+                                    >
+                                      {/* <FontAwesomeIcon
                                   className="p-0"
                                   icon={faStickyNote}
                                 /> */}
-                                {/* <FontAwesomeIcon icon={faBookmark} /> */}
-                                <FontAwesomeIcon icon={faFolderOpen} />
-                                {/* <FontAwesomeIcon icon={faBook} /> */}
-                                <span className="p-0 text-left text-primary text-wrap">
-                                  {map.ten_chucnang ?? "Chưa có tên"}
-                                </span>
-                              </Stack>
-                            </NavLink>
-                          </Navbar>
-                        </div>
-                      ))}
-                    </Accordion.Body>
-                  </Accordion.Item>
-                )))()}
+                                      {/* <FontAwesomeIcon icon={faBookmark} /> */}
+                                      <FontAwesomeIcon icon={faFolderOpen} />
+                                      {/* <FontAwesomeIcon icon={faBook} /> */}
+                                      <span className="p-0 text-left text-primary text-wrap">
+                                        {mapC.ten_chucnang ?? "Chưa có tên"}
+                                      </span>
+                                    </Stack>
+                                  </NavLink>
+                                </Navbar>
+                              </div>
+                            ))
+                        }
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  )))()}
             </Accordion>
           </>
         </nav>

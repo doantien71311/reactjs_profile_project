@@ -74,12 +74,26 @@ export const ImageDaiDien = () => {
     // console.log(result);
     return result;
   };
-  const getScale = (newIndex: number) => {
-    const valueIndex = Math.abs(newIndex - currentIndex);
-    if (valueIndex == 0) return 1.2;
-    if (valueIndex == 1) return 0.8;
-    return 0.6;
+
+  const getTranslateX = (newIndex: number) => {
+    const valueIndex = newIndex - currentIndex;
+    if (valueIndex == 0) return "translateX(0px) scale(1)";
+    //
+    if (valueIndex == 1) return "translateX(-20%) scale(0.8)";
+    if (valueIndex == -1) return "translateX(20%) scale(0.8)";
+    //
+    if (valueIndex == 2) return "translateX(-55%) scale(0.7)";
+    if (valueIndex == -2) return "translateX(55%) scale(0.7)";
+    //
+    return "translateX(-50%) scale(0.7)";
   };
+  const getZIndex = (newIndex: number) => {
+    const valueIndex = Math.abs(newIndex - currentIndex);
+    if (valueIndex == 0) return 1;
+    if (valueIndex == 1) return -1;
+    return -2;
+  };
+
   const calScroll = (newIndex: number) => {
     if (imageContainerRef.current == null) return 0;
     // const pexScroll: number = newIndex - currentIndex;
@@ -94,11 +108,12 @@ export const ImageDaiDien = () => {
     console.log(itemScroll);
     // const addScroll = newIndex * 10;
     const addScroll = newIndex * 10;
-    let miusScroll = 0;
-    if (newIndex > 3) {
-      miusScroll = 160 * 2 + 50;
-    }
-    let valueScroll = 160 * newIndex + addScroll - miusScroll;
+    // let miusScroll = 0;
+    // if (newIndex > 3) {
+    //   miusScroll = 160 * 2 + 50;
+    // }
+    let valueScroll = 160 * newIndex + addScroll;
+    // - miusScroll;
     if (newIndex < 3) valueScroll = 0;
     console.log("rootFontSize:");
     console.log(rootFontSize);
@@ -163,13 +178,19 @@ export const ImageDaiDien = () => {
       // }}
       // viewport={{ once: true }}
       >
-        <motion.div ref={imageContainerRef} className="profile_anhdaidien_top">
+        <motion.div
+          ref={imageContainerRef}
+          drag="x"
+          dragConstraints={{ right: 0, left: 0 }}
+          className="profile_anhdaidien_top"
+        >
           {useData.profile_nhanvien_hinhanh?.map((item, index) => (
             <motion.img
               key={item.id}
-              initial={{ scale: 1 }}
+              initial={{ transform: "translateX(0px) scale(1)" }}
               whileInView={{
-                scale: getScale(index),
+                transform: getTranslateX(index),
+                zIndex: getZIndex(index),
                 // scrollLeft: calScroll(index),
                 transition: {
                   // delay: 0.3,

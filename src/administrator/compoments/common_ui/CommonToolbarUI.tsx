@@ -20,6 +20,7 @@ import {
 } from "react-bootstrap";
 import { TCommonToolbar } from "../common_props/CommonToolbarProps";
 import { ReactNode, useContext, useEffect, useRef } from "react";
+import { BEContext, BEContextProps } from "../BEContext";
 
 export const CommonToolbarUI = ({
   Title,
@@ -36,6 +37,8 @@ export const CommonToolbarUI = ({
   Xoa: TCommonToolbar;
   children: ReactNode;
 }) => {
+  const { isCommonLoadingApi } = useContext<BEContextProps>(BEContext);
+  //
   const str_variant = "primary";
   const str_size = "sm";
   const str_visible = "visible";
@@ -70,28 +73,25 @@ export const CommonToolbarUI = ({
   }
 
   useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      // getArrayData<INhanVienModel>(UrlApi.api_nhanvien_layds).then((value) => {
-      //   value.forEach((item) => {
-      //     console.log(item.ma_nv ?? "");
-      //     console.log(item.ten_nv ?? "");
-      //   });
-      // });
-      return () => console.log(`Cleanup..${initialized.current}`);
-    }
+    if (initialized.current) return;
+    initialized.current = true;
+    return () =>
+      console.log(
+        `CommonToolbarUI useEffect clear up ${isCommonLoadingApi.toString()}`
+      );
   }, []);
 
   return (
     <Accordion defaultActiveKey="0" style={{ width: "100%" }}>
       <Card>
-        <Card.Header>
+        <Card.Header className="row_body_toolbar_top_accordion_car_header">
           <Stack direction="horizontal" gap={3}>
             {/* <Button>Click me</Button> */}
             <ContextAwareToggle eventKey="0"></ContextAwareToggle>
 
             <span className="p-0 text-start text-primary text-wrap fw-bold fs-6">
               {Title}
+              {/* {isCommonLoadingApi.toString()} */}
             </span>
             <div className="p-0 ms-auto"></div>
             <div className="p-2 ">

@@ -11,15 +11,34 @@ import { Outlet } from "react-router-dom";
 import "quill/dist/quill.snow.css"; // Add css for snow theme
 import { HeaderIndex } from "./header/HeaderIndex";
 import { BEContext, BEContextProps } from "./BEContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 // or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
 
 export const BEIndex = () => {
   const { isShowMenu } = useContext<BEContextProps>(BEContext);
+  const initialized = useRef(false);
+  //
   useEffect(() => {
-    console.log("useIsShowMenu Menu Index :" + isShowMenu.toString());
+    // console.log("useIsShowMenu Menu Index :" + isShowMenu.toString());
     return () => {};
   }, [isShowMenu]);
+
+  useEffect(() => {
+    if (initialized.current) return;
+    initialized.current = true;
+    document.title = "Portal MrTien71311";
+    // const link =
+    //   document.querySelector("link[rel*='icon']") ||
+    //   document.createElement("link");
+    // link.setAttribute("link", "image/x-icon");
+    // link.setAttribute("rel", "shortcut icon");
+    // link.setAttribute(
+    //   "href",
+    //   "https://lh3.googleusercontent.com/d/1SrX-uEuEFAjjbRBgw6pjucT2gHRW9sgA=w100"
+    // );
+    // document.getElementsByTagName("head")[0].appendChild(link);
+  }, []);
+
   return (
     <>
       <Container fluid className="back_end">
@@ -28,7 +47,17 @@ export const BEIndex = () => {
         </Col>
         {/* align-items-start */}
         <Row className="w-100 p-2 h-75 row_body">
-          <Col xs={12} md={3} className="h-100 p-1" hidden={!isShowMenu}>
+          <Col
+            xs={12}
+            md={3}
+            style={
+              {
+                // border: "1px solid red",
+              }
+            }
+            className="h-100 p-1"
+            hidden={!isShowMenu}
+          >
             <MenuIndex />
           </Col>
           <Col

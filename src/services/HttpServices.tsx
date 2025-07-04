@@ -19,7 +19,7 @@ import UrlApi from "./UrlApi";
 // };
 
 const _getArrayData = (token: string, api: string) => {
-  return fetch(`${UrlApi.api_http}${api}`, {
+  return fetch(`${UrlApi.getApiHttp()}${api}`, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + token,
@@ -30,7 +30,8 @@ const _getArrayData = (token: string, api: string) => {
 /*#region các hàm publish */
 
 export const getToken = () => {
-  const api = `${UrlApi.api_http}${UrlApi.api_auth_token}`;
+  // const api = `${UrlApi.api_http}${UrlApi.api_auth_token}`;
+  const api = `${UrlApi.getApiHttp()}${UrlApi.api_auth_token}`;
   // console.log(api);
   return fetch(api, {
     method: "POST",
@@ -39,8 +40,10 @@ export const getToken = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: UrlApi.username,
-      password: UrlApi.password,
+      // username: UrlApi.username,
+      // password: UrlApi.password,
+      username: UrlApi.getApiUsername(),
+      password: UrlApi.getApiPassword(),
     }),
   });
 };
@@ -48,7 +51,7 @@ export const getToken = () => {
 export const getTokenString = (): Promise<string> => {
   // console.log(api);
   return new Promise<string>((resolve) => {
-    const api = `${UrlApi.api_http}${UrlApi.api_auth_token}`;
+    const api = `${UrlApi.getApiHttp()}${UrlApi.api_auth_token}`;
     fetch(api, {
       method: "POST",
       headers: {
@@ -56,8 +59,10 @@ export const getTokenString = (): Promise<string> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: UrlApi.username,
-        password: UrlApi.password,
+        // username: UrlApi.username,
+        // password: UrlApi.password,
+        username: UrlApi.getApiUsername(),
+        password: UrlApi.getApiPassword(),
       }),
     })
       .then((res) => res.json())
@@ -78,7 +83,7 @@ export const getArrayData = (api: string) => {
 export const getArrayDataPromise = <T,>(api: string): Promise<Array<T>> => {
   return new Promise<Array<T>>((resolve) => {
     getTokenString().then((token) => {
-      fetch(`${UrlApi.api_http}${api}`, {
+      fetch(`${UrlApi.getApiHttp()}${api}`, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + token,
@@ -102,7 +107,7 @@ export const getArrayDataPromise = <T,>(api: string): Promise<Array<T>> => {
 export const getRowData = <T,>(api: string): Promise<T> => {
   return new Promise<T>((resolve) => {
     getTokenString().then((token) => {
-      fetch(`${UrlApi.api_http}${api}`, {
+      fetch(`${UrlApi.getApiHttp()}${api}`, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + token,
@@ -126,7 +131,7 @@ export const postRowData = <T,>(
 ): Promise<ResponseApiType> => {
   return new Promise<ResponseApiType>((resolve) => {
     getTokenString().then((token) => {
-      const api_url_post = `${UrlApi.api_http}${api}`;
+      const api_url_post = `${UrlApi.getApiHttp()}${api}`;
       fetch(api_url_post, {
         method: "POST",
         headers: {
@@ -155,7 +160,7 @@ export const uploadSingleImage = (
 ): Promise<ResponseFileUploadApiType> => {
   return new Promise<ResponseFileUploadApiType>((resolve) => {
     getTokenString().then((token) => {
-      const api_url_post = `${UrlApi.api_http}${api}`;
+      const api_url_post = `${UrlApi.getApiHttp()}${api}`;
       const formData = new FormData();
       formData.append("fileImage", data);
       console.log(formData);
