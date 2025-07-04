@@ -1,4 +1,4 @@
-import { ReactNode, StrictMode } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 // import App from "./App.tsx";
@@ -31,10 +31,10 @@ import { BEIndex } from "./administrator/compoments/BEIndex.tsx";
 //   },
 // ]);
 
-const getDefault = (): ReactNode => {
-  if (import.meta.env.VITE_web_default == "profile") return <Profile></Profile>;
-  return <BEIndex></BEIndex>;
-};
+// const getDefault = (): ReactNode => {
+//   if (import.meta.env.VITE_web_default == "profile") return <Profile></Profile>;
+//   return <BEIndex></BEIndex>;
+// };
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
@@ -50,7 +50,8 @@ createRoot(document.getElementById("root")!).render(
           {/* <Route path="/" element={<RouteBackEnd />}> */}
           {/* <Route index element={<Profile />} /> */}
 
-          <Route index element={getDefault()} />
+          {/* <Route index element={getDefault()} /> */}
+          {/* <Route index element={<BEIndex />} /> */}
 
           {/* <Route path="blogs" element={<Blogs />} /> */}
           {/* <Route path="admins" element={<Admin />} /> */}
@@ -61,6 +62,7 @@ createRoot(document.getElementById("root")!).render(
           {/* <Route index element={<Home />} /> */}
         </Route>
         {/* <Route path="administrator/*" element={<RouteBackEnd />} /> */}
+        <Route index element={<BEIndex />} />
         <Route path="*" element={<RouteBackEnd />}></Route>
 
         <Route path="profile/:ma_nv" element={<Profile />} />

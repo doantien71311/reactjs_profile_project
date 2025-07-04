@@ -15,9 +15,8 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<BEIndex></BEIndex>} />
-        </Route>
+        <Route path="/" element={<App />}></Route>
+        <Route index element={<BEIndex></BEIndex>} />
         <Route path="*" element={<RouteBackEnd />}></Route>
         <Route path="profile/:ma_nv" element={<Profile />} />
         <Route
