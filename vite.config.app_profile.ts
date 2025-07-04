@@ -7,9 +7,6 @@ export default defineConfig({
 
   //Tiến thêm vào để giảu quyết quill
   build: {
-    //outDir: "dist_portal",
-    // outDir: "dist_profile",
-
     commonjsOptions: {
       transformMixedEsModules: true,
     },
@@ -18,7 +15,8 @@ export default defineConfig({
       // input: "src/index.html",
       input: {
         index: "./index.html",
-        app_profile: resolve(__dirname, "src/mainProfile.jsx"), // Example entry for app1
+        main: resolve(__dirname, "src/mainProfile.jsx"),
+        // app_profile: resolve(__dirname, "src/mainProfile.jsx"), // Example entry for app1
       },
       output: {
         // Output configuration for app1
