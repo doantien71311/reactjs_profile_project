@@ -19,8 +19,8 @@ export default defineConfig({
       input: {
         index: "./index.html",
         // Define your entry points for each application/output
-        app_profile: resolve(__dirname, "src/main.jsx"), // Example entry for app1
-        app_portal: resolve(__dirname, "src/main.jsx"), // Example entry for app2
+        app_profile: resolve(__dirname, "src/mainProfile.jsx"), // Example entry for app1
+        app_portal: resolve(__dirname, "src/mainPortal.jsx"), // Example entry for app2
       },
       output: [
         {
