@@ -5,11 +5,11 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [react()],
   //
-  resolve: {
-    alias: {
-      "@app": resolve(__dirname, "src/app_profile"),
-    },
-  },
+  // resolve: {
+  //   alias: {
+  //     "@app": resolve(__dirname, "src/app_profile"),
+  //   },
+  // },
 
   //Tiến thêm vào để giảu quyết quill
   build: {
@@ -18,10 +18,10 @@ export default defineConfig({
     },
 
     rollupOptions: {
-      // input: [
-      //   resolve(__dirname, "src/app_profile/main.jsx"),
-      //   "./index_profile.html",
-      // ],
+      input: [
+        resolve(__dirname, "src/app_profile/main.jsx"),
+        "./index_profile.html",
+      ],
       // input: {
       //   index: "./index.html",
       //   main: resolve(__dirname, "src/mainProfile.jsx"),
