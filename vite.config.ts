@@ -15,7 +15,9 @@ export default defineConfig({
     },
 
     rollupOptions: {
+      // input: "src/index.html",
       input: {
+        index: "./index.html",
         // Define your entry points for each application/output
         app_profile: resolve(__dirname, "src/main.jsx"), // Example entry for app1
         app_portal: resolve(__dirname, "src/main.jsx"), // Example entry for app2
