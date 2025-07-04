@@ -1,0 +1,1 @@
+import{c as t,j as e,r,B as o,R as x,d as s,A as a,e as n,f as d}from"./RouteBackEnd-CJn50ybg.js";t.createRoot(document.getElementById("root")).render(e.jsx(r.StrictMode,{children:e.jsx(o,{children:e.jsxs(x,{children:[e.jsx(s,{path:"/",element:e.jsx(a,{})}),e.jsx(s,{index:!0,element:e.jsx(n,{})}),e.jsx(s,{path:"*",element:e.jsx(d,{})})]})})}));

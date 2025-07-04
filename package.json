@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build-profile": "tsc -b && vite build --config vite.config.app_profile.ts",
+    "build-portal": "tsc -b && vite build --config vite.config.app_portal.ts",
+    "build": "tsc -b  && vite build",
+    "build-all": "tsc -b && vite build && npm run build-profile && npm run build-portal",
     "lint": "eslint .",
     "preview": "vite preview"
   },
