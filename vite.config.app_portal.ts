@@ -16,13 +16,13 @@ export default defineConfig({
 
     rollupOptions: {
       // input: "src/index.html",
-      input: {
-        index: "./index.html",
-        app_profile: resolve(__dirname, "src/mainPortal.jsx"), // Example entry for app1
-      },
+      // input: {
+      //   index: "./index.html",
+      //   app_profile: resolve(__dirname, "src/mainPortal.jsx"), // Example entry for app1
+      // },
       output: {
         // Output configuration for app1
-        dir: resolve(__dirname, "dist/app_portal"),
+        dir: resolve(__dirname, "dist_app_portal"),
         // entryFileNames: "[name]/[name].js",
         // chunkFileNames: "[name].js",
         // assetFileNames: "[name]/assets/[name].[ext]",
