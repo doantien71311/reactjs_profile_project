@@ -12,7 +12,7 @@ export default defineConfig({
     },
 
     rollupOptions: {
-      input: [resolve(__dirname, "src/mainProfile.jsx"), "./index.html"],
+      input: [resolve(__dirname, "src/app_profile/main.jsx"), "./index.html"],
       // input: {
       //   index: "./index.html",
       //   main: resolve(__dirname, "src/mainProfile.jsx"),
