@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
+// import App from "./App.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { RouterProvider } from "react-router-dom";
 import { Profile } from "./website/compoments/profile/Index";
@@ -38,7 +38,8 @@ createRoot(document.getElementById("root")!).render(
 
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
+        <Route path="/" element={<Profile />}>
+          {/* <Route index element={<Profile />} /> */}
           {/* <Route path="blogs" element={<Blogs />} /> */}
           {/* <Route path="admins" element={<Admin />} /> */}
           {/* <Route
