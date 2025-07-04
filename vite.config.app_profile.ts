@@ -13,12 +13,12 @@ export default defineConfig({
 
     rollupOptions: {
       // input: ["src/mainProfile.tsx", "./index.html"],
-      input: {
-        index: "./index_profile/index.html",
-        src: resolve(__dirname, "src/mainProfile.tsx"),
-        main: resolve(__dirname, "src/mainProfile.tsx"),
-        module: resolve(__dirname, "src/mainProfile.tsx"),
-      },
+      // input: {
+      //   index: "./index_profile/index.html",
+      //   src: resolve(__dirname, "src/mainProfile.tsx"),
+      //   main: resolve(__dirname, "src/mainProfile.tsx"),
+      //   module: resolve(__dirname, "src/mainProfile.tsx"),
+      // },
       output: {
         // Output configuration for app1
         dir: resolve(__dirname, "dist_app_profile"),
