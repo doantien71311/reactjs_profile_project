@@ -5,8 +5,9 @@ import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { RouterProvider } from "react-router-dom";
 import { Profile } from "./website/compoments/profile/Index";
-import { RouteBackEnd } from "./administrator/RouteBackEnd.tsx";
+// import { RouteBackEnd } from "./administrator/RouteBackEnd.tsx";
 import { FukudaSonDonDatHangIndex } from "./website/compoments/fukuda_son_dondathang/FukudaSonDonDatHangIndex.tsx";
+import App from "./App.tsx";
 
 // const router = createBrowserRouter([
 //   {
@@ -38,8 +39,9 @@ createRoot(document.getElementById("root")!).render(
 
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Profile />}>
-          {/* <Route index element={<Profile />} /> */}
+        <Route path="/" element={<App />}>
+          {/* <Route path="/" element={<RouteBackEnd />}> */}
+          <Route index element={<Profile />} />
           {/* <Route path="blogs" element={<Blogs />} /> */}
           {/* <Route path="admins" element={<Admin />} /> */}
           {/* <Route
@@ -49,7 +51,7 @@ createRoot(document.getElementById("root")!).render(
           {/* <Route index element={<Home />} /> */}
         </Route>
         {/* <Route path="administrator/*" element={<RouteBackEnd />} /> */}
-        <Route path="*" element={<RouteBackEnd />} />
+        {/* <Route path="*" element={<RouteBackEnd />} /> */}
         <Route path="profile/:ma_nv" element={<Profile />} />
         <Route
           path="fukuda-son-dondathang/:ma_nv"
