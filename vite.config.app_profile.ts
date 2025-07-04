@@ -24,7 +24,7 @@ export default defineConfig({
       // ],
       input: {
         index: "./index_profile.html",
-        main: resolve(__dirname, "src/mainProfile.tsx"),
+        // main: resolve(__dirname, "src/mainProfile.tsx"),
         //   // app_profile: resolve(__dirname, "src/mainProfile.jsx"), // Example entry for app1
       },
       output: {
