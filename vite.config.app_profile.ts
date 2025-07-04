@@ -29,7 +29,7 @@ export default defineConfig({
       // },
       output: {
         // Output configuration for app1
-        dir: resolve(__dirname, "dist/app_profile"),
+        dir: resolve(__dirname, "dist_app_profile"),
         // entryFileNames: "[name]/[name].js",
         // chunkFileNames: "[name].js",
         // assetFileNames: "[name]/assets/[name].[ext]",
