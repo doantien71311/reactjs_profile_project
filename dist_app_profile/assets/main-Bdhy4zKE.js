@@ -1,0 +1,1 @@
+import{l as r,j as e,a as o,B as a,i as n,k as s,P as t,A as x}from"./App-DIwC7euJ.js";r.createRoot(document.getElementById("root")).render(e.jsx(o.StrictMode,{children:e.jsx(a,{children:e.jsxs(n,{children:[e.jsx(s,{path:"/",element:e.jsx(x,{}),children:e.jsx(s,{index:!0,element:e.jsx(t,{})})}),e.jsx(s,{path:"profile/:ma_nv",element:e.jsx(t,{})})]})})}));
