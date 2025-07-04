@@ -12,12 +12,12 @@ export default defineConfig({
     },
 
     rollupOptions: {
-      // input: "src/index.html",
-      input: {
-        index: "./index.html",
-        main: resolve(__dirname, "src/mainProfile.jsx"),
-        // app_profile: resolve(__dirname, "src/mainProfile.jsx"), // Example entry for app1
-      },
+      input: [resolve(__dirname, "src/mainProfile.jsx"), "./index.html"],
+      // input: {
+      //   index: "./index.html",
+      //   main: resolve(__dirname, "src/mainProfile.jsx"),
+      //   // app_profile: resolve(__dirname, "src/mainProfile.jsx"), // Example entry for app1
+      // },
       output: {
         // Output configuration for app1
         dir: resolve(__dirname, "dist/app_profile"),
