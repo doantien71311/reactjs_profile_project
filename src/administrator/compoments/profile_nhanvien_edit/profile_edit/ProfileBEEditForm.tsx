@@ -8,8 +8,8 @@ import { ProfileBEKyNangIndex } from "./ProfileBEKyNangIndex";
 import { ProfileBEQuaTrinhLamViecIndex } from "./ProfileBEQuaTrinhLamViecIndex";
 import { ProfileBEAnhDaiDienIndex } from "./ProfileBEAnhDaiDienIndex";
 import ReactQuill, { Quill } from "react-quill-new";
-import ImageResize from "quill-image-resize-module-react";
-Quill.register("modules/imageResize", ImageResize);
+// import ImageResize from "quill-image-resize-module-react";
+// Quill.register("modules/imageResize", ImageResize);
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 //

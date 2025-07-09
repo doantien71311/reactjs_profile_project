@@ -7,9 +7,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Outlet } from "react-router-dom";
 // or const { useQuill } = require('react-quilljs');
-
 // import "quill/dist/quill.snow.css"; // Add css for snow theme
+//
+import { Quill } from "react-quill-new";
+import ImageResize from "quill-image-resize-module-react";
+Quill.register("modules/imageResize", ImageResize);
 import "react-quill-new/dist/quill.snow.css";
+//
 import { HeaderIndex } from "./header/HeaderIndex";
 import { BEContext, BEContextProps } from "./BEContext";
 import { useContext, useEffect, useRef } from "react";
