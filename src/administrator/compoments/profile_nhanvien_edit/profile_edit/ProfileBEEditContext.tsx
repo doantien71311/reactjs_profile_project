@@ -60,7 +60,7 @@ export const ProfileBEEditProvider = ({ children }: ProfileBEEditProps) => {
     );
     //console.log("Cách 2 ProfileBEEditProvider:");
     // ...
-    //console.log(data);
+    console.log(data);
     setUseDataApi(data);
     setUseIsLoadingApi(false);
   }
@@ -75,7 +75,7 @@ export const ProfileBEEditProvider = ({ children }: ProfileBEEditProps) => {
       useDataApi
     );
     console.log("profile nhân viên updateData:");
-    console.log(data);
+    // console.log(data);
     // ...
     setUseUpdateApi(data);
     setUseIsUpdatingApi(false);

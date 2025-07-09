@@ -1,14 +1,16 @@
 import { createContext, useContext, useMemo, useRef, useState } from "react";
 import { FukudaSonSanPhamType } from "../../../model/FukudaSonSanPhamType";
 import {
-  CellClickArgs,
+  DataGrid,
+  // CellClickArgs,
   CellMouseEvent,
   CellSelectArgs,
   Column,
   RenderHeaderCellProps,
   type DataGridHandle,
+  CellMouseArgs,
 } from "react-data-grid";
-import { DataGrid } from "react-data-grid";
+// import {} from "react-data-grid";
 import {
   FukudaSonSanPhamBEContext,
   FukudaSonSanPhamBEContextProps,
@@ -127,7 +129,7 @@ export const Grid = () => {
     return row.ma_hh;
   }
   function onCellClick(
-    args: CellClickArgs<FukudaSonSanPhamType>,
+    args: CellMouseArgs<FukudaSonSanPhamType>,
     event: CellMouseEvent
   ) {
     if (args.column.key === "id") {

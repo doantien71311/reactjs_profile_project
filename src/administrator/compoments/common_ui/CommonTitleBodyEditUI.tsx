@@ -57,7 +57,7 @@ export const CommonTitleBodyEditUI = ({
         {body}
         {isCommonLoadingApi ? (
           <>
-            <div className={BEConstCSS.grid_fill_loading}></div>
+            <div className={BEConstCSS.edit_fill_loading}></div>
             <Container fluid>
               <Row className="position-absolute bottom-50 end-50">
                 <Col className="d-flex align-items-center justify-content-center h-auto w-auto p-0">
@@ -74,7 +74,10 @@ export const CommonTitleBodyEditUI = ({
         )}
         {isCommonPostingApi ? (
           <>
-            <div className={BEConstCSS.grid_fill_loading}></div>
+            <div
+              // style={{ width: "100%", height: "100%" }}
+              className={BEConstCSS.edit_fill_loading}
+            ></div>
             <Container fluid>
               <Row className="bottom-50 end-50">
                 <Col className="d-flex align-items-center justify-content-center h-auto w-auto p-0">

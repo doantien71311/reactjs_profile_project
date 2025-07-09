@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import {
   DataGrid,
   DataGridHandle,
@@ -16,77 +16,73 @@ import {
 import { Accordion, Button, Form, Modal } from "react-bootstrap";
 import BEConstCSS from "../../BEConstCSS";
 import { ProfileQuaTrinhLamViecType } from "../../../../model/ProfileNhanVienType";
-import { useQuill } from "react-quilljs";
+// import { useQuill } from "react-quilljs";
 import {
   CommonButtonAddDataGrid,
   CommonButtonEditDeleteDataGrid,
 } from "../../common_ui/CommonUI";
 import { v4 as uuidv4 } from "uuid";
-
-// function HeaderRenderer(props: RenderHeaderCellProps<ProfileNhanVienType>) {
-//   const { isIndeterminate, isRowSelected, onRowSelectionChange } =
-//     useHeaderRowSelection();
-
-//   return (
-//     <div></div>
-//     // <SelectCellFormatter
-//     //   aria-label="Select All"
-//     //   tabIndex={props.tabIndex}
-//     //   indeterminate={isIndeterminate}
-//     //   value={isRowSelected}
-//     //   onChange={(checked) => {
-//     //     onRowSelectionChange({ checked: isIndeterminate ? false : checked });
-//     //   }}
-//     // />
-//   );
-// }
-
-// function SelectFormatter(props: RenderCellProps<ProfileNhanVienType>) {
-//   const { isRowSelectionDisabled, isRowSelected, onRowSelectionChange } =
-//     useRowSelection();
-
-//   return (
-//     <div></div>
-//     // <SelectCellFormatter
-//     //   aria-label="Select"
-//     //   tabIndex={props.tabIndex}
-//     //   disabled={isRowSelectionDisabled}
-//     //   value={isRowSelected}
-//     //   onChange={(checked, isShiftClick) => {
-//     //     onRowSelectionChange({ row: props.row, checked, isShiftClick });
-//     //   }}
-//     // />
-//   );
-// }
+import ReactQuill from "react-quill-new";
 
 export const ProfileBEQuaTrinhLamViecIndex = () => {
-  const { quill, quillRef } = useQuill();
-  const useData =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).dataApi;
-  const isLoadingApi =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).isLoadingApi;
-  const postDataApi =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).postDataApi;
-  const setDataApi =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).setDataApi;
+  //console.log("ProfileBEQuaTrinhLamViecIndex");
+  // const { quill, quillRef } = useQuill();
+  //   const { quill, quillRef } = useQuill({
+  //   modules: {
+  //     clipboard: {
+  //       matchVisual: false,
+  //     },
+
+  //     // counter: true,
+  //   },
+  // });
+
+  // const initialized = useRef(false);
+  // const useData =
+  //   useContext<ProfileBEEditContextProps>(ProfileBEEditContext).dataApi;
+  // const isLoadingApi =
+  //   useContext<ProfileBEEditContextProps>(ProfileBEEditContext).isLoadingApi;
+  // const postDataApi =
+  //   useContext<ProfileBEEditContextProps>(ProfileBEEditContext).postDataApi;
+  // const setDataApi =
+  //   useContext<ProfileBEEditContextProps>(ProfileBEEditContext).setDataApi;
+
+  const { dataApi, postDataApi, setDataApi } =
+    useContext<ProfileBEEditContextProps>(ProfileBEEditContext);
 
   const [useDataRow, setUseDataRow] = useState<ProfileQuaTrinhLamViecType>({});
   const [showKyNang, setShowKyNang] = useState(false);
   const handleKyNangClose = () => setShowKyNang(false);
   const handleKyNangShow = () => setShowKyNang(true);
-  //
+
+  //#region các hàm set value
   const handleChangeQTLVMoTa = (event: string) => {
     setUseDataRow({
       ...useDataRow,
       mota_qtlv: event,
     });
+    if (dataApi.profile_nhanvien_quatrinhlamviec == null) return;
+    const list_qtlv_map = dataApi.profile_nhanvien_quatrinhlamviec.map(
+      (row) => {
+        if (row.id == useDataRow.id) {
+          return { ...row, mota_qtlv: event };
+        } else {
+          return row;
+        }
+      }
+    );
+    setDataApi({
+      ...dataApi,
+      profile_nhanvien_quatrinhlamviec: list_qtlv_map,
+    });
   };
-  //
+  //#endregion các hàm set value
+
   //#region các nút trên lưới
   const handleAddRow = () => {
     setUseDataRow({
       id: uuidv4(),
-      stt: (useData.profile_nhanvien_quatrinhlamviec ?? []).length + 1,
+      stt: (dataApi.profile_nhanvien_quatrinhlamviec ?? []).length + 1,
     });
     setShowKyNang(true);
   };
@@ -94,7 +90,7 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
     props: RenderCellProps<ProfileQuaTrinhLamViecType>
   ) => {
     handleKyNangShow();
-    console.log(props.row);
+    // console.log(props.row);
     // setUseDataRow({ ...useDataRow, thoigian_qtlv: props.row.thoigian_qtlv });
     setUseDataRow(props.row);
   };
@@ -108,9 +104,9 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
     props: RenderCellProps<ProfileQuaTrinhLamViecType>
   ) => {
     setDataApi({
-      ...useData,
+      ...dataApi,
       profile_nhanvien_quatrinhlamviec: (
-        useData.profile_nhanvien_quatrinhlamviec ?? []
+        dataApi.profile_nhanvien_quatrinhlamviec ?? []
       ).filter((f) => f.id !== props.row.id),
     });
     setShowKyNang(false);
@@ -118,17 +114,38 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
 
   //#endregion trên lưới
 
-  useEffect(() => {
-    if (quill && !isLoadingApi && quillRef) {
-      quill.on("text-change", () => {
-        console.log(quillRef.current.firstChild);
-        handleChangeQTLVMoTa(quillRef.current.firstChild.innerHTML);
-      });
-      //console.log(useData.mota);
-      quill?.clipboard.dangerouslyPasteHTML(useDataRow.mota_qtlv ?? "");
-    }
-    return () => {};
-  }, [quill, isLoadingApi, useDataRow.mota_qtlv]);
+  // useEffect(
+  //   () => {
+  //     // if (initialized.current) return;
+  //     initialized.current = true;
+  //     console.log("useEffect qua trinh lam viec");
+  //     //
+  //     if (quill && !isLoadingApi && quillRef && showKyNang) {
+  //       quill.on("text-change", () => {
+  //         console.log("text-change");
+  //         // console.log("quillRef.current.firstChild.innerHTML");
+  //         // console.log(quillRef.current.firstChild.innerHTML);
+  //         // handleChangeQTLVMoTa(quillRef.current.firstChild.innerHTML);
+
+  //         // if (quillRef.current.firstChild) {
+  //         //   handleChangeQTLVMoTa(quillRef.current.firstChild.innerHTML);
+  //         // } else {
+  //         //   handleChangeQTLVMoTa(useDataRow.mota_qtlv ?? "");
+  //         // }
+  //       });
+  //       if (quill) {
+  //         console.log(
+  //           "qua trình làm việc quill.clipboard.dangerouslyPasteHTML"
+  //         );
+  //         console.log(useDataRow.mota_qtlv);
+  //         quill.clipboard.dangerouslyPasteHTML(useDataRow.mota_qtlv ?? "");
+  //       }
+  //     }
+  //     return () => {};
+  //   },
+  //   [quill, isLoadingApi, useDataRow.mota_qtlv, showKyNang]
+  //   // [quill, isLoadingApi]
+  // );
 
   const gridRef = useRef<DataGridHandle>(null);
   const columns = [
@@ -240,20 +257,20 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
             <Form.Label>Thời gian làm việc</Form.Label>
             <Form.Control
               type="text"
-              value={useDataRow.thoigian_qtlv ?? ""}
+              // value={useDataRow.thoigian_qtlv ?? ""}
             ></Form.Control>
             <Form.Label>Tên công ty làm việc:</Form.Label>
             <Form.Control
               type="text"
-              value={useDataRow.congty_qtlv ?? ""}
+              // value={useDataRow.congty_qtlv ?? ""}
             ></Form.Control>
             <Form.Label>Vị trí làm việc:</Form.Label>
             <Form.Control
               type="text"
-              value={useDataRow.congty_qtlv ?? ""}
+              // value={useDataRow.congty_qtlv ?? ""}
             ></Form.Control>
             <Form.Label>Mô tả công việc:</Form.Label>
-            <div
+            {/* <div
               style={{
                 width: "100%",
                 height: "100%",
@@ -261,8 +278,16 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
                 minHeight: "100px",
               }}
             >
-              <div ref={quillRef} />
-            </div>
+              <div
+                key={`editor-${useDataRow.id ?? ""}`}
+                // id={useDataRow.id ?? ""}
+                ref={quillRef}
+              />
+            </div> */}
+            <ReactQuill
+              value={useDataRow.mota_qtlv ?? ""}
+              onChange={(event) => handleChangeQTLVMoTa(event)}
+            />
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -284,7 +309,7 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
             // className={BEConstCSS.grid_fill}
             // rowKeyGetter={rowKeyGetter}
             columns={columns}
-            rows={useData.profile_nhanvien_quatrinhlamviec ?? []}
+            rows={dataApi.profile_nhanvien_quatrinhlamviec ?? []}
             rowHeight={100}
             // selectedRows={selectedRows}
             // onSelectedRowsChange={setSelectedRows}

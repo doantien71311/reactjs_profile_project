@@ -2,163 +2,66 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { ProfileContext, ProfileContextProps } from "./ProfileContext";
 import {
   motion,
-  useMotionValueEvent,
-  useScroll,
   // useTransform,
 } from "motion/react";
+import { ProfileHinhAnhType } from "../../../model/ProfileNhanVienType";
 
 export const ImageDaiDien = () => {
-  const useData = useContext<ProfileContextProps>(ProfileContext).dataApi;
-  const isLoadingApi =
-    useContext<ProfileContextProps>(ProfileContext).isLoadingApi;
-
+  const { dataApi, isLoadingApi } =
+    useContext<ProfileContextProps>(ProfileContext);
+  const dataImage =
+    useContext<ProfileContextProps>(ProfileContext).dataApi
+      .profile_nhanvien_hinhanh ?? [];
   const initialized = useRef(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [leftImage, setLeftImage] = useState<ProfileHinhAnhType>({});
+  // const [midImage, setMidImage] = useState<ProfileHinhAnhType>({});
+  const [rightImage, setRightImage] = useState<ProfileHinhAnhType>({});
+  const [currentImage, setCurrentImage] = useState<ProfileHinhAnhType>({});
   //
-
-  //
-  const imageContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollXProgress } = useScroll({
-    // layoutEffect: false,
-    container: imageContainerRef,
-    // offset: ["start end", "end start"],
-    offset: ["start start", "end end"],
-  });
-  // const { scrollY } = useScroll();
-  // useMotionValueEvent(scrollY, "change", (latest) => {
-  //   console.log("Page scroll: ", latest);
-  // });
-  useMotionValueEvent(scrollXProgress, "change", (latest) => {
-    console.log("ImageDaiDien scrollXProgress: ", latest);
-  });
-  // const x = useTransform(scrollXProgress, [0, 1], [0, 10000]);
-  // console.log(x);
-
-  const rootFontSize =
-    parseFloat(window.getComputedStyle(document.documentElement).fontSize) * 10;
-  if (!initialized.current) {
-    initialized.current = true;
-    // console.log(useData.url_hinhanh);
-  }
-  // const getMidIndex = () => {
-  //   return (useData.profile_nhanvien_hinhanh ?? []).length / 2;
-  // };
-
   useEffect(() => {
-    if (!isLoadingApi) {
-      const midIndex = Math.round(
-        (useData.profile_nhanvien_hinhanh ?? []).length / 2
-      );
+    initialized.current = true;
+    if (isLoadingApi) return;
+    // setLeftImage(dataImage[dataImage.length - 1]);
+    // setCurrentImage(dataImage[0]);
+    // setRightImage(dataImage[1]);
+    onHandImageClick(dataImage[0]);
+  }, [isLoadingApi]);
 
-      setTimeout(() => {
-        if (imageContainerRef != null && imageContainerRef.current) {
-          // imageContainerRef.current.scrollLeft = calScroll(midIndex);
-          onHandImageClick(midIndex);
-        }
-      }, 2000);
+  const onHandImageClick = (item: ProfileHinhAnhType) => {
+    // if (imageContainerRef.current == null) return;
+    // imageContainerRef.current.scrollLeft = calScroll(newIndex);
+    // setCurrentIndex(newIndex);
+    const index = dataImage.indexOf(item);
+    let indexLeft = index - 1;
+    if (indexLeft < 0) {
+      indexLeft = dataImage.length - 1;
     }
-  }, [isLoadingApi, imageContainerRef]);
+    let indexRight = index + 1;
+    if (indexRight >= dataImage.length) {
+      indexRight = 0;
+    }
+    setLeftImage(dataImage[indexLeft]);
+    setCurrentImage(dataImage[index]);
+    setRightImage(dataImage[indexRight]);
+  };
 
   //#region các private funtion
-  const getImageBottomBorder = (newIndex: number) => {
+  const getImageBottomBorder = (newImage: ProfileHinhAnhType) => {
     let result: string = "2px solid transparent";
-    if (newIndex === currentIndex)
+    if (newImage.id === currentImage.id)
       // result = "2px solid var(--primary-color)";
       result = "2px solid var(--primary-second-right-color)";
     // console.log(result);
     return result;
   };
-  const getImageBottomBorderRadius = (newIndex: number) => {
+  const getImageBottomBorderRadius = (newImage: ProfileHinhAnhType) => {
     let result: string = "0";
-    if (newIndex === currentIndex) result = "5px";
+    if (newImage.id === currentImage.id) result = "5px";
     // console.log(result);
     return result;
   };
 
-  const getTranslateX = (newIndex: number) => {
-    const valueIndex = newIndex - currentIndex;
-    if (valueIndex == 0) return "translateX(0px) scale(1)";
-    //
-    if (valueIndex == 1) return "translateX(-20%) scale(0.8)";
-    if (valueIndex == -1) return "translateX(20%) scale(0.8)";
-    //
-    if (valueIndex == 2) return "translateX(-55%) scale(0.7)";
-    if (valueIndex == -2) return "translateX(55%) scale(0.7)";
-    //
-    return "translateX(-50%) scale(0.7)";
-  };
-  const getZIndex = (newIndex: number) => {
-    const valueIndex = Math.abs(newIndex - currentIndex);
-    if (valueIndex == 0) return 1;
-    if (valueIndex == 1) return -1;
-    return -2;
-  };
-
-  const calScroll = (newIndex: number) => {
-    if (imageContainerRef.current == null) return 0;
-    // const pexScroll: number = newIndex - currentIndex;
-    const spaceScroll: number =
-      imageContainerRef.current.scrollWidth -
-      imageContainerRef.current.clientWidth;
-    const itemScroll =
-      spaceScroll / (useData.profile_nhanvien_hinhanh ?? []).length;
-    //console.log(pexScroll);
-    // const curentScroll = imageContainerRef.current.scrollLeft;
-    console.log("itemScroll:");
-    console.log(itemScroll);
-    // const addScroll = newIndex * 10;
-    const addScroll = newIndex * 10;
-    // let miusScroll = 0;
-    // if (newIndex > 3) {
-    //   miusScroll = 160 * 2 + 50;
-    // }
-    let valueScroll = 160 * newIndex + addScroll;
-    // - miusScroll;
-    if (newIndex < 3) valueScroll = 0;
-    console.log("rootFontSize:");
-    console.log(rootFontSize);
-    console.log("valueScroll:");
-    console.log(valueScroll);
-
-    return valueScroll;
-  };
-
-  const onHandImageClick = (newIndex: number) => {
-    if (imageContainerRef.current == null) return;
-
-    // imageContainerRef.current.scrollLeft += 160;
-    imageContainerRef.current.scrollLeft = calScroll(newIndex);
-    // setTimeout(() => {
-    //   if (imageContainerRef.current == null) return;
-    //   imageContainerRef.current.scrollLeft =
-    //     imageContainerRef.current.scrollWidth / 2 -
-    //     imageContainerRef.current.clientWidth / 2;
-    // }, 1000);
-
-    //
-    // imageContainerRef.current.scrollLeft -= 250;
-    // imageContainerRef.current.scrollLeft += 160;
-    // imageContainerRef.current.scrollLeft =
-    //   // imageContainerRef.current.clientWidth;
-    //   // imageContainerRef.current.scrollWidth;
-    //   0;
-
-    // if (imageContainerRef.current.scrollLeft == 0) {
-    //   imageContainerRef.current.scrollLeft =
-    //     imageContainerRef.current.scrollWidth;
-    //   return;
-    // }
-
-    // if (imageContainerRef.current.scrollLeft > 0) {
-    //   imageContainerRef.current.scrollLeft = 0;
-    //   return;
-    // }
-
-    setCurrentIndex(newIndex);
-  };
-
-  //#endregion các funtion
-
+  //#endregion các private funtion
   return (
     <motion.section className="profile-item profile-anhdaidien">
       <motion.div
@@ -179,41 +82,81 @@ export const ImageDaiDien = () => {
       // viewport={{ once: true }}
       >
         <motion.div
-          ref={imageContainerRef}
-          drag="x"
-          dragConstraints={{ right: 0, left: 0 }}
+          // drag="x"
+          // dragConstraints={{ right: 0, left: 0 }}
           className="profile_anhdaidien_top"
         >
-          {useData.profile_nhanvien_hinhanh?.map((item, index) => (
-            <motion.img
-              key={item.id}
-              initial={{ transform: "translateX(0px) scale(1)" }}
-              whileInView={{
-                transform: getTranslateX(index),
-                zIndex: getZIndex(index),
-                // scrollLeft: calScroll(index),
-                transition: {
-                  // delay: 0.3,
-                  duration: 0.7,
-                },
-              }}
-              src={item.url_hinhanh ?? ""}
-              alt={item.ten_hinhanh ?? ""}
-            />
-          ))}
+          <motion.img
+            key={leftImage.id}
+            initial={{
+              transform: "translateX(0px) scale(1)",
+              // boxShadow: "none",
+            }}
+            whileInView={{
+              transform: "translateX(15%) scale(0.8)",
+              zIndex: 9,
+              opacity: 0.7,
+              boxShadow: "0px 0px 5px 0px grey",
+              transition: {
+                // delay: 0.3,
+                duration: 0.7,
+              },
+            }}
+            src={leftImage.url_hinhanh ?? ""}
+            alt={leftImage.ten_hinhanh ?? ""}
+          />
+          <motion.img
+            key={currentImage.id}
+            initial={{
+              transform: "translateX(0px) scale(1)",
+              opacity: 0.7,
+              // boxShadow: "none",
+            }}
+            whileInView={{
+              transform: "translateX(0px) scale(1)",
+              zIndex: 10,
+              opacity: 1,
+              boxShadow: "0px 0px 30px 1px grey",
+              transition: {
+                // delay: 0.3,
+                duration: 0.7,
+              },
+            }}
+            src={currentImage.url_hinhanh ?? ""}
+            alt={currentImage.ten_hinhanh ?? ""}
+          />
+          <motion.img
+            key={rightImage.id}
+            initial={{
+              transform: "translateX(0px) scale(1)",
+              boxShadow: "none",
+            }}
+            whileInView={{
+              transform: "translateX(-15%) scale(0.8)",
+              zIndex: 9,
+              opacity: 0.7,
+              boxShadow: "0px 0px 5px 0px grey",
+              transition: {
+                // delay: 0.3,
+                duration: 0.7,
+              },
+            }}
+            src={rightImage.url_hinhanh ?? ""}
+            alt={rightImage.ten_hinhanh ?? ""}
+          />
         </motion.div>
         <div className="profile_anhdaidien_bottom">
-          {useData.profile_nhanvien_hinhanh?.map((item, index) => (
+          {dataApi.profile_nhanvien_hinhanh?.map((item) => (
             <img
               key={`${item.stt}-ct`}
               src={item.url_hinhanh ?? ""}
               alt={item.ten_hinhanh ?? ""}
               style={{
-                border: `${getImageBottomBorder(index)}`,
-                borderRadius: `${getImageBottomBorderRadius(index)}`,
+                border: `${getImageBottomBorder(item)}`,
+                borderRadius: `${getImageBottomBorderRadius(item)}`,
               }}
               role="button"
-              onClick={() => onHandImageClick(index)}
+              onClick={() => onHandImageClick(item)}
             />
           ))}
         </div>

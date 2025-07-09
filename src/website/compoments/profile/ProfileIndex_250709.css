@@ -1,0 +1,981 @@
+/* #region bố cục dùng chung proflie */
+.profile {
+  display: grid;
+  min-height: 100vh;
+  height: 100%;
+  /* width: 100%; */
+  max-width: 100vw;
+  /* border: 4px solid yellowgreen; */
+  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-areas:
+    "slogan slogan slogan slogan"
+    "anhdaidien anhdaidien dinhhuong dinhhuong"
+    "nangluc nangluc nangluc nangluc"
+    "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+    "thongtincanhan thongtincanhan hocvan hocvan"
+    "mota mota mota mota";
+  column-gap: 30px;
+  row-gap: 30px;
+  margin: 30px 20px 30px 20px;
+}
+
+.profile-item {
+  position: relative;
+  /* background-color: var(--primary-color); */
+  /* border: var(--value-border-item) solid var(--color-border-item); */
+  /* border-radius: var(--value-border-radius); */
+  /* box-shadow: 3px 3px 5px var(--color-box-shadow-item); */
+  min-height: 300px;
+  /* min-width: 300px; */
+}
+.profile-slogan {
+  grid-area: slogan;
+  min-height: auto;
+  /* border: 1px solid; */
+  /* color: var(--primary-one-right-color); */
+  color: var(--complementary-first-color);
+  /* background-color: var(--complementary-second-color); */
+}
+.profile-nangluc {
+  grid-area: nangluc;
+}
+
+.profile-anhdaidien {
+  grid-area: anhdaidien;
+  /* border: 1px solid black; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* gap: 5px; */
+  /* flex-basis: 50px; */
+  /* flex: auto 0 100px; */
+  /* align-items: center; */
+  /* justify-self: center; */
+  /* position: relative; */
+}
+
+.profile-dinhhuong {
+  grid-area: dinhhuong;
+  overflow-x: hidden;
+  align-content: center;
+}
+
+.profile-quatrinhlamviec {
+  grid-area: quatrinhlamviec;
+}
+
+.profile-mota {
+  grid-area: mota;
+}
+
+.profile-thongtincanhan {
+  grid-area: thongtincanhan;
+  min-height: auto;
+}
+
+.profile-hocvan {
+  grid-area: hocvan;
+  min-height: auto;
+}
+
+/* #endregion bố cục dùng chung proflie */
+
+/* #region các thành phần dùng chung */
+.common-title {
+  /* height: 100px; */
+  background-color: var(--primary-second-left-color);
+  color: var(--complementary-three-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-top-right-radius: calc(var(--value-border-radius));
+  border-top-left-radius: calc(var(--value-border-radius));
+  /* border-bottom: var(--value-border-item) solid var(--complementary-first-color); */
+  /* margin: 3px 3px 3px 3px; */
+}
+
+.common-title span {
+  font-size: x-large;
+  font-weight: bold;
+  width: 100%;
+  margin: auto auto auto 5px;
+}
+
+.common-title i {
+  /* max-width: 100px;
+  max-height: 100px; */
+  width: 10rem;
+  height: 5rem;
+  text-align: center;
+  align-content: center;
+  /* border-left: var(--value-border-item) solid var(--color-border-item); */
+  /* border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  */
+  /* border-right: 10px solid; */
+}
+
+/* #endregion các thành phần dùng chung */
+
+/*#region slogan */
+.profile_slogan_chucvu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile_slogan_chucvu svg path {
+  fill: transparent;
+  stroke: var(--primary-one-left-color);
+
+  stroke-width: 5;
+  stroke-dashoffset: 50;
+  stroke-dasharray: 50;
+  /* animation: textChucVu 4s ease-in-out infinite alternate; */
+}
+
+@keyframes textChucVu {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.profile_slogan_chucvu h1 {
+  /* font-weight: bolder; */
+  font-weight: 900;
+  /* text-shadow: 1px 1px 1px var(--complementary-first-color),
+    2px 2px 2px var(--complementary-first-color),
+    3px 3px 5px var(--complementary-three-color); */
+}
+
+.profile_slogan_line {
+  height: 5px;
+  flex-grow: 1;
+  margin-top: 1.5%;
+  /* font-size: small; */
+  background-color: var(--primary-color);
+}
+.profile_slogan_text {
+  /* border: 1px solid black; */
+}
+.profile_slogan_text svg {
+  /* background-color: blueviolet; */
+  /* border: 1px solid black; */
+  max-height: 100px;
+  max-width: 350px;
+  width: 350px;
+  height: 50px;
+  min-width: 300px;
+  display: block;
+  margin-right: 0;
+  margin-left: auto;
+  /* position: absolute; */
+  /* vertical-align: middle; */
+}
+
+.profile_slogan_text svg text {
+  margin-right: 0;
+  margin-left: auto;
+  font-weight: bolder;
+  font-size: 1.6rem;
+
+  /* fill: var(--complementary-first-color);
+  stroke-width: 2;
+  stroke-dasharray: 60;
+  stroke: var(--color-border-item); */
+
+  /* fill: transparent;
+  stroke-width: 2;
+  stroke-dasharray: 5%, 25%;
+  stroke-dashoffset: 0;
+  stroke: var(--complementary-first-color); */
+
+  fill: var(--complementary-first-color);
+  stroke: var(--complementary-first-color);
+  stroke-width: 0;
+  stroke-dashoffset: 0;
+  stroke-dasharray: 0;
+
+  /* fill: transparent;
+  stroke: var(--complementary-first-color);
+  stroke-dasharray: 100%;
+  stroke-dashoffset: 100%;
+  stroke-width: 2; */
+
+  animation: textChange 3s alternate;
+
+  /* color: var(--complementary-three-color); */
+  /* text-shadow: 1px 1px 1px var(--complementary-first-color),
+    2px 2px 2px var(--complementary-first-color),
+    3px 3px 5px var(--complementary-three-color); */
+}
+
+@keyframes textChange {
+  0% {
+    /* fill: transparent; */
+    stroke-width: 2;
+    stroke-dasharray: 10%;
+    stroke-dashoffset: 0;
+    stroke: var(--complementary-first-color);
+  }
+  20% {
+    fill: transparent;
+  }
+  70% {
+    fill: transparent;
+    stroke: var(--complementary-first-color);
+    fill: transparent;
+    stroke: var(--complementary-first-color);
+    /* stroke-dasharray: 100%; */
+    stroke-dashoffset: 25%;
+    stroke-width: 2;
+  }
+  80% {
+    fill: transparent;
+    stroke-width: 2;
+    stroke-dasharray: 10%;
+    stroke-dashoffset: -25%;
+    stroke: var(--complementary-first-color);
+  }
+  100% {
+    fill: var(--complementary-first-color);
+    stroke: var(--complementary-first-color);
+    stroke-width: 0;
+    stroke-dashoffset: 0;
+    stroke-dasharray: 0;
+  }
+}
+/*#endregion slogan */
+
+/*#region anh dai dien */
+
+.profile_anhdaidien_top {
+  max-height: calc(100% - 70px);
+  height: 70%;
+  width: 100%;
+  position: absolute;
+  /* top: 0px; */
+  display: flex;
+  cursor: grab;
+  overflow: hidden;
+  /*  overflow-y: hidden; */
+  overflow-x: scroll;
+
+  border: 4px solid blue;
+  /* scroll-snap-type: x mandatory; */
+  /* gap: 0px; */
+}
+
+/* .profile_anhdaidien_top:before,
+.profile_anhdaidien_top:after {
+  content: "";
+  width: 500px;
+  height: 50px;
+  display: inline-block;
+  position: sticky;
+  z-index: 1;
+  width: 25%;
+  min-width: 70px;
+  height: 100%;
+} */
+
+.profile_anhdaidien_top:before {
+  left: 0;
+  /* border: 1px solid; */
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0) 0%,
+    white 80%,
+    white 100%
+  );
+}
+
+/* .profile_anhdaidien_top:after {
+  right: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    white 80%,
+    white 100%
+  );
+} */
+
+.profile_anhdaidien_top img {
+  max-height: calc(10rem * 1.3);
+  min-width: 10rem;
+
+  height: calc(10rem * 1.3);
+  width: 10rem;
+
+  object-fit: scale-down;
+  background-position: center;
+  /* background-color: rgba(var(--primary-second-left-color), 0.7); */
+  /* border: 1px solid red; */
+  align-self: center;
+  border-radius: 1rem;
+  margin: auto 5px auto 5px;
+  /* pointer-events: none; */
+  display: block;
+  box-shadow: 0px 0px 17px grey;
+  pointer-events: none;
+
+  /* border: 1px solid rebeccapurple; */
+  /* box-shadow: none; */
+  /* background-color: var(--primary-color); */
+  background-color: white;
+  /* scroll-snap-align: start; */
+}
+
+.profile_anhdaidien_bottom {
+  width: 100%;
+  height: 30%;
+  max-height: 70px;
+  display: flex;
+
+  flex-direction: row;
+  /* gap: 5px; */
+  justify-content: start;
+  bottom: 0px;
+  position: absolute;
+  overflow: hidden;
+  overflow-x: auto;
+  /* border: 1px solid red; */
+}
+
+.profile_anhdaidien_bottom img {
+  width: 50px;
+  height: 50px;
+  align-self: center;
+  object-fit: contain;
+  border-radius: 0;
+  border: 2px transparent;
+  margin: 5px;
+  background-position: center;
+
+  /* height: 100%; */
+  /* object-fit: fill; */
+
+  /* object-fit: fill; */
+  /* object-fit: scale-down; */
+  /* object-fit: contain; */
+  /* border: 2px solid var(--primary-second-right-color);
+  border-radius: 5px; */
+}
+
+/*#endregion anh dai dien */
+
+/* #region thông tin các nhân */
+.profile_thongtincanhan_tieude {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.profile_thongtincanhan_noidung {
+  background-color: var(--complementary-three-color);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  /* height: 100%; */
+}
+.profile_thongtincanhan_item {
+  /* background-color: yellow; */
+  /* margin: 5px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  /* align-items: end; */
+  /* position: relative; */
+  /* flex: 100px auto; */
+}
+.profile_thongtincanhan_item i {
+  /* border: 2px solid; */
+  /* border-radius: 50%; */
+  max-width: 100px;
+  max-height: 100px;
+  width: 2.5rem; /*2 lần kích thước font hiện hành theo thẻ root*/
+  height: 2.5rem; /*2 lần kích thước font hiện hành theo thẻ root*/
+  /* height: 100px; */
+  /* align-self: flex-end; */
+  /* display: inline-block; */
+  /* margin: auto 0px auto auto; */
+  text-align: end;
+  /* text-align: center; */
+  align-content: center;
+  /* align-content: end; */
+  color: var(--primary-second-left-color);
+}
+.profile_thongtincanhan_item span {
+  /* font-style: italic; */
+  width: 100%;
+  /* height: 100px; */
+  font-weight: bold;
+  text-align: start;
+  margin: auto auto auto 5px;
+  color: var(--primary-one-left-color);
+  /* color: var(--primary-second-right-color); */
+  /* align-self: left; */
+  /* align-items: end; */
+  /* border: 1px solid; */
+}
+/* #endregion thông tin các nhân */
+
+/* #region profile-dinhhuong */
+
+.profile-dinhhuong div {
+  /* margin: 10px; */
+}
+.profile-dinhhuong-item {
+  /* border: 2px solid; */
+  border-radius: 20px;
+  width: 100%;
+  min-height: 70px;
+  display: flex;
+  flex-direction: row;
+  flex: auto 1 auto;
+  box-shadow: 1px 1px 5px var(--primary-second-left-color),
+    5px 5px 5px var(--primary-second-left-color),
+    7px 7px 10px var(--primary-second-right-color);
+  background-color: var(--primary-second-left-color);
+}
+.profile-dinhhuong-item span {
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--complementary-three-color);
+  margin: auto 5px auto 5px;
+  flex-grow: 1;
+}
+.profile-dinhhuong-item i {
+  padding: 5px;
+  margin: auto 5px auto 5px;
+  border: 2px solid;
+  border-radius: 50%;
+  /* border-color: var(--secondary-color); */
+  color: var(--primary-second-right-color);
+}
+/* #endregion profile-dinhhuong */
+
+/* #region quá trình làm việc */
+.profile_quatrinhlamviec_collapsible {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  /* height: 0vh; */
+}
+.profile_quatrinhlamviec_tieude {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  font-size: large;
+  /* position: relative; */
+  /* z-index: 1; */
+}
+.profile_quatrinhlamviec_tieude i {
+}
+
+.profile_quatrinhlamviec_tieude label {
+  cursor: pointer;
+  margin: 5px;
+}
+
+.profile_quatrinhlamviec_item_collapsible {
+  top: 0px;
+  position: relative;
+  /* margin-top: 200px; */
+  opacity: 1;
+  overflow: visible;
+  transition: all 1s ease;
+  z-index: 0;
+  justify-self: center;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_quatrinhlamviec_collapsible input {
+  display: none;
+}
+.profile_quatrinhlamviec_collapsible
+  input:checked
+  ~ .profile_quatrinhlamviec_item_collapsible {
+  /* max-height: 300px;
+  padding-bottom: 25px;
+  background: #fff;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1), 0 4px 11px 0 rgba(0, 0, 0, 0.08);
+  opacity: 1; */
+  top: -300px;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0;
+}
+.profile_quatrinhlamviec_tieude label {
+  font-weight: bold;
+}
+
+.profile_quatrinhlamviec_item {
+  /* border: 2px solid; */
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 10px 15px 10px;
+  /* flex: 300px 1; */
+  background-color: var(--primary-color);
+}
+.profile_quatrinhlamviec_item_left {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  flex-direction: column;
+  /* background-color: aqua; */
+  align-items: center;
+  justify-content: flex-start;
+}
+.profile_quatrinhlamviec_item_left span:first-child {
+  display: inline;
+  /* background-color: chartreuse; */
+  font-size: larger;
+  font-weight: 500;
+  color: var(--complementary-three-color);
+}
+.profile_quatrinhlamviec_item_left span:last-child {
+  display: inline;
+  text-align: center;
+  align-content: center;
+  height: 100%;
+  margin: 5px;
+  /* background-color: blueviolet; */
+  font-style: normal;
+  font-size: larger;
+  /* font-weight: bold; */
+  color: var(--complementary-second-color);
+}
+
+.profile_quatrinhlamviec_item_right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: bisque; */
+
+  /* align-items: start;
+  justify-content: flex-end; */
+}
+
+.profile_quatrinhlamviec_item_right span:first-child {
+  display: inline;
+  text-align: center;
+  align-content: center;
+  height: 100%;
+  /* background-color: blueviolet; */
+  font-style: normal;
+  font-size: large;
+  color: var(--complementary-second-color);
+}
+
+.profile_quatrinhlamviec_item_right_mota {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--complementary-first-color);
+}
+
+/* #endregion quá trình làm việc */
+
+/* #region năng lực */
+.profile_nangluc_tieude {
+}
+
+.profile_nangluc_noidung {
+}
+
+.profile_nangluc_circle {
+  position: relative;
+}
+.profile_nangluc_circle svg {
+  width: 100px;
+  height: 100px;
+  /* border: 1px solid; */
+  /* transform: rotate(0deg); */
+}
+
+.profile_nangluc_circle span {
+  text-align: center;
+  font-size: large;
+  font-weight: 500;
+}
+
+.profile_nangluc_circle svg circle {
+  fill: transparent;
+  stroke-width: 15px;
+}
+
+.profile_nangluc_circle svg circle:nth-child(1) {
+  /* stroke-dashoffset: 0; */
+  stroke: var(--complementary-second-color);
+  /* opacity: 1; */
+}
+
+.profile_nangluc_circle svg circle:nth-child(2) {
+  /* stroke-dashoffset: calc(250 - (250 * var(--nangluc-phantram)) / 100); */
+  /* opacity: calc(var(--nangluc-phantram) / 100); */
+  stroke-dasharray: 250;
+  stroke-linecap: square;
+  stroke-width: 16px;
+  stroke: var(--primary-color);
+  /* animation: fillProfileNangLucCircle 1.5s 1 ease-out; */
+}
+.profile_nangluc_circle svg circle:nth-child(3) {
+  stroke-dashoffset: calc((-1) * (250 * var(--nangluc-phantram)) / 100);
+  /* stroke-dashoffset: calc(-1 * 175); */
+  stroke-dasharray: 250;
+  stroke-width: 15px;
+  stroke: var(--complementary-second-color);
+  /* opacity: calc(var(--nangluc-phantram) / 100); */
+}
+.profile_nangluc_circle span {
+  position: absolute;
+  /* color: blue;
+  background-color: blueviolet; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.profile_nangluc_item {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  /* align-items: start; */
+  margin: 10px;
+}
+
+.profile_nangluc_bar {
+  width: 100%;
+  height: 100%;
+  margin-top: 5px;
+  /* border: 1px saddlebrown solid; */
+}
+
+.profile_nangluc_bar_item {
+  height: 15px;
+  background: var(--complementary-second-color);
+  border-radius: 3px;
+  margin: 0 5px;
+  /* opacity: calc(var(--nangluc-phantram) / 100); */
+  /* border: 1px solid; */
+}
+
+.profile_nangluc_bar span {
+  margin-left: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.profile_nangluc_phantram {
+  height: 15px;
+  background: var(--primary-color);
+  /* border-radius: 3px; */
+  position: relative;
+
+  /* animation: fillProfileNangLucBars 1.5s 1 ease-out; */
+  /* animation-timeline: scroll(); */
+  /* animation-timeline: view(block); */
+  /* animation-timeline: custom-timeline; */
+  /* animation-fill-mode: both; */
+  /* animation-duration: auto; */
+  /* animation-play-state: paused; */
+  /* animation-delay: calc(var(--scroll) * -1s); */
+}
+.profile_nangluc_phantram::before {
+  /* content: attr(data-per); */
+  /* content: attr(data-per-number); */
+  content: attr(data-per);
+  background: var(--primary-color);
+  border-radius: 3px;
+  padding: 0 4px 0 4px;
+  position: absolute;
+  bottom: -35px;
+  right: 0;
+  font-weight: 100;
+  font-style: italic;
+  font-size: medium;
+  transform: translateX(50%);
+}
+
+.profile_nangluc_phantram::after {
+  content: "";
+  border-radius: 3px;
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background: var(--primary-color);
+  bottom: -17px;
+  right: 0;
+  z-index: -1;
+  transform: translateX(50%) rotate(45deg);
+
+  /* animation: fillProfileNangLucBars 1s 1 ease-out; */
+}
+
+@keyframes fillProfileNangLucCircle {
+  from {
+    stroke-dashoffset: 250;
+  }
+  to {
+    /* stroke-dashoffset: calc(250 - (250 * var(--nangluc-phantram)) / 100); */
+    stroke-dashoffset: 0;
+  }
+}
+@scroll-timeline custom-timeline {
+  source: auto; /* Dùng vùng cuộn của trang */
+  start: 0%; /* Bắt đầu từ đầu trang */
+  end: 50%; /* Kết thúc khi cuộn hết */
+}
+
+@keyframes fillProfileNangLucBars {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* #endregion năng lực /*
+
+/*#region học vấn */
+.profile_hocvan_tieude {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.profile_hocvan_noidung {
+  overflow: hidden;
+  background-color: var(--complementary-three-color);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  /* height: 100%; */
+}
+.profile_hocvan_noidung_item {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: medium;
+  font-weight: 500;
+  overflow: hidden;
+  height: 100%;
+  color: var(--primary-second-right-color);
+  margin: 10px;
+  font-size: large;
+}
+/*#endregion học vấn*/
+
+/*#region bản thân */
+.profile_mota_tieude {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.profile_mota_noidung {
+  margin: 10px;
+}
+
+/*#endregion bản thân */
+
+/*#region skeleton loading*/
+.profile_skeleton_loading {
+  /* background-color: burlywood; */
+  /* width: 100vw; */
+  height: 100vh;
+  max-width: 100vw;
+  /* margin: 50px 50px 50px 50px; */
+}
+/* .profile_skeleton_loading .profile-anhdaidien {
+  background-color: red;
+} */
+
+/* .profile_skeleton_loading .profile-dinhhuong::after {
+  background-color: red;
+} */
+
+.profile_skeleton_loading .profile-anhdaidien,
+.profile_skeleton_loading .profile-dinhhuong,
+.profile_skeleton_loading .profile-mota,
+.profile_skeleton_loading .profile-nangluc,
+.profile_skeleton_loading .profile-quatrinhlamviec,
+.profile_skeleton_loading .profile-thongtincanhan,
+.profile_skeleton_loading .profile-hocvan,
+.profile_skeleton_loading .profile-mota {
+  /* position: relative;
+  width: 100%;
+  height: 100%; */
+  overflow: hidden;
+  min-height: 300px;
+  border-radius: 10px;
+
+  /* max-height: 500px; */
+}
+.profile_skeleton_loading .profile-anhdaidien::before,
+.profile_skeleton_loading .profile-dinhhuong::before,
+.profile_skeleton_loading .profile-mota::before,
+.profile_skeleton_loading .profile-nangluc::before,
+.profile_skeleton_loading .profile-quatrinhlamviec::before,
+.profile_skeleton_loading .profile-thongtincanhan::before,
+.profile_skeleton_loading .profile-hocvan::before,
+.profile_skeleton_loading .profile-mota::before {
+  content: "";
+  background-color: gray;
+  /* border-radius: var(--value-border-radius); */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /* min-height: 300px;
+  max-height: 500px; */
+  /* height: 500px; */
+}
+
+.profile_skeleton_loading .profile-anhdaidien::after,
+.profile_skeleton_loading .profile-dinhhuong::after,
+.profile_skeleton_loading .profile-mota::after,
+.profile_skeleton_loading .profile-nangluc::after,
+.profile_skeleton_loading .profile-quatrinhlamviec::after,
+.profile_skeleton_loading .profile-thongtincanhan::after,
+.profile_skeleton_loading .profile-hocvan::after,
+.profile_skeleton_loading .profile-mota::after {
+  content: "";
+  /* background-color: red; */
+  /* border-radius: var(--value-border-radius); */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /* height: 500px;
+  min-height: 300px;
+  max-height: 500px; */
+  background: linear-gradient(to right, gray, white, gray);
+  animation: skeleton-loading-profile 2s infinite alternate;
+}
+
+@keyframes skeleton-loading-profile {
+  from {
+    left: -50%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+/* .profile_skeleton_loading .profile-dinhhuong-item ::after {
+  background-color: red;
+}
+
+.profile_skeleton_loading .profile-item ::after {
+  background-color: red;
+} */
+
+/*#endregion skeleton loading*/
+
+/*Ipad ngang(1024 x 768)*/
+@media screen and (max-width: 1024px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan hocvan hocvan" "mota mota mota mota";
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan hocvan hocvan" "mota mota mota mota";
+  }
+}
+
+/*Ipad dọc(768 x 1024)*/
+@media screen and (max-width: 768px) {
+  .profile {
+    /* grid-template-columns: repeat(1, 1fr); */
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota";
+  }
+  .profile-dinhhuong-item span {
+    font-size: large;
+  }
+  .profile_quatrinhlamviec_item_left {
+    max-width: 100%;
+  }
+  .profile_quatrinhlamviec_item {
+    flex-direction: column;
+  }
+}
+/*Tablet nhỏ(480 x 640)*/
+@media screen and (max-width: 480px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota";
+  }
+}
+/*Iphone(480 x 640)*/
+@media screen and (max-width: 320px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota mota";
+  }
+}
+/*Smart phone nhỏ*/
+@media screen and (max-width: 240px) {
+  .profile {
+    grid-template-areas:
+      "slogan slogan slogan slogan"
+      "anhdaidien anhdaidien anhdaidien anhdaidien"
+      "dinhhuong dinhhuong dinhhuong dinhhuong"
+      "nangluc nangluc nangluc nangluc"
+      "quatrinhlamviec quatrinhlamviec quatrinhlamviec quatrinhlamviec"
+      "thongtincanhan thongtincanhan thongtincanhan thongtincanhan"
+      "hocvan hocvan hocvan hocvan"
+      "mota mota mota mota mota";
+  }
+}

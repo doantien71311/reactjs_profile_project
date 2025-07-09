@@ -1,7 +1,7 @@
 import { useContext, useMemo, useRef, useState } from "react";
 import { NhanVienType } from "../../../model/NhanVienType";
 import {
-  CellClickArgs,
+  CellMouseArgs,
   CellMouseEvent,
   CellSelectArgs,
   Column,
@@ -208,7 +208,7 @@ export const NhanVienGrid = () => {
     return row.soid;
   }
   function onCellClick(
-    args: CellClickArgs<NhanVienType, SummaryRow>,
+    args: CellMouseArgs<NhanVienType, SummaryRow>,
     event: CellMouseEvent
   ) {
     if (args.column.key === "soid") {

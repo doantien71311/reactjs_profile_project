@@ -4,7 +4,7 @@ import UrlApi from "../../../services/UrlApi";
 import { getArrayDataPromise } from "../../../services/HttpServices";
 import { CommonProps } from "./Props";
 import {
-  CellClickArgs,
+  CellMouseArgs,
   CellMouseEvent,
   CellSelectArgs,
   type DataGridHandle,
@@ -58,7 +58,7 @@ export const Grid = ({ selectRow }: CommonProps) => {
     return row.ma_hh;
   }
   function onCellClick(
-    args: CellClickArgs<FukudaSonSanPhamType>,
+    args: CellMouseArgs<FukudaSonSanPhamType>,
     event: CellMouseEvent
   ) {
     if (args.column.key === "id") {
