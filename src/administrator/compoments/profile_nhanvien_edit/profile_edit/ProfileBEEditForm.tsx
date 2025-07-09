@@ -24,7 +24,7 @@ export const ProfileBEEditForm = () => {
   const { dataApi, isLoadingApi, setDataApi } =
     useContext<ProfileBEEditContextProps>(ProfileBEEditContext);
   const initialized = useRef(false);
-  // const reactQuillRef = useRef<ReactQuill>(null);
+  const reactQuillRef = useRef<ReactQuill>(null);
   // const { quill, quillRef } = useQuill({
   //   modules: {
   //     toolbar: [
@@ -332,7 +332,7 @@ export const ProfileBEEditForm = () => {
                   <Tab eventKey="mota-viet" title="Editor">
                     <ReactQuill
                       key={`mota_${dataApi.soid}}`}
-                      // ref={reactQuillRef}
+                      ref={reactQuillRef}
                       theme="snow"
                       // theme="bubble"
                       // modules={modules}
