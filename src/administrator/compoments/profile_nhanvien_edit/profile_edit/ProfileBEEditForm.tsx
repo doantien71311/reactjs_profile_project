@@ -3,11 +3,18 @@ import {
   ProfileBEEditContext,
   ProfileBEEditContextProps,
 } from "./ProfileBEEditContext";
-import { useContext, useEffect, useMemo, useRef } from "react";
+import {
+  useContext,
+  useEffect,
+  // useMemo,
+  useRef,
+} from "react";
 import { ProfileBEKyNangIndex } from "./ProfileBEKyNangIndex";
 import { ProfileBEQuaTrinhLamViecIndex } from "./ProfileBEQuaTrinhLamViecIndex";
 import { ProfileBEAnhDaiDienIndex } from "./ProfileBEAnhDaiDienIndex";
-import ReactQuill, { Quill } from "react-quill-new";
+// import ReactQuill, { Quill } from "react-quill-new";
+
+//
 // import ImageResize from "quill-image-resize-module-react";
 // Quill.register("modules/imageResize", ImageResize);
 // import SyntaxHighlighter from "react-syntax-highlighter";
@@ -17,7 +24,7 @@ export const ProfileBEEditForm = () => {
   const { dataApi, isLoadingApi, setDataApi } =
     useContext<ProfileBEEditContextProps>(ProfileBEEditContext);
   const initialized = useRef(false);
-  const reactQuillRef = useRef<ReactQuill>(null);
+  // const reactQuillRef = useRef<ReactQuill>(null);
   // const { quill, quillRef } = useQuill({
   //   modules: {
   //     toolbar: [
@@ -95,77 +102,77 @@ export const ProfileBEEditForm = () => {
   //   };
   // }, []);
 
-  const imageHandler = () => {
-    if (!reactQuillRef.current) return;
+  // const imageHandler = () => {
+  //   if (!reactQuillRef.current) return;
 
-    const editor = reactQuillRef.current.getEditor();
-    const range = editor.getSelection();
-    const value = prompt("Please enter the image URL");
+  //   const editor = reactQuillRef.current.getEditor();
+  //   const range = editor.getSelection();
+  //   const value = prompt("Please enter the image URL");
 
-    if (value && range) {
-      editor.insertEmbed(range.index, "image", value, "user");
-    }
-  };
+  //   if (value && range) {
+  //     editor.insertEmbed(range.index, "image", value, "user");
+  //   }
+  // };
 
-  const modules = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ header: [1, 2, 3, 4, 5, 6] }, { font: [] }, { size: [] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
-          ["color", "background"],
-          [{ direction: "rtl" }, { direction: "ltr" }, "align"],
-          [
-            { list: "ordered" },
-            { list: "bullet" },
-            { indent: "-1" },
-            { indent: "+1" },
-          ],
-          ["link", "image", "video"],
-          ["code-block", "table"],
-          ["clean"],
-          ["custom"],
-        ],
+  // const modules = useMemo(
+  //   () => ({
+  //     toolbar: {
+  //       container: [
+  //         [{ header: [1, 2, 3, 4, 5, 6] }, { font: [] }, { size: [] }],
+  //         ["bold", "italic", "underline", "strike", "blockquote"],
+  //         ["color", "background"],
+  //         [{ direction: "rtl" }, { direction: "ltr" }, "align"],
+  //         [
+  //           { list: "ordered" },
+  //           { list: "bullet" },
+  //           { indent: "-1" },
+  //           { indent: "+1" },
+  //         ],
+  //         ["link", "image", "video"],
+  //         ["code-block", "table"],
+  //         ["clean"],
+  //         ["custom"],
+  //       ],
 
-        // resize: {
-        //   locale: {},
-        // },
-        handlers: {
-          // image: () => {
-          //   console.log("image clicked");
-          // },
-          image: imageHandler,
-          custom: () => {
-            console.log("custom clicked");
-          },
-        },
-        // ImageResize: {
-        //   modules: ["Resize", "DisplaySize", "Toolbar"],
-        // },
-      },
-      clipboard: {
-        matchVisual: false,
-      },
-      imageResize: {
-        parchment: Quill.import("parchment"),
-        handleStyles: {
-          displaySize: true,
-          backgroundColor: "black",
-          border: "none",
-          color: "white",
-        },
-        modules: ["Resize", "DisplaySize", "Toolbar"],
-        // displaySize: true,
-        // handleStyles: {
-        //   backgroundColor: "black",
-        //   border: "none",
-        //   color: "white",
-        //   // other camelCase styles for size display
-        // },
-      },
-    }),
-    []
-  );
+  //       // resize: {
+  //       //   locale: {},
+  //       // },
+  //       handlers: {
+  //         // image: () => {
+  //         //   console.log("image clicked");
+  //         // },
+  //         image: imageHandler,
+  //         custom: () => {
+  //           console.log("custom clicked");
+  //         },
+  //       },
+  //       // ImageResize: {
+  //       //   modules: ["Resize", "DisplaySize", "Toolbar"],
+  //       // },
+  //     },
+  //     clipboard: {
+  //       matchVisual: false,
+  //     },
+  //     imageResize: {
+  //       parchment: Quill.import("parchment"),
+  //       handleStyles: {
+  //         displaySize: true,
+  //         backgroundColor: "black",
+  //         border: "none",
+  //         color: "white",
+  //       },
+  //       modules: ["Resize", "DisplaySize", "Toolbar"],
+  //       // displaySize: true,
+  //       // handleStyles: {
+  //       //   backgroundColor: "black",
+  //       //   border: "none",
+  //       //   color: "white",
+  //       //   // other camelCase styles for size display
+  //       // },
+  //     },
+  //   }),
+  //   []
+  // );
 
   //#region cac hàm private
   const handleChangeTenNV = (event: string) => {
@@ -181,12 +188,12 @@ export const ProfileBEEditForm = () => {
     });
   };
 
-  const handleChangeMoTa = (event: string) => {
-    setDataApi({
-      ...dataApi,
-      mota: event,
-    });
-  };
+  // const handleChangeMoTa = (event: string) => {
+  //   setDataApi({
+  //     ...dataApi,
+  //     mota: event,
+  //   });
+  // };
   const handleChangeEmail = (event: string) => {
     setDataApi({
       ...dataApi,
@@ -323,7 +330,7 @@ export const ProfileBEEditForm = () => {
               <>
                 <Tabs defaultActiveKey="mota-viet" className="mb-3">
                   <Tab eventKey="mota-viet" title="Editor">
-                    <ReactQuill
+                    {/* <ReactQuill
                       key={`mota_${dataApi.soid}}`}
                       ref={reactQuillRef}
                       theme="snow"
@@ -332,7 +339,7 @@ export const ProfileBEEditForm = () => {
                       // formats={formats}
                       value={dataApi.mota ?? ""}
                       onChange={(event) => handleChangeMoTa(event)}
-                    />
+                    /> */}
                   </Tab>
                   <Tab eventKey="mota-code-html" title="Code Html">
                     {/* <SyntaxHighlighter
