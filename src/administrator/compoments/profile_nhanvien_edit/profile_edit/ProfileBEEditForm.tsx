@@ -17,8 +17,8 @@ import { ProfileBEAnhDaiDienIndex } from "./ProfileBEAnhDaiDienIndex";
 //
 // import ImageResize from "quill-image-resize-module-react";
 // Quill.register("modules/imageResize", ImageResize);
-// import SyntaxHighlighter from "react-syntax-highlighter";
-// import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 //
 export const ProfileBEEditForm = () => {
   const { dataApi, isLoadingApi, setDataApi } =
@@ -342,7 +342,7 @@ export const ProfileBEEditForm = () => {
                     /> */}
                   </Tab>
                   <Tab eventKey="mota-code-html" title="Code Html">
-                    {/* <SyntaxHighlighter
+                    <SyntaxHighlighter
                       lineProps={{
                         style: {
                           wordBreak: "break-all",
@@ -357,7 +357,7 @@ export const ProfileBEEditForm = () => {
                       style={docco}
                     >
                       {dataApi.mota ?? ""}
-                    </SyntaxHighlighter> */}
+                    </SyntaxHighlighter>
                   </Tab>
                 </Tabs>
               </>
