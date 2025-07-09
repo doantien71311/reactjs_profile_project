@@ -8,11 +8,7 @@ import {
 } from "react";
 import { ProfileNhanVienType } from "../../../../model/ProfileNhanVienType";
 import UrlApi from "../../../../services/UrlApi";
-import {
-  //getRowData,
-
-  postRowData,
-} from "../../../../services/HttpServices";
+import { getRowData, postRowData } from "../../../../services/HttpServices";
 import {
   ResponseApiType,
   ResponseApiTypeDefault,
@@ -59,13 +55,13 @@ export const ProfileBEEditProvider = ({ children }: ProfileBEEditProps) => {
   async function fetchData() {
     setUseIsLoadingApi(true);
     // // You can await here
-    // const data = await getRowData<ProfileNhanVienType>(
-    //   `${UrlApi.api_profile_nhan_vien_lay_ds}?soid=b37f37db-1b72-4177-b1f6-7429ff2c6fd6&ma_nv=ADMIN`
-    // );
+    const data = await getRowData<ProfileNhanVienType>(
+      `${UrlApi.api_profile_nhan_vien_lay_ds}?soid=b37f37db-1b72-4177-b1f6-7429ff2c6fd6&ma_nv=ADMIN`
+    );
     // console.log("Cách 2 ProfileBEEditProvider: api_profile_nhan_vien_lay_ds");
     // // ...
 
-    const data = {};
+    // const data = {};
     console.log(data);
     setUseDataApi(data);
     setUseIsLoadingApi(false);

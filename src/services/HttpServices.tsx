@@ -115,11 +115,12 @@ export const getRowData = <T,>(api: string): Promise<T> => {
       })
         .then((res) => res.json())
         .then((json) => {
+          
           const value: T = json.data.google_drive as T;
           return resolve(value);
         })
         .catch(() => {
-          // return resolve([]);
+          return resolve({} as T);
         });
     });
   });
