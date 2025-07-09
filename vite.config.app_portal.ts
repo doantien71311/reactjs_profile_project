@@ -7,9 +7,6 @@ export default defineConfig({
 
   //Tiến thêm vào để giảu quyết quill
   build: {
-    //outDir: "dist_portal",
-    // outDir: "dist_profile",
-
     commonjsOptions: {
       transformMixedEsModules: true,
     },
