@@ -6,6 +6,7 @@ import {
 import {
   useContext,
   useEffect,
+  useMemo,
   // useMemo,
   useRef,
 } from "react";
@@ -102,77 +103,76 @@ export const ProfileBEEditForm = () => {
   //   };
   // }, []);
 
-  // const imageHandler = () => {
-  //   if (!reactQuillRef.current) return;
+  const imageHandler = () => {
+    if (!reactQuillRef.current) return;
 
-  //   const editor = reactQuillRef.current.getEditor();
-  //   const range = editor.getSelection();
-  //   const value = prompt("Please enter the image URL");
+    const editor = reactQuillRef.current.getEditor();
+    const range = editor.getSelection();
+    const value = prompt("Please enter the image URL");
 
-  //   if (value && range) {
-  //     editor.insertEmbed(range.index, "image", value, "user");
-  //   }
-  // };
+    if (value && range) {
+      editor.insertEmbed(range.index, "image", value, "user");
+    }
+  };
 
-  // const modules = useMemo(
-  //   () => ({
-  //     toolbar: {
-  //       container: [
-  //         [{ header: [1, 2, 3, 4, 5, 6] }, { font: [] }, { size: [] }],
-  //         ["bold", "italic", "underline", "strike", "blockquote"],
-  //         ["color", "background"],
-  //         [{ direction: "rtl" }, { direction: "ltr" }, "align"],
-  //         [
-  //           { list: "ordered" },
-  //           { list: "bullet" },
-  //           { indent: "-1" },
-  //           { indent: "+1" },
-  //         ],
-  //         ["link", "image", "video"],
-  //         ["code-block", "table"],
-  //         ["clean"],
-  //         ["custom"],
-  //       ],
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, 5, 6] }, { font: [] }, { size: [] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          ["color", "background"],
+          [{ direction: "rtl" }, { direction: "ltr" }, "align"],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image", "video"],
+          ["code-block", "table"],
+          ["clean"],
+        ],
 
-  //       // resize: {
-  //       //   locale: {},
-  //       // },
-  //       handlers: {
-  //         // image: () => {
-  //         //   console.log("image clicked");
-  //         // },
-  //         image: imageHandler,
-  //         custom: () => {
-  //           console.log("custom clicked");
-  //         },
-  //       },
-  //       // ImageResize: {
-  //       //   modules: ["Resize", "DisplaySize", "Toolbar"],
-  //       // },
-  //     },
-  //     clipboard: {
-  //       matchVisual: false,
-  //     },
-  //     imageResize: {
-  //       parchment: Quill.import("parchment"),
-  //       handleStyles: {
-  //         displaySize: true,
-  //         backgroundColor: "black",
-  //         border: "none",
-  //         color: "white",
-  //       },
-  //       modules: ["Resize", "DisplaySize", "Toolbar"],
-  //       // displaySize: true,
-  //       // handleStyles: {
-  //       //   backgroundColor: "black",
-  //       //   border: "none",
-  //       //   color: "white",
-  //       //   // other camelCase styles for size display
-  //       // },
-  //     },
-  //   }),
-  //   []
-  // );
+        // resize: {
+        //   locale: {},
+        // },
+        handlers: {
+          // image: () => {
+          //   console.log("image clicked");
+          // },
+          image: imageHandler,
+          custom: () => {
+            console.log("custom clicked");
+          },
+        },
+        // ImageResize: {
+        //   modules: ["Resize", "DisplaySize", "Toolbar"],
+        // },
+      },
+      clipboard: {
+        matchVisual: false,
+      },
+      imageResize: {
+        // parchment: Quill.import("parchment"),
+        handleStyles: {
+          displaySize: true,
+          backgroundColor: "black",
+          border: "none",
+          color: "white",
+        },
+        modules: ["Resize", "DisplaySize", "Toolbar"],
+        // displaySize: true,
+        // handleStyles: {
+        //   backgroundColor: "black",
+        //   border: "none",
+        //   color: "white",
+        //   // other camelCase styles for size display
+        // },
+      },
+    }),
+    []
+  );
 
   //#region cac hàm private
   const handleChangeTenNV = (event: string) => {
@@ -335,7 +335,7 @@ export const ProfileBEEditForm = () => {
                       ref={reactQuillRef}
                       theme="snow"
                       // theme="bubble"
-                      // modules={modules}
+                      modules={modules}
                       // formats={formats}
                       value={dataApi.mota ?? ""}
                       onChange={(event) => handleChangeMoTa(event)}
