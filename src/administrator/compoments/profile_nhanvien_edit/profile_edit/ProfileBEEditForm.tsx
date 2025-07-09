@@ -12,7 +12,7 @@ import {
 import { ProfileBEKyNangIndex } from "./ProfileBEKyNangIndex";
 import { ProfileBEQuaTrinhLamViecIndex } from "./ProfileBEQuaTrinhLamViecIndex";
 import { ProfileBEAnhDaiDienIndex } from "./ProfileBEAnhDaiDienIndex";
-// import ReactQuill, { Quill } from "react-quill-new";
+import ReactQuill from "react-quill-new";
 
 //
 // import ImageResize from "quill-image-resize-module-react";
@@ -188,12 +188,12 @@ export const ProfileBEEditForm = () => {
     });
   };
 
-  // const handleChangeMoTa = (event: string) => {
-  //   setDataApi({
-  //     ...dataApi,
-  //     mota: event,
-  //   });
-  // };
+  const handleChangeMoTa = (event: string) => {
+    setDataApi({
+      ...dataApi,
+      mota: event,
+    });
+  };
   const handleChangeEmail = (event: string) => {
     setDataApi({
       ...dataApi,
@@ -330,16 +330,16 @@ export const ProfileBEEditForm = () => {
               <>
                 <Tabs defaultActiveKey="mota-viet" className="mb-3">
                   <Tab eventKey="mota-viet" title="Editor">
-                    {/* <ReactQuill
+                    <ReactQuill
                       key={`mota_${dataApi.soid}}`}
-                      ref={reactQuillRef}
+                      // ref={reactQuillRef}
                       theme="snow"
                       // theme="bubble"
-                      modules={modules}
+                      // modules={modules}
                       // formats={formats}
                       value={dataApi.mota ?? ""}
                       onChange={(event) => handleChangeMoTa(event)}
-                    /> */}
+                    />
                   </Tab>
                   <Tab eventKey="mota-code-html" title="Code Html">
                     <SyntaxHighlighter
