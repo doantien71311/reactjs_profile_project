@@ -58,7 +58,7 @@ export const ProfileBEEditProvider = ({ children }: ProfileBEEditProps) => {
     const data = await getRowData<ProfileNhanVienType>(
       `${UrlApi.api_profile_nhan_vien_lay_ds}?soid=b37f37db-1b72-4177-b1f6-7429ff2c6fd6&ma_nv=ADMIN`
     );
-    //console.log("Cách 2 ProfileBEEditProvider:");
+    console.log("Cách 2 ProfileBEEditProvider: api_profile_nhan_vien_lay_ds");
     // ...
     console.log(data);
     setUseDataApi(data);
@@ -86,7 +86,7 @@ export const ProfileBEEditProvider = ({ children }: ProfileBEEditProps) => {
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
-    fetchData();
+    // fetchData();
 
     return () => {
       console.log("Cách 2 ProfileBEEditProvider: useEffect - count - cleanup");
