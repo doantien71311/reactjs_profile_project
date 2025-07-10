@@ -46,7 +46,7 @@
   /* border: 1px solid black; */
   /* border-radius: 20px; */
   /* box-shadow: 0px 0px 5px 1px grey; */
-  min-width: 300px;
+  min-width: 320px;
   /* max-width: 1000px; */
   margin: 0px auto 0px auto;
   /* margin: 5px; */
@@ -800,6 +800,10 @@
 }
 .profile_mota_noidung {
   margin: 10px;
+}
+
+.profile_mota_noidung img {
+  max-width: 100% !important;
 }
 
 /*#endregion bản thân */
