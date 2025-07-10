@@ -44,6 +44,12 @@
 .profile-anhdaidien {
   grid-area: anhdaidien;
   /* border: 1px solid black; */
+  /* border-radius: 20px; */
+  /* box-shadow: 0px 0px 5px 1px grey; */
+  min-width: 400px;
+  max-width: 500px;
+  margin: 0px auto 0px auto;
+  /* margin: 5px; */
   /* display: flex; */
   /* flex-direction: column; */
   /* gap: 5px; */
@@ -253,6 +259,13 @@
 /*#endregion slogan */
 
 /*#region anh dai dien */
+
+.profile_anhdaidien_round {
+  /* margin-left: 5px; */
+  /* margin-right: 5px; */
+  /* border-radius: 20px; */
+  /* border: 1px solid black; */
+}
 
 .profile_anhdaidien_top {
   max-height: calc(100% - 70px);
@@ -842,6 +855,7 @@
   right: 0;
   width: 100%;
   height: 100%;
+  z-index: 100;
   /* min-height: 300px;
   max-height: 500px; */
   /* height: 500px; */
@@ -865,6 +879,7 @@
   right: 0;
   width: 100%;
   height: 100%;
+  z-index: 100;
   /* height: 500px;
   min-height: 300px;
   max-height: 500px; */

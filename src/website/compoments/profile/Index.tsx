@@ -7,29 +7,29 @@ import { ProfileProvider } from "./ProfileContext";
 import "./ProfileIndex.css";
 import { DinhHuong } from "./DinhHuong";
 import { NangLuc } from "./NangLuc";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import { Slogan } from "./Slogan";
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 export const Profile = () => {
   const initialized = useRef(false);
 
   useEffect(() => {
     if (initialized.current) return;
+    initialized.current = true;
     document.title = ".Net Developer of Mrtien71311";
-    const link =
-      document.querySelector("link[rel*='icon']") ||
-      document.createElement("link");
-    link.setAttribute("link", "image/x-icon");
-    link.setAttribute("rel", "shortcut icon");
-    link.setAttribute(
-      "href",
-      "https://lh3.googleusercontent.com/d/1tqobxV2f7_dvEo_cKcWUgIsJB4XuB7BE=w100"
-    );
-    document.getElementsByTagName("head")[0].appendChild(link);
-    initialized.current = false;
+    // const link =
+    //   document.querySelector("link[rel*='icon']") ||
+    //   document.createElement("link");
+    // link.setAttribute("link", "image/x-icon");
+    // link.setAttribute("rel", "shortcut icon");
+    // link.setAttribute(
+    //   "href",
+    //   "https://lh3.googleusercontent.com/d/1tqobxV2f7_dvEo_cKcWUgIsJB4XuB7BE=w100"
+    // );
+    // document.getElementsByTagName("head")[0].appendChild(link);
   }, []);
   return (
     <div className="profile profile_skeleton_loading">

@@ -19,18 +19,32 @@ export const ImageDaiDien = () => {
   const [currentImage, setCurrentImage] = useState<ProfileHinhAnhType>({});
   //
   useEffect(() => {
+    // if (initialized.current) return;
     initialized.current = true;
     if (isLoadingApi) return;
-    // setLeftImage(dataImage[dataImage.length - 1]);
+    // onHandImageClick(dataImage[0]);
+    if (!dataImage || dataImage.length < 1) return;
+    // const length = dataImage.length;
     // setCurrentImage(dataImage[0]);
-    // setRightImage(dataImage[1]);
+    // let indexLeft = length - 1;
+    // indexLeft = indexLeft < 0 ? 0 : indexLeft;
+    // setLeftImage(dataImage[indexLeft]);
+    // let indexRight = 1;
+    // indexRight = length < 2 ? 1 : indexRight;
+    // setRightImage(dataImage[indexRight]);
+
     onHandImageClick(dataImage[0]);
   }, [isLoadingApi]);
 
+  // useEffect(() => {
+  //   initialized.current = true;
+  //   if (isLoadingApi) return;
+  //   if (!currentImage) return;
+  //   if ((currentImage.id ?? "") == "") return;
+  //   onHandImageClick(currentImage);
+  // }, [currentImage, isLoadingApi]);
+
   const onHandImageClick = (item: ProfileHinhAnhType) => {
-    // if (imageContainerRef.current == null) return;
-    // imageContainerRef.current.scrollLeft = calScroll(newIndex);
-    // setCurrentIndex(newIndex);
     const index = dataImage.indexOf(item);
     let indexLeft = index - 1;
     if (indexLeft < 0) {
@@ -40,7 +54,13 @@ export const ImageDaiDien = () => {
     if (indexRight >= dataImage.length) {
       indexRight = 0;
     }
-    setLeftImage(dataImage[indexLeft]);
+    console.log(index);
+    const leftIndex = dataImage[indexLeft];
+    // const leftData = leftIndex;
+    // leftData.id = leftIndex.id;
+    // leftData.id = leftIndex.url_hinhanh;
+
+    setLeftImage(leftIndex);
     setCurrentImage(dataImage[index]);
     setRightImage(dataImage[indexRight]);
   };
@@ -65,21 +85,22 @@ export const ImageDaiDien = () => {
   return (
     <motion.section className="profile-item profile-anhdaidien">
       <motion.div
-      // initial={{
-      //   scale: 0,
-      // }}
-      // whileInView={{
-      //   scale: 1,
-      //   // rotate: 360,
-      //   // opacity: 1,
-      //   transition: {
-      //     ease: "easeOut",
-      //     // ease: "backInOut",
-      //     delay: 1,
-      //     duration: 1.5,
-      //   },
-      // }}
-      // viewport={{ once: true }}
+        className="profile_anhdaidien_round"
+        // initial={{
+        //   scale: 0,
+        // }}
+        // whileInView={{
+        //   scale: 1,
+        //   // rotate: 360,
+        //   // opacity: 1,
+        //   transition: {
+        //     ease: "easeOut",
+        //     // ease: "backInOut",
+        //     delay: 1,
+        //     duration: 1.5,
+        //   },
+        // }}
+        // viewport={{ once: true }}
       >
         <motion.div
           // drag="x"
@@ -88,10 +109,13 @@ export const ImageDaiDien = () => {
         >
           <motion.img
             key={leftImage.id}
-            initial={{
-              transform: "translateX(0px) scale(1)",
-              // boxShadow: "none",
-            }}
+            initial={
+              {
+                // transform: "translateX(0px) scale(0.8)",
+                // transform: "translateX(0px)",
+                // boxShadow: "none",
+              }
+            }
             whileInView={{
               transform: "translateX(15%) scale(0.8)",
               zIndex: 9,
@@ -108,15 +132,17 @@ export const ImageDaiDien = () => {
           <motion.img
             key={currentImage.id}
             initial={{
-              transform: "translateX(0px) scale(1)",
-              opacity: 0.7,
+              // transform: "translateX(0px)",
+              transform: "scale(1)",
+              //transform: "translateX(0px) scale(1)",
+              // opacity: 0.7,
               // boxShadow: "none",
             }}
             whileInView={{
-              transform: "translateX(0px) scale(1)",
+              transform: "scale(1)",
               zIndex: 10,
               opacity: 1,
-              boxShadow: "0px 0px 30px 1px grey",
+              boxShadow: "0px 0px 10x 1px grey",
               transition: {
                 // delay: 0.3,
                 duration: 0.7,
@@ -127,10 +153,12 @@ export const ImageDaiDien = () => {
           />
           <motion.img
             key={rightImage.id}
-            initial={{
-              transform: "translateX(0px) scale(1)",
-              boxShadow: "none",
-            }}
+            initial={
+              {
+                // transform: "scale(0.8)",
+                // boxShadow: "none",
+              }
+            }
             whileInView={{
               transform: "translateX(-15%) scale(0.8)",
               zIndex: 9,
