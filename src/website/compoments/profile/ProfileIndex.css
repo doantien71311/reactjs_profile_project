@@ -27,12 +27,13 @@
   /* border-radius: var(--value-border-radius); */
   /* box-shadow: 3px 3px 5px var(--color-box-shadow-item); */
   min-height: 300px;
-  margin: 0px auto 0px auto;
+  /* margin: 0px auto 0px auto; */
   /* min-width: 300px; */
 }
 .profile-slogan {
   grid-area: slogan;
   min-height: auto;
+  /* width: 100vw; */
   /* border: 1px solid; */
   /* color: var(--primary-one-right-color); */
   color: var(--complementary-first-color);
@@ -47,7 +48,7 @@
   /* border: 1px solid black; */
   /* border-radius: 20px; */
   /* box-shadow: 0px 0px 5px 1px grey; */
-  min-width: 320px;
+  min-width: 300px;
   /* max-width: 1000px; */
 
   /* margin: 5px; */
@@ -162,6 +163,7 @@
 
 .profile_slogan_line {
   height: 5px;
+  /* width: auto; */
   flex-grow: 1;
   margin-top: 1.5%;
   /* font-size: small; */
