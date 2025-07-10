@@ -10,7 +10,7 @@ import { NangLuc } from "./NangLuc";
 // import gsap from "gsap";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
-import { Slogan } from "./Slogan";
+// import { Slogan } from "./Slogan";
 // gsap.registerPlugin(ScrollTrigger);
 
 export const Profile = () => {
@@ -35,7 +35,7 @@ export const Profile = () => {
     <div className="profile profile_skeleton_loading">
       {/* <div className={classNameProfile}> */}
       <ProfileProvider>
-        <Slogan></Slogan>
+        {/* <Slogan></Slogan> */}
         <ImageDaiDien></ImageDaiDien>
         <DinhHuong></DinhHuong>
         <NangLuc></NangLuc>
