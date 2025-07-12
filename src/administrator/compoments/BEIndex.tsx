@@ -18,7 +18,8 @@ import { HeaderIndex } from "./header/HeaderIndex";
 import { BEContext, BEContextProps } from "./BEContext";
 import { useContext, useEffect, useRef } from "react";
 // or import 'quill/dist/quill.bubble.css'; // Add css for bubble theme
-
+import "react-datepicker/dist/react-datepicker.css";
+//
 export const BEIndex = () => {
   const { isShowMenu } = useContext<BEContextProps>(BEContext);
   const initialized = useRef(false);

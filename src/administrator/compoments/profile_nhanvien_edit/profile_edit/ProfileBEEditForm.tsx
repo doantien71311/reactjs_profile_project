@@ -20,6 +20,7 @@ import ReactQuill from "react-quill-new";
 // Quill.register("modules/imageResize", ImageResize);
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { ProfileBEDinhHuongIndex } from "./ProfileBEDinhHuongIndex";
 //
 export const ProfileBEEditForm = () => {
   const { dataApi, isLoadingApi, setDataApi } =
@@ -47,8 +48,10 @@ export const ProfileBEEditForm = () => {
   // });
 
   useEffect(() => {
-    // if (initialized.current) return;
+    if (initialized.current) return;
     initialized.current = true;
+    // quill.root.setAttribute('spellcheck', false)
+    // reactQuillRef.setAttribute("spellcheck", false);
     // if (quill && !isLoadingApi) {
     //   quill.on("text-change", () => {
     //     // console.log("Text change!");
@@ -119,6 +122,7 @@ export const ProfileBEEditForm = () => {
     () => ({
       toolbar: {
         container: [
+          [{ color: [] }], // Enables color picker in the toolbar
           [{ header: [1, 2, 3, 4, 5, 6] }, { font: [] }, { size: [] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
           ["color", "background"],
@@ -142,9 +146,6 @@ export const ProfileBEEditForm = () => {
           //   console.log("image clicked");
           // },
           image: imageHandler,
-          custom: () => {
-            console.log("custom clicked");
-          },
         },
         // ImageResize: {
         //   modules: ["Resize", "DisplaySize", "Toolbar"],
@@ -224,6 +225,7 @@ export const ProfileBEEditForm = () => {
         defaultActiveKey={[
           "thongtincanhan",
           "hinhanh",
+          "dinhhuong",
           "kynang",
           "quatrinhlamviec",
           "hocvan",
@@ -296,6 +298,8 @@ export const ProfileBEEditForm = () => {
         </Accordion.Item> */}
         <ProfileBEAnhDaiDienIndex></ProfileBEAnhDaiDienIndex>
 
+        <ProfileBEDinhHuongIndex></ProfileBEDinhHuongIndex>
+
         <ProfileBEKyNangIndex></ProfileBEKyNangIndex>
 
         <ProfileBEQuaTrinhLamViecIndex></ProfileBEQuaTrinhLamViecIndex>
@@ -330,16 +334,18 @@ export const ProfileBEEditForm = () => {
               <>
                 <Tabs defaultActiveKey="mota-viet" className="mb-3">
                   <Tab eventKey="mota-viet" title="Editor">
-                    <ReactQuill
-                      key={`mota_${dataApi.soid}}`}
-                      ref={reactQuillRef}
-                      theme="snow"
-                      // theme="bubble"
-                      modules={modules}
-                      // formats={formats}
-                      value={dataApi.mota ?? ""}
-                      onChange={(event) => handleChangeMoTa(event)}
-                    />
+                    <div spellCheck={false}>
+                      <ReactQuill
+                        key={`mota_${dataApi.soid}}`}
+                        ref={reactQuillRef}
+                        theme="snow"
+                        // theme="bubble"
+                        modules={modules}
+                        // formats={formats}
+                        value={dataApi.mota ?? ""}
+                        onChange={(event) => handleChangeMoTa(event)}
+                      />
+                    </div>
                   </Tab>
                   <Tab eventKey="mota-code-html" title="Code Html">
                     <SyntaxHighlighter

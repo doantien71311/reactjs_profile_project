@@ -1,4 +1,4 @@
-import { useContext, useMemo, useRef, useState } from "react";
+import { createContext, useContext, useMemo, useRef, useState } from "react";
 import { NhanVienType } from "../../../model/NhanVienType";
 import {
   CellMouseArgs,
@@ -6,6 +6,7 @@ import {
   CellSelectArgs,
   Column,
   RenderCellProps,
+  RenderHeaderCellProps,
   SortColumn,
   type DataGridHandle,
 } from "react-data-grid";
@@ -14,32 +15,51 @@ import { NhanVienContext, NhanVienContextProps } from "./NhanVienContext";
 import BEConstCSS from "../BEConstCSS";
 import { Image } from "react-bootstrap";
 
+// const dateFormatter = new Intl.DateTimeFormat("vi-VN", {
+//   year: "numeric",
+//   month: "2-digit",
+//   day: "2-digit",
+// });
+
 interface SummaryRow {
   id: string;
   totalCount: number;
   yesCount: number;
 }
-
+interface NhanVienFilter extends Omit<NhanVienType, "soid" | "complete"> {
+  ten_nv: string | undefined;
+}
+const FilterContext = createContext<NhanVienFilter | undefined>(undefined);
+function inputStopPropagation(event: React.KeyboardEvent<HTMLInputElement>) {
+  if (["ArrowLeft", "ArrowRight"].includes(event.key)) {
+    event.stopPropagation();
+  }
+}
+function FilterNhanVienRenderer<R, S>({
+  tabIndex,
+  column,
+  children,
+}: RenderHeaderCellProps<R, S> & {
+  children: (args: {
+    tabIndex: number;
+    filters: NhanVienFilter;
+  }) => React.ReactElement;
+}) {
+  const filters = useContext(FilterContext)!;
+  return (
+    <>
+      <div>{column.name}</div>
+      <div>{children({ tabIndex, filters })}</div>
+    </>
+  );
+}
 export const NhanVienGrid = () => {
+  //
   const context = useContext<NhanVienContextProps>(NhanVienContext);
   const gridRef = useRef<DataGridHandle>(null);
-  //
-  const [sortColumns, setSortColumns] = useState<readonly SortColumn[]>([]);
-  const sortedRows = useMemo((): readonly NhanVienType[] => {
-    if (sortColumns.length === 0) return context.dataApi;
 
-    return context.dataApi.toSorted((a, b) => {
-      for (const sort of sortColumns) {
-        const comparator = getComparator(sort.columnKey);
-        const compResult = comparator(a, b);
-        if (compResult !== 0) {
-          return sort.direction === "ASC" ? compResult : -compResult;
-        }
-        // return sort.direction === "ASC" ? 1 : -1;
-      }
-      return 0;
-    });
-  }, [context.dataApi, sortColumns]);
+  //#region các hàm private
+
   type Comparator = (a: NhanVienType, b: NhanVienType) => number;
   function getComparator(sortColumn: string): Comparator {
     switch (sortColumn) {
@@ -51,15 +71,148 @@ export const NhanVienGrid = () => {
         return (a, b) => {
           return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
         };
-      case "id":
-      case "progress":
-      case "startTimestamp":
-      case "endTimestamp":
+      case "dienthoai":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "email":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "facebook":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "zalo":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "diachi_thuongtru":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "ma_chucvu":
+      case "ten_chucvu":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "ma_nv_tuyendung":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "ten_nv_tuyendung":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "ngaysinh_string":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
+      case "soid":
+        return (a, b) => {
+          return (a[sortColumn] ?? "").localeCompare(b[sortColumn] ?? "");
+        };
       default:
         throw new Error(`unsupported sortColumn: "${sortColumn}"`);
     }
   }
+  //#endregion end các hàm private
 
+  const [filters, setFilters] = useState(
+    (): NhanVienFilter => ({
+      ten_nv: "",
+      ma_nv: "",
+      dienthoai: "",
+      email: "",
+      ngaysinh_string: "",
+      diachi_thuongtru: "",
+      ma_chucvu: "",
+      ten_chucvu: "",
+      ma_nv_tuyendung: "",
+      ten_nv_tuyendung: "",
+    })
+  );
+
+  //#region các use state
+  const [sortColumns, setSortColumns] = useState<readonly SortColumn[]>([]);
+
+  //#endregion các use state
+
+  //#region các useMemo
+
+  const filteredRows = useMemo(() => {
+    // console.log("filteredRows :" + filters.ten_nv);
+    const dataFilter = context.dataApi.filter((r) => {
+      return (
+        (filters.ten_nv
+          ? (r.ten_nv ?? "")
+              .toLowerCase()
+              .includes(filters.ten_nv.toLowerCase())
+          : true) &&
+        (filters.ma_nv
+          ? (r.ma_nv ?? "").toLowerCase().includes(filters.ma_nv.toLowerCase())
+          : true) &&
+        (filters.dienthoai
+          ? (r.dienthoai ?? "")
+              .toLowerCase()
+              .includes(filters.dienthoai.toLowerCase())
+          : true) &&
+        (filters.ten_chucvu
+          ? (r.ten_chucvu ?? "")
+              .toLowerCase()
+              .includes(filters.ten_chucvu.toLowerCase())
+          : true) &&
+        (filters.ma_nv_tuyendung
+          ? (r.ma_nv_tuyendung ?? "")
+              .toLowerCase()
+              .includes(filters.ma_nv_tuyendung.toLowerCase())
+          : true) &&
+        (filters.ten_nv_tuyendung
+          ? (r.ten_nv_tuyendung ?? "")
+              .toLowerCase()
+              .includes(filters.ten_nv_tuyendung.toLowerCase())
+          : true) &&
+        (filters.ngaysinh_string
+          ? (r.ngaysinh_string ?? "")
+              .toLowerCase()
+              .includes(filters.ngaysinh_string.toLowerCase())
+          : true)
+      );
+    });
+    if (sortColumns.length === 0) return dataFilter;
+    return dataFilter.toSorted((a, b) => {
+      for (const sort of sortColumns) {
+        const comparator = getComparator(sort.columnKey);
+        const compResult = comparator(a, b);
+        if (compResult !== 0) {
+          return sort.direction === "ASC" ? compResult : -compResult;
+        }
+        // return sort.direction === "ASC" ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [
+    context.dataApi,
+    filters,
+    //  , sortColumns /// Tiến tạm khóa vì sort column và filter row trùng nhau
+  ]);
+
+  // const sortedRows = useMemo((): readonly NhanVienType[] => {
+  //   if (sortColumns.length === 0) return context.dataApi;
+
+  //   return context.dataApi.toSorted((a, b) => {
+  //     for (const sort of sortColumns) {
+  //       const comparator = getComparator(sort.columnKey);
+  //       const compResult = comparator(a, b);
+  //       if (compResult !== 0) {
+  //         return sort.direction === "ASC" ? compResult : -compResult;
+  //       }
+  //       // return sort.direction === "ASC" ? 1 : -1;
+  //     }
+  //     return 0;
+  //   });
+  // }, [context.dataApi, sortColumns]);
+  //
   const summaryRows = useMemo((): readonly SummaryRow[] => {
     return [
       {
@@ -81,6 +234,30 @@ export const NhanVienGrid = () => {
         renderSummaryCell() {
           return <strong>Tổng cộng</strong>;
         },
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.ma_nv ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ma_nv: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "ten_nv",
@@ -92,26 +269,31 @@ export const NhanVienGrid = () => {
             maximumFractionDigits: 0,
           })} Nhân viên`;
         },
-        // maxWidth: 100,
-        // renderHeaderCell: (p) => (
-        //   <FilterRenderer<NhanVienType> {...p}>
-        //     {({ filters, ...rest }) => (
-        //       <input
-        //         {...rest}
-        //         // className={filterClassname}
-        //         value={filters.ten_hh ?? ""}
-        //         onChange={(e) =>
-        //           // setFilters({
-        //           //   ...filters,
-        //           //   ten_hh: e.target.value,
-        //           // })
-        //           console.log(e)
-        //         }
-        //         onKeyDown={inputStopPropagation}
-        //       />
-        //     )}
-        //   </FilterRenderer>
-        // ),
+        // headerCellClass: "filter-cell",
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.ten_nv ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ten_nv: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "dienthoai",
@@ -120,18 +302,127 @@ export const NhanVienGrid = () => {
         minWidth: 150,
         width: "max-content",
         // maxWidth: 100,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.dienthoai ?? ""}
+                onChange={(e) => {
+                  setFilters({
+                    ...filters,
+                    dienthoai: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "email",
         name: "Email",
         width: "minmax(10%, max-content)",
         minWidth: 300,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.email ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    email: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
-        key: "ngaysinh",
+        key: "ngaysinh_string",
         name: "Ngày sinh",
         width: "minmax(10%, max-content)",
         minWidth: 150,
+        // renderCell(props) {
+        //   return new Intl.DateTimeFormat("vi-VN", {
+        //     year: "numeric",
+        //     month: "2-digit",
+        //     day: "2-digit",
+        //   }).format(props.row.ngaysinh);
+        // },
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              // <Form.Control
+              //   {...rest}
+              //   type="date"
+              //   name="datepic"
+              //   placeholder="DateRange"
+              //   value={filters.ngaysinh!}
+              //   onChange={(e) => setFilters(e.target.value)}
+              // />
+
+              // <DatePicker
+              //   {...rest}
+              //   selected={filters.ngaysinh}
+              //   dateFormat={"dd/MM/yyyy"}
+              //   dateFormatCalendar={"dd/MM/yyyy"}
+              //   preventOpenOnFocus={false}
+              //   showTimeSelect={false}
+              //   showTimeInput={false}
+              //   showWeekPicker={false}
+              //   showMonthYearPicker={false}
+              //   showFullMonthYearPicker={false}
+              //   showTwoColumnMonthYearPicker={false}
+              //   showFourColumnMonthYearPicker={false}
+              //   selectsDisabledDaysInRange={true}
+              //   showYearPicker={false}
+              //   showQuarterYearPicker={false}
+              //   enableTabLoop={false}
+              //   swapRange={false}
+              //   onChange={(dataDate) =>
+              //     setFilters({
+              //       ...filters,
+              //       ngaysinh: dataDate! ?? Date.now(),
+              //     })
+              //   }
+              //   // onKeyDown={inputStopPropagation}
+              // />
+
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                value={filters.ngaysinh_string}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ngaysinh_string: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
 
       {
@@ -139,18 +430,90 @@ export const NhanVienGrid = () => {
         name: "Địa chỉ thường trú",
         width: "minmax(10%, max-content)",
         minWidth: 400,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.diachi_thuongtru ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    diachi_thuongtru: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "ma_chucvu",
         name: "Mã chức vụ",
         width: "minmax(10%, max-content)",
         minWidth: 100,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.ma_chucvu ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ma_chucvu: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "ten_chucvu",
         name: "Tên chức vụ",
         width: "minmax(10%, max-content)",
         minWidth: 200,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.ten_chucvu ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ten_chucvu: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "url_hinhanh",
@@ -183,12 +546,60 @@ export const NhanVienGrid = () => {
         name: "Mã NV tuyển dụng",
         width: "minmax(10%, max-content)",
         minWidth: 150,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.ma_nv_tuyendung ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ma_nv_tuyendung: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "ten_nv_tuyendung",
         name: "Tên nhân viên tuyển dụng",
         width: "minmax(10%, max-content)",
         minWidth: 300,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.ten_nv_tuyendung ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ten_nv_tuyendung: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
       {
         key: "id",
@@ -197,13 +608,41 @@ export const NhanVienGrid = () => {
         width: "max-content",
         minWidth: 50,
         // maxWidth: 100,
+        renderHeaderCell: (p) => (
+          <FilterNhanVienRenderer<NhanVienType, SummaryRow> {...p}>
+            {({ filters, ...rest }) => (
+              <input
+                {...rest}
+                className={"grid_fill_header_cell_filter"}
+                // style={{
+                //   inlineSize: "100%",
+                //   padding: "4px",
+                //   fontSize: "14px",
+                // }}
+                value={filters.ten_nv_tuyendung ?? ""}
+                onChange={(e) => {
+                  // console.log("ten_nv :" + e.target.value);
+                  setFilters({
+                    ...filters,
+                    ten_nv: e.target.value,
+                  });
+                }}
+                onKeyDown={inputStopPropagation}
+              />
+            )}
+          </FilterNhanVienRenderer>
+        ),
       },
     ];
   }, []);
 
+  //#endregion các useMemo
+
   const [selectedRows, setSelectedRows] = useState(
     (): ReadonlySet<string> => new Set()
   );
+
+  //#region các function của data grid
   function rowKeyGetter(row: NhanVienType) {
     return row.soid;
   }
@@ -217,9 +656,6 @@ export const NhanVienGrid = () => {
     context.selectRow.soid = args.row.soid;
     context.selectRow.ma_nv = args.row.ma_nv;
     context.setSelectRow(context.selectRow);
-    // selectRow.id = args.row.id;
-    // selectRow.ma_hh = args.row.ma_hh;
-    // console.log("onCellClick: " + selectRow.id);
   }
   function onSelectedCellChange(
     args: CellSelectArgs<NhanVienType, SummaryRow>
@@ -230,46 +666,36 @@ export const NhanVienGrid = () => {
     context.setSelectRow(context.selectRow);
     // console.log("onSelectedCellChange: " + selectRow.id);
   }
-
-  // const [filters, setFilters] = useState(
-  //   (): Filter => ({
-  //     ten_hh: "",
-  //     ma_hh_nhacungcap: "",
-  //     ma_hh: "",
-  //     // id: "",
-  //     complete: undefined,
-  //     enabled: true,
-  //   })
-  // );
+  //#endregion các function của data grid
 
   return (
     <div>
-      {/* <FilterContext value={filters}> */}
-      <DataGrid
-        ref={gridRef}
-        key={"nhanvien"}
-        className={`${BEConstCSS.rdg_light} ${BEConstCSS.grid_fill}`}
-        rowKeyGetter={rowKeyGetter}
-        columns={columns}
-        // rows={context.dataApi}
-        rows={sortedRows}
-        selectedRows={selectedRows}
-        onSelectedRowsChange={setSelectedRows}
-        onSelectedCellChange={onSelectedCellChange}
-        onCellClick={onCellClick}
-        defaultColumnOptions={{
-          minWidth: 50,
-          resizable: true,
-          sortable: true,
-          draggable: true,
-        }}
-        // topSummaryRows={summaryRows}
-        bottomSummaryRows={summaryRows}
-        sortColumns={sortColumns}
-        onSortColumnsChange={setSortColumns}
-        rowHeight={55}
-      />
-      {/* </FilterContext> */}
+      <FilterContext value={filters}>
+        <DataGrid
+          ref={gridRef}
+          key={"nhanviengrid"}
+          className={`${BEConstCSS.rdg_light} ${BEConstCSS.grid_fill}`}
+          rowKeyGetter={rowKeyGetter}
+          columns={columns}
+          rows={filteredRows}
+          selectedRows={selectedRows}
+          onSelectedRowsChange={setSelectedRows}
+          onSelectedCellChange={onSelectedCellChange}
+          onCellClick={onCellClick}
+          defaultColumnOptions={{
+            minWidth: 50,
+            resizable: true,
+            sortable: true,
+            draggable: true,
+          }}
+          // topSummaryRows={summaryRows}
+          bottomSummaryRows={summaryRows}
+          sortColumns={sortColumns}
+          onSortColumnsChange={setSortColumns}
+          rowHeight={55}
+          headerRowHeight={70}
+        />
+      </FilterContext>
     </div>
   );
 };

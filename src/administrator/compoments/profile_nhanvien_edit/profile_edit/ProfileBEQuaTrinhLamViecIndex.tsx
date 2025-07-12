@@ -76,6 +76,66 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
       profile_nhanvien_quatrinhlamviec: list_qtlv_map,
     });
   };
+  const handleChangeThoiGian = (event: string) => {
+    setUseDataRow({
+      ...useDataRow,
+      thoigian_qtlv: event,
+    });
+    if (dataApi.profile_nhanvien_quatrinhlamviec == null) return;
+    const list_qtlv_map = dataApi.profile_nhanvien_quatrinhlamviec.map(
+      (row) => {
+        if (row.id == useDataRow.id) {
+          return { ...row, thoigian_qtlv: event };
+        } else {
+          return row;
+        }
+      }
+    );
+    setDataApi({
+      ...dataApi,
+      profile_nhanvien_quatrinhlamviec: list_qtlv_map,
+    });
+  };
+  const handleChangeCongTy = (event: string) => {
+    setUseDataRow({
+      ...useDataRow,
+      congty_qtlv: event,
+    });
+    if (dataApi.profile_nhanvien_quatrinhlamviec == null) return;
+    const list_qtlv_map = dataApi.profile_nhanvien_quatrinhlamviec.map(
+      (row) => {
+        if (row.id == useDataRow.id) {
+          return { ...row, congty_qtlv: event };
+        } else {
+          return row;
+        }
+      }
+    );
+    setDataApi({
+      ...dataApi,
+      profile_nhanvien_quatrinhlamviec: list_qtlv_map,
+    });
+  };
+  const handleChangeViTri = (event: string) => {
+    setUseDataRow({
+      ...useDataRow,
+      vitri_qtlv: event,
+    });
+    if (dataApi.profile_nhanvien_quatrinhlamviec == null) return;
+    const list_qtlv_map = dataApi.profile_nhanvien_quatrinhlamviec.map(
+      (row) => {
+        if (row.id == useDataRow.id) {
+          return { ...row, vitri_qtlv: event };
+        } else {
+          return row;
+        }
+      }
+    );
+    setDataApi({
+      ...dataApi,
+      profile_nhanvien_quatrinhlamviec: list_qtlv_map,
+    });
+  };
   //#endregion các hàm set value
 
   //#region các nút trên lưới
@@ -257,17 +317,20 @@ export const ProfileBEQuaTrinhLamViecIndex = () => {
             <Form.Label>Thời gian làm việc</Form.Label>
             <Form.Control
               type="text"
-              // value={useDataRow.thoigian_qtlv ?? ""}
+              value={useDataRow.thoigian_qtlv ?? ""}
+              onChange={(event) => handleChangeThoiGian(event.target.value)}
             ></Form.Control>
             <Form.Label>Tên công ty làm việc:</Form.Label>
             <Form.Control
               type="text"
-              // value={useDataRow.congty_qtlv ?? ""}
+              value={useDataRow.congty_qtlv ?? ""}
+              onChange={(event) => handleChangeCongTy(event.target.value)}
             ></Form.Control>
             <Form.Label>Vị trí làm việc:</Form.Label>
             <Form.Control
               type="text"
-              // value={useDataRow.congty_qtlv ?? ""}
+              value={useDataRow.congty_qtlv ?? ""}
+              onChange={(event) => handleChangeViTri(event.target.value)}
             ></Form.Control>
             <Form.Label>Mô tả công việc:</Form.Label>
             {/* <div

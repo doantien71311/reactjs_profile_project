@@ -633,6 +633,7 @@
 .profile_nangluc_circle svg circle {
   fill: transparent;
   stroke-width: 15px;
+  /* stroke-width: 25px; */
 }
 
 .profile_nangluc_circle svg circle:nth-child(1) {
@@ -644,16 +645,18 @@
 .profile_nangluc_circle svg circle:nth-child(2) {
   /* stroke-dashoffset: calc(250 - (250 * var(--nangluc-phantram)) / 100); */
   /* opacity: calc(var(--nangluc-phantram) / 100); */
-  stroke-dasharray: 250;
+  stroke-dasharray: 250 250;
   stroke-linecap: square;
   stroke-width: 16px;
   stroke: var(--primary-color);
   /* animation: fillProfileNangLucCircle 1.5s 1 ease-out; */
 }
 .profile_nangluc_circle svg circle:nth-child(3) {
-  stroke-dashoffset: calc((-1) * (250 * var(--nangluc-phantram)) / 100);
+  stroke-dashoffset: calc((-1) * (250px * var(--nangluc-phantram)) / 100);
+  /* stroke-dashoffset: calc(-1 * 170px); */
+  /* stroke-dashoffset: 170; */
   /* stroke-dashoffset: calc(-1 * 175); */
-  stroke-dasharray: 250;
+  stroke-dasharray: 250 250;
   stroke-width: 15px;
   stroke: var(--complementary-second-color);
   /* opacity: calc(var(--nangluc-phantram) / 100); */

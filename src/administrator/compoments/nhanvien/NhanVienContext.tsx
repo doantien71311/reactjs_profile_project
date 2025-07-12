@@ -47,10 +47,22 @@ export const NhanVienProvider = ({ children }: NhanVienProps) => {
     const data = await getArrayDataPromise<NhanVienType>(
       `${UrlApi.api_danh_muc_nhan_vien_lay_ds}?ma_nv=ADMIN`
     );
+    const dataMapDate = data.map((item) => ({
+      ...item,
+      ngaysinh: new Date(item.ngaysinh ?? ""),
+    }));
+    const dataMap = dataMapDate.map((item) => ({
+      ...item,
+      ngaysinh_string: item.ngaysinh?.toLocaleDateString("vi-VN", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }),
+    }));
     console.log("Cách 2 NhanVienProvider:");
-    console.log(data);
+    // console.log(data);
     // ...
-    setUseDataApi(data);
+    setUseDataApi(dataMap);
     setUseSelectRow(NhanVienTypeDefault);
     setUseIsLoadingApi(false);
     // setIsCommonLoadingApi(false);

@@ -7,7 +7,13 @@ export interface NhanVienType {
   email?: string;
   facebook?: string;
   zalo?: string;
-  mota?: string;
+  diachi_thuongtru?: string;
+  ma_chucvu?: string;
+  ten_chucvu?: string;
+  ma_nv_tuyendung?: string;
+  ten_nv_tuyendung?: string;
+  ngaysinh?: Date;
+  ngaysinh_string?: string;
 }
 export const NhanVienTypeDefault: NhanVienType = {
   soid: "",
