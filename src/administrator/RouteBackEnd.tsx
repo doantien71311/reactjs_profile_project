@@ -16,8 +16,8 @@ export const RouteBackEnd = () => {
     <BEProvider>
       <Routes>
         <Route element={<BEIndex />}>
-          <Route index path="administrator" element={<RouteBackEndIndex />} />
-          {/* <Route index element={<RouteBackEndIndex />} /> */}
+          {/* <Route index path="administrator" element={<RouteBackEndIndex />} /> */}
+          <Route index element={<RouteBackEndIndex />} />
           <Route
             path={ChucNangUrl.administrator_profile}
             element={<ProfileBEIndex />}
