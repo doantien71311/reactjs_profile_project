@@ -7,14 +7,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { RouteBackEnd } from "./administrator/RouteBackEnd.tsx";
 import App from "./App.tsx";
 import { RouteBackEnd } from "./administrator/RouteBackEnd.tsx";
-import { BEIndex } from "./administrator/compoments/BEIndex.tsx";
+// import { BEIndex } from "./administrator/compoments/BEIndex.tsx";
+// import { RouteBackEndIndex } from "./administrator/RouteBackEndIndex.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}></Route>
-        <Route index element={<BEIndex></BEIndex>} />
+        <Route index element={<RouteBackEnd></RouteBackEnd>} />
         <Route path="*" element={<RouteBackEnd />}></Route>
       </Routes>
     </BrowserRouter>
