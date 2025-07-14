@@ -2,7 +2,14 @@ import Accordion from "react-bootstrap/Accordion";
 // import { Navigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { useState, useEffect, useRef, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useMemo,
+  useTransition,
+} from "react";
 
 // import { useNavigate } from "react-router-dom";
 // import { NavLink, useNavigate } from "react-router-dom";
@@ -36,14 +43,35 @@ export const MenuIndex = () => {
   const [activeKeyMenu, setActiveKeyMenu] = useState<string[]>([]);
   const initialized = useRef(false);
   //
+  const [textSearch, setTextSearch] = useState("");
+  const [textInput, setTextInput] = useState("");
+  const [isPending, startTransition] = useTransition();
+  //
+  const filterData = useMemo<MenuType[]>(() => {
+    return dataMenu.filter(
+      (f) =>
+        (f.search_chucnang ?? "")
+          .toLowerCase()
+          .includes(textSearch.toLowerCase()) ||
+        (f.ten_chucnang ?? "").toLowerCase().includes(textSearch.toLowerCase())
+    );
+  }, [dataMenu, textSearch]);
 
   async function fetchData() {
     setIsLoadingMenu(true);
     // You can await here
-    const _dataMenu = await getArrayDataPromise<MenuType>(
+    const _dataMenuApi = await getArrayDataPromise<MenuType>(
       `${UrlApi.api_he_thong_chuc_nang_lay_ds}?ma_nv=ADMIN`
     );
     // ...
+    const _dataMenu = _dataMenuApi.map((item) => {
+      const search_chucnang = _dataMenuApi
+        .filter((f) => f.ma_chucnang_cha == item.ma_chucnang)
+        .map((m) => m.ten_chucnang)
+        .join(";");
+      return { ...item, search_chucnang: search_chucnang };
+    });
+    console.log(_dataMenu);
     setIsLoadingMenu(false);
     setActiveKeyMenu(getActiveKey(_dataMenu));
     setDataMenu(_dataMenu);
@@ -51,64 +79,7 @@ export const MenuIndex = () => {
   //
   useEffect(() => {
     if (initialized.current) return;
-
     initialized.current = true;
-
-    //#region khóa lại//
-    // const _dataMenu: MenuType[] = [];
-    // _dataMenu.push({
-    //   ma_chucnang: "HCNS",
-    //   ten_chucnang: "Hành chính nhân sự",
-    //   ma_chucnang_cha: "",
-    //   url_chucnang: "",
-    //   sott: "01",
-    // });
-    // _dataMenu.push({
-    //   ma_chucnang: "Nhan_Vien",
-    //   ten_chucnang: "Nhân viên",
-    //   ma_chucnang_cha: "HCNS",
-    //   url_chucnang: "/administrator/nhanvien",
-    //   sott: "0101",
-    // });
-    // _dataMenu.push({
-    //   ma_chucnang: "Profile_Nhan_Vien",
-    //   ten_chucnang: "Profile Nhân viên",
-    //   ma_chucnang_cha: "HCNS",
-    //   url_chucnang: "/administrator/profile-edit",
-    //   sott: "0102",
-    // });
-    // _dataMenu.push({
-    //   ma_chucnang: "SonFuKuDa",
-    //   ten_chucnang: "Sơn FuKuDa",
-    //   ma_chucnang_cha: "",
-    //   url_chucnang: "",
-    //   sott: "02",
-    // });
-    // _dataMenu.push({
-    //   ma_chucnang: "SonFuKuDa_DDH",
-    //   ten_chucnang: "Đơn đặt hàng",
-    //   ma_chucnang_cha: "SonFuKuDa",
-    //   url_chucnang: "/administrator/fukuda-son-dondathang",
-    //   sott: "0201",
-    // });
-    // _dataMenu.push({
-    //   ma_chucnang: "SonFuKuDa_TuyenDung_NPP",
-    //   ten_chucnang: "Tuyển dụng nhà phân phối",
-    //   ma_chucnang_cha: "SonFuKuDa",
-    //   url_chucnang: "/administrator/fukuda-son-tuyendung-npp",
-    //   sott: "0202",
-    // });
-    // _dataMenu.push({
-    //   ma_chucnang: "SonFuKuDa_SanPham",
-    //   ten_chucnang: "Sản phẩm",
-    //   ma_chucnang_cha: "SonFuKuDa",
-    //   url_chucnang: "/administrator/fukuda-son-sanpham",
-    //   sott: "0203",
-    // });
-    // setIsLoadingMenu(false);
-    // setActiveKeyMenu(getActiveKey(_dataMenu));
-    // setDataMenu(_dataMenu);
-    //#endregion khóa lại//
 
     fetchData();
 
@@ -142,36 +113,10 @@ export const MenuIndex = () => {
     }, 1);
   };
 
-  // const getMenuCha = () => {
-  //   console.log("MenuIndex getMenuCha");
-  //   const result = dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == "");
-  //   console.log(result);
-  //   return result;
-  // };
-
-  //const getMenuMemo = useCallback(() => getMenuCha(), []);
-
-  // const getMenuCha = useMemo(() => {
-  //   console.log("getMenuCha");
-  //   return dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == "");
-  // }, [dataMenu]);
-
-  // const sad = useMemo(() => {
-  //   return "sad";
-  // }, []);
-
-  // const getMenuCon = useMemo((ma_chucnang?: string): MenuType[] => {
-  //   return dataMenu.filter((f) => (f.ma_chucnang_cha ?? "") == ma_chucnang);
-  // }, []);
-
-  // const getMenuCon = (ma_chucnang?: string): MenuType[] => {
-  //   console.log("MenuIndex getMenuCon");
-  //   const result = dataMenu.filter(
-  //     (f) => (f.ma_chucnang_cha ?? "") == ma_chucnang
-  //   );
-  //   console.log(result);
-  //   return result;
-  // };
+  const noFilterClick = () => {
+    setTextInput("");
+    setTextSearch("");
+  };
 
   const getActiveKey = (arrayMenu: MenuType[]): string[] => {
     const result = arrayMenu
@@ -188,6 +133,15 @@ export const MenuIndex = () => {
       setIsShowMenu(false);
     }
   };
+
+  const handleTextSearchMenuChange = (value: string) => {
+    setTextInput(value);
+    startTransition(() => {
+      setTextSearch(value);
+    });
+    console.log(isPending);
+  };
+
   //#endregion các hàm private
 
   return (
@@ -197,9 +151,11 @@ export const MenuIndex = () => {
           // readOnly={isLoadingMenu}
           disabled={isLoadingMenu}
           aria-label="Default"
+          value={textInput}
+          onChange={(event) => handleTextSearchMenuChange(event.target.value)}
           aria-describedby="inputGroup-sizing-default"
         />
-        <Button disabled={isLoadingMenu} onClick={moRongClick}>
+        <Button disabled={isLoadingMenu} onClick={noFilterClick}>
           <FontAwesomeIcon icon={faTimes} className="" />
         </Button>
 
@@ -230,7 +186,7 @@ export const MenuIndex = () => {
               {(() =>
                 //getMenuCha()
 
-                dataMenu
+                filterData
                   .filter((f) => (f.ma_chucnang_cha ?? "") == "")
                   .map((item) => (
                     <Accordion.Item
@@ -279,7 +235,7 @@ export const MenuIndex = () => {
                       >
                         {
                           // getMenuCon(item.ma_chucnang)
-                          dataMenu
+                          filterData
                             .filter(
                               (fC) =>
                                 (fC.ma_chucnang_cha ?? "") == item.ma_chucnang
@@ -329,6 +285,7 @@ export const MenuIndex = () => {
                                     //   // , position: "absolute"
                                     // }}
                                     style={({ isActive }) => ({
+                                      textDecoration: "none",
                                       borderBottom: isActive
                                         ? "#15b0ab solid 2px"
                                         : "",

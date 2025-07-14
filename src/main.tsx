@@ -49,17 +49,8 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />}>
           {/* <Route path="/" element={<RouteBackEnd />}> */}
           {/* <Route index element={<Profile />} /> */}
-
-          {/* <Route index element={getDefault()} /> */}
-          {/* <Route index element={<BEIndex />} /> */}
-
           {/* <Route path="blogs" element={<Blogs />} /> */}
           {/* <Route path="admins" element={<Admin />} /> */}
-          {/* <Route
-            path="count"
-            element={<Count count={0} setCount={() => {}} />}
-          /> */}
-          {/* <Route index element={<Home />} /> */}
         </Route>
         {/* <Route path="administrator/*" element={<RouteBackEnd />} /> */}
         <Route index element={<BEIndex />} />

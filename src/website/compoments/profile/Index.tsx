@@ -19,7 +19,7 @@ export const Profile = () => {
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
-    document.title = ".Net Developer of Mrtien71311";
+    document.title = "Profile .Net Developer of MrTien71311";
     // const link =
     //   document.querySelector("link[rel*='icon']") ||
     //   document.createElement("link");

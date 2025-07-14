@@ -7,6 +7,7 @@ import {
   FukudaSonSanPhamBEContext,
   FukudaSonSanPhamBEContextProps,
 } from "./FukudaSonSanPhamBEContext";
+import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 
 export const Toolbar = () => {
   const navigate = useNavigate();
@@ -14,13 +15,22 @@ export const Toolbar = () => {
     FukudaSonSanPhamBEContext
   );
 
+  const {
+    fetchDataApi,
+    textFilterNhomSon,
+    setTextFilterNhomSon,
+    textSort,
+    setTextSort,
+  } = useContext<FukudaSonSanPhamBEContextProps>(FukudaSonSanPhamBEContext);
+
+  //#region các nút thêm xóa sửa
   const Xem: TCommonToolbar = {
     maChucNang: "Xem",
     tenChucNang: "Xem",
     isChucNang: false,
     isShowChucnang: true,
     onNavigation: () => {
-      context.fetchDataApi();
+      fetchDataApi();
     },
   };
   const Them: TCommonToolbar = {
@@ -81,6 +91,25 @@ export const Toolbar = () => {
     onNavigation: () => {},
   };
 
+  //#endregion các nút thêm xóa sửa
+
+  const handleClickNhomSonFilter = (status: string) => {
+    setTextFilterNhomSon(status);
+  };
+
+  const handleClickSort = (status: string) => {
+    setTextSort(status);
+  };
+
+  const getBorderNhomSon = (value: string) => {
+    if (value == textFilterNhomSon) return "border-info";
+    else return "";
+  };
+  const getBorderSapXep = (value: string) => {
+    if (value == textSort) return "border-info";
+    else return "";
+  };
+
   return (
     <>
       <CommonToolbarUI
@@ -89,7 +118,109 @@ export const Toolbar = () => {
         Them={Them}
         Sua={Sua}
         Xoa={Xoa}
-        children={<div></div>}
+        children={
+          <Form>
+            <Form.Group as={Row} className="m-2 align-items-center">
+              <Form.Label
+                as={Col}
+                sm={12}
+                md={2}
+                xl={1}
+                className="h-100 align-middle align-text-middle"
+              >
+                Nhóm sơn:
+              </Form.Label>
+              <Stack
+                as={Col}
+                sm={12}
+                md={10}
+                xl={11}
+                direction="horizontal"
+                style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+                gap={1}
+              >
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderNhomSon("")}
+                  onClick={() => handleClickNhomSonFilter("")}
+                >
+                  <span>Tất cả</span>
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderNhomSon("CHONGTHAM")}
+                  onClick={() => handleClickNhomSonFilter("CHONGTHAM")}
+                >
+                  <span>Chống thấm</span>
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderNhomSon("SON_NOITHAT")}
+                  onClick={() => handleClickNhomSonFilter("SON_NOITHAT")}
+                >
+                  <span>Sơn nội thất</span>
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderNhomSon("SON_NGOAITHAT")}
+                  onClick={() => handleClickNhomSonFilter("SON_NGOAITHAT")}
+                >
+                  <span>Sơn ngoại thất</span>
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderNhomSon("SON_LOTKHANGKIEM")}
+                  onClick={() => handleClickNhomSonFilter("SON_LOTKHANGKIEM")}
+                >
+                  <span>Sơn lót kháng kiềm</span>
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderNhomSon("BOBA")}
+                  onClick={() => handleClickNhomSonFilter("BOBA")}
+                >
+                  <span>Bột bã</span>
+                </Button>
+              </Stack>
+            </Form.Group>
+
+            <Form.Group as={Row} className="m-2 align-items-center">
+              <Form.Label
+                as={Col}
+                sm={12}
+                md={2}
+                xl={1}
+                className="h-100 align-middle align-text-middle"
+              >
+                Sắp sếp:
+              </Form.Label>
+              <Stack
+                as={Col}
+                sm={12}
+                md={10}
+                xl={11}
+                direction="horizontal"
+                style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+                gap={1}
+              >
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderSapXep("GIA_TANG")}
+                  onClick={() => handleClickSort("GIA_TANG")}
+                >
+                  <span>Giá tăng</span>
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  className={getBorderSapXep("GIA_GIAM")}
+                  onClick={() => handleClickSort("GIA_GIAM")}
+                >
+                  <span>Giá giảm</span>
+                </Button>
+              </Stack>
+            </Form.Group>
+          </Form>
+        }
       ></CommonToolbarUI>
     </>
   );

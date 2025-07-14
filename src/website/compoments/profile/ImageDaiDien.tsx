@@ -34,14 +34,23 @@ export const ImageDaiDien = () => {
     // setRightImage(dataImage[indexRight]);
 
     onHandImageClick(dataImage[0]);
+    // setCurrentImage(dataImage[0]);
   }, [isLoadingApi]);
 
   // useEffect(() => {
-  //   initialized.current = true;
   //   if (isLoadingApi) return;
-  //   if (!currentImage) return;
-  //   if ((currentImage.id ?? "") == "") return;
-  //   onHandImageClick(currentImage);
+  //   const index = dataImage.indexOf(currentImage);
+  //   let indexLeft = index - 1;
+  //   if (indexLeft < 0) {
+  //     indexLeft = dataImage.length - 1;
+  //   }
+  //   let indexRight = index + 1;
+  //   if (indexRight >= dataImage.length) {
+  //     indexRight = 0;
+  //   }
+  //   setLeftImage(dataImage[indexLeft]);
+  //   setRightImage(dataImage[indexRight]);
+  //   // onHandImageClick(currentImage);
   // }, [currentImage, isLoadingApi]);
 
   const onHandImageClick = (item: ProfileHinhAnhType) => {
@@ -56,9 +65,6 @@ export const ImageDaiDien = () => {
     }
     console.log(index);
     const leftIndex = dataImage[indexLeft];
-    // const leftData = leftIndex;
-    // leftData.id = leftIndex.id;
-    // leftData.id = leftIndex.url_hinhanh;
 
     setLeftImage(leftIndex);
     setCurrentImage(dataImage[index]);
@@ -117,9 +123,9 @@ export const ImageDaiDien = () => {
               }
             }
             whileInView={{
-              transform: "translateX(15%) scale(0.8)",
+              transform: "translateX(20%) scale(0.8)",
               zIndex: 9,
-              opacity: 0.7,
+              opacity: 0.8,
               boxShadow: "0px 0px 5px 0px grey",
               transition: {
                 // delay: 0.3,
@@ -133,7 +139,7 @@ export const ImageDaiDien = () => {
             key={currentImage.id}
             initial={{
               // transform: "translateX(0px)",
-              transform: "scale(1)",
+              transform: "scale(0.7)",
               //transform: "translateX(0px) scale(1)",
               // opacity: 0.7,
               // boxShadow: "none",
@@ -141,7 +147,8 @@ export const ImageDaiDien = () => {
             whileInView={{
               transform: "scale(1)",
               zIndex: 10,
-              opacity: 1,
+              // opacity: 1,
+              filter: "none",
               boxShadow: "0px 0px 10x 1px grey",
               transition: {
                 // delay: 0.3,
@@ -160,9 +167,9 @@ export const ImageDaiDien = () => {
               }
             }
             whileInView={{
-              transform: "translateX(-15%) scale(0.8)",
+              transform: "translateX(-20%) scale(0.8)",
               zIndex: 9,
-              opacity: 0.7,
+              opacity: 0.8,
               boxShadow: "0px 0px 5px 0px grey",
               transition: {
                 // delay: 0.3,

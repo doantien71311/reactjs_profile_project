@@ -1,206 +1,128 @@
-import { createContext, useContext, useMemo, useRef, useState } from "react";
+import { useContext, useMemo, useState, useTransition } from "react";
 import { FukudaSonSanPhamType } from "../../../model/FukudaSonSanPhamType";
-import {
-  DataGrid,
-  // CellClickArgs,
-  CellMouseEvent,
-  CellSelectArgs,
-  Column,
-  RenderHeaderCellProps,
-  type DataGridHandle,
-  CellMouseArgs,
-} from "react-data-grid";
 // import {} from "react-data-grid";
 import {
   FukudaSonSanPhamBEContext,
   FukudaSonSanPhamBEContextProps,
 } from "./FukudaSonSanPhamBEContext";
-import BEConstCSS from "../BEConstCSS";
-
-// Context is needed to read filter values otherwise columns are
-// re-created when filters are changed and filter loses focus
-const FilterContext = createContext<Filter | undefined>(undefined);
-
-interface Filter extends Omit<FukudaSonSanPhamType, "id" | "complete"> {
-  ten_hh: string | undefined;
-  complete: number | undefined;
-  enabled: boolean;
-}
-
-function FilterRenderer<R>({
-  tabIndex,
-  column,
-  children,
-}: RenderHeaderCellProps<R> & {
-  children: (args: { tabIndex: number; filters: Filter }) => React.ReactElement;
-}) {
-  const filters = useContext(FilterContext)!;
-  return (
-    <>
-      <div>{column.name}</div>
-      {/* {filters.enabled && <div>{children({ tabIndex, filters })}</div>} */}
-      <div>{children({ tabIndex, filters })}</div>
-    </>
-  );
-}
-function inputStopPropagation(event: React.KeyboardEvent<HTMLInputElement>) {
-  if (["ArrowLeft", "ArrowRight"].includes(event.key)) {
-    event.stopPropagation();
-  }
-}
+import {
+  Button,
+  Col,
+  Form,
+  FormControl,
+  Row,
+  Spinner,
+  Stack,
+} from "react-bootstrap";
+import { ItemGrid } from "./ItemGrid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 
 export const Grid = () => {
-  const context = useContext<FukudaSonSanPhamBEContextProps>(
-    FukudaSonSanPhamBEContext
-  );
-  //console.log(context.dataApi);
-  // const handeClick = () => {
-  //   selectRow.ma_hh = "TESt";
-  // };
+  const { dataApi, textFilterNhomSon, textSort } =
+    useContext<FukudaSonSanPhamBEContextProps>(FukudaSonSanPhamBEContext);
+  const [isPending, startTransition] = useTransition();
 
-  //
-  const gridRef = useRef<DataGridHandle>(null);
+  const [textSearch, setTextSearch] = useState("");
+  const [textInput, setTextInput] = useState("");
+  const filterData = useMemo<FukudaSonSanPhamType[]>(() => {
+    //return startTransition(() => {
 
-  const columns = useMemo((): readonly Column<FukudaSonSanPhamType>[] => {
-    return [
-      {
-        key: "ma_hh_nhacungcap",
-        name: "Mã hàng NCC",
-        // width: "10%",
-        minWidth: 150,
-        width: "max-content",
-        // maxWidth: 100,
-      },
-      {
-        key: "ten_hh",
-        name: "Tên hàng hóa",
-        // width: "minmax(100px, max-content)",
-        width: "max-content",
-        minWidth: 300,
-        // maxWidth: 100,
-        headerCellClass: "filter-cell",
-        renderHeaderCell: (p) => (
-          <FilterRenderer<FukudaSonSanPhamType> {...p}>
-            {({ filters, ...rest }) => (
-              <input
-                {...rest}
-                className={"grid_fill_header_cell_filter"}
-                // style={{
-                //   inlineSize: "100%",
-                //   padding: "4px",
-                //   fontSize: "14px",
-                // }}
-                value={filters.ten_hh ?? ""}
-                onChange={(e) =>
-                  setFilters({
-                    ...filters,
-                    ten_hh: e.target.value,
-                  })
-                }
-                onKeyDown={inputStopPropagation}
-              />
-            )}
-          </FilterRenderer>
-        ),
-      },
-      {
-        key: "ma_hh",
-        name: "Mã hàng hóa",
-        // width: "10%",
-        minWidth: 150,
-        width: "max-content",
-        // maxWidth: 100,
-      },
-      {
-        key: "id",
-        name: "ID",
-        // width: "5%",
-        width: "max-content",
-        minWidth: 50,
-        // maxWidth: 100,
-      },
-    ];
-  }, []);
+    const dataFilter = [...dataApi]
+      .filter((f) => f.ten_hh?.toLowerCase().includes(textSearch.toLowerCase()))
+      .filter((f) => {
+        if (textFilterNhomSon == "") return true;
+        else {
+          return f.ma_hh_nhom == textFilterNhomSon;
+        }
+      });
 
-  const [selectedRows, setSelectedRows] = useState(
-    (): ReadonlySet<string> => new Set()
-  );
-  function rowKeyGetter(row: FukudaSonSanPhamType) {
-    return row.ma_hh;
-  }
-  function onCellClick(
-    args: CellMouseArgs<FukudaSonSanPhamType>,
-    event: CellMouseEvent
-  ) {
-    if (args.column.key === "id") {
-      event.preventGridDefault();
-    }
-    context.selectRow.id = args.row.id;
-    context.selectRow.ma_hh = args.row.ma_hh;
-    context.setSelectRow(context.selectRow);
-    // selectRow.id = args.row.id;
-    // selectRow.ma_hh = args.row.ma_hh;
-    // console.log("onCellClick: " + selectRow.id);
-  }
-  function onSelectedCellChange(args: CellSelectArgs<FukudaSonSanPhamType>) {
-    if (!args.row) return;
-    context.selectRow.id = args.row.id;
-    context.selectRow.ma_hh = args.row.ma_hh;
-    context.setSelectRow(context.selectRow);
-    // console.log("onSelectedCellChange: " + selectRow.id);
-  }
+    const dataSort = dataFilter.sort((a, b) => {
+      if (textSort === "GIA_TANG") {
+        if ((a.dongia_ban ?? 0) < (b.dongia_ban ?? 0)) {
+          return -1;
+        }
+        return 1;
+      }
+      if (textSort === "GIA_GIAM") {
+        if ((a.dongia_ban ?? 0) > (b.dongia_ban ?? 0)) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+      return 0;
 
-  const [filters, setFilters] = useState(
-    (): Filter => ({
-      ten_hh: "",
-      ma_hh_nhacungcap: "",
-      ma_hh: "",
-      // id: "",
-      complete: undefined,
-      enabled: true,
-    })
-  );
-
-  const filteredRows = useMemo(() => {
-    return context.dataApi.filter((r) => {
-      return filters.ten_hh ? (r.ten_hh ?? "").includes(filters.ten_hh) : true;
-      //&&
-      // (filters.priority !== "All" ? r.priority === filters.priority : true) &&
-      // (filters.issueType !== "All"
-      //   ? r.issueType === filters.issueType
-      //   : true) &&
-      // (filters.developer
-      //   ? r.developer
-      //       .toLowerCase()
-      //       .startsWith(filters.developer.toLowerCase())
-      //   : true) &&
-      // (filters.complete !== undefined ? r.complete >= filters.complete : true)
+      // return 0;
+      // if (textSort === "GIA_TANG") {
+      //   return b.ma_hh.localeCompare(a.ma_hh);
+      // } else {
+      //   return a.ma_hh.localeCompare(b.ma_hh);
+      // }
     });
-  }, [context.dataApi, filters]);
+
+    // console.log(dataSort);
+
+    return dataSort;
+    //});
+  }, [dataApi, textSearch, textFilterNhomSon, textSort]);
+
+  // useEffect(() => {
+  //   setTextSearch("");
+  // }, []);
+
+  const handleTextSearchChange = (value: string) => {
+    setTextInput(value);
+    startTransition(() => {
+      setTextSearch(value);
+    });
+
+    // setTextSearch(value);
+  };
 
   return (
     <>
-      <FilterContext value={filters}>
-        <DataGrid
-          ref={gridRef}
-          className={`rdg-light ${BEConstCSS.grid_fill} fill_filter`}
-          rowKeyGetter={rowKeyGetter}
-          columns={columns}
-          // rows={context.dataApi}
-          rows={filteredRows}
-          selectedRows={selectedRows}
-          onSelectedRowsChange={setSelectedRows}
-          onSelectedCellChange={onSelectedCellChange}
-          onCellClick={onCellClick}
-          headerRowHeight={100}
-          defaultColumnOptions={{
-            minWidth: 50,
-            resizable: true,
-            sortable: true,
-            draggable: true,
-          }}
-        />
-      </FilterContext>
+      <Row className="m-2 align-items-center">
+        <Stack as={Col} sx={12} md={6} lg={9}>
+          <Form.Label className="text-secondary fst-italic">
+            Tổng số {dataApi.length} sản phẩm
+          </Form.Label>
+        </Stack>
+        <Stack as={Col} sx={12} md={6} lg={3} direction="horizontal" gap={1}>
+          <FormControl
+            type="text"
+            placeholder="Tìm kiếm...."
+            value={textInput}
+            onChange={(event) => handleTextSearchChange(event.target.value)}
+          ></FormControl>
+          <Button
+            variant="secondary"
+            className="me-1"
+            onClick={() => handleTextSearchChange("")}
+          >
+            <FontAwesomeIcon icon={faDeleteLeft} />
+          </Button>
+        </Stack>
+      </Row>
+      {isPending ? (
+        <Spinner animation="border" variant="info" />
+      ) : (
+        <Row className="m-2">
+          {filterData.map((item) => (
+            <Col
+              className="mt-2 mb-2"
+              xs={12}
+              md={6}
+              lg={4}
+              xl={3}
+              xxl={2}
+              key={(item.id ?? "col") + "-col"}
+            >
+              <ItemGrid item={item} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };

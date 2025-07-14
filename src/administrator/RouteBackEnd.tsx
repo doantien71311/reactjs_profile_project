@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { BEIndex } from "./compoments/BEIndex";
-import { FukudaSonDonDatHangBEIndex } from "./compoments/fukuda_son_dondathang_be/FukudaSonDonDatHangBEIndex";
 import { ProfileBEIndex } from "./compoments/profile_nhanvien_edit/profile_temp/ProfileBEIndex";
 import ChucNangUrl from "./ChucNangUrl";
 import { FukudaSonSanPhamBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamBEIndex";
@@ -26,12 +25,22 @@ export const RouteBackEnd = () => {
             path={ChucNangUrl.administrator_profile_edit}
             element={<ProfileBEEditIndex />}
           />
-          <Route
-            path={ChucNangUrl.administrator_fukuda_son_dondathang}
-            element={<FukudaSonDonDatHangBEIndex />}
-          />
+
           <Route
             path={ChucNangUrl.administrator_fukuda_son_sanpham}
+            element={<FukudaSonSanPhamBEIndex />}
+          />
+          <Route
+            path={ChucNangUrl.administrator_fukuda_son_dondathang}
+            element={<FukudaSonSanPhamBEIndex />}
+          />
+
+          <Route
+            path={ChucNangUrl.administrator_fukuda_son_tuyendung_npp}
+            element={<FukudaSonSanPhamBEIndex />}
+          />
+          <Route
+            path={ChucNangUrl.administrator_fukuda_son_khao_sat}
             element={<FukudaSonSanPhamBEIndex />}
           />
 

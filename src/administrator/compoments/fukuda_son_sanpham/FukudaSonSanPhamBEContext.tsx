@@ -24,6 +24,10 @@ export type FukudaSonSanPhamBEContextProps = {
   selectRow: FukudaSonSanPhamType;
   setSelectRow: (value: FukudaSonSanPhamType) => void;
   fetchDataApi: () => void;
+  textFilterNhomSon: string;
+  setTextFilterNhomSon: (value: string) => void;
+  textSort: string;
+  setTextSort: (value: string) => void;
 };
 export const FukudaSonSanPhamBEContext =
   createContext<FukudaSonSanPhamBEContextProps>({
@@ -34,6 +38,12 @@ export const FukudaSonSanPhamBEContext =
     selectRow: FukudaSonSanPhamTypeDefault,
     setSelectRow: () => {},
     fetchDataApi: () => {},
+    textFilterNhomSon: "",
+    setTextFilterNhomSon: () => {},
+    //
+    textSort: "",
+    setTextSort: () => {},
+    //
   });
 
 export const FukudaSonSanPhamBEProvider = ({
@@ -48,6 +58,9 @@ export const FukudaSonSanPhamBEProvider = ({
   const [useSelectRow, setUseSelectRow] = useState<FukudaSonSanPhamType>(
     FukudaSonSanPhamTypeDefault
   );
+  const [textFilterNhomSon, setTextFilterNhomSon] = useState("");
+  const [textSort, setTextSort] = useState("");
+
   async function fetchData() {
     setUseIsLoadingApi(true);
     // You can await here
@@ -56,6 +69,7 @@ export const FukudaSonSanPhamBEProvider = ({
     );
     console.log("Cách 2 FukudaSonSanPhamBEProvider:");
     // ...
+    console.log(data);
     setUseDataApi(data);
     setUseSelectRow(FukudaSonSanPhamTypeDefault);
     setUseIsLoadingApi(false);
@@ -85,6 +99,12 @@ export const FukudaSonSanPhamBEProvider = ({
         selectRow: useSelectRow,
         setSelectRow: setUseSelectRow,
         fetchDataApi: fetchData,
+        //
+        textFilterNhomSon: textFilterNhomSon,
+        setTextFilterNhomSon: setTextFilterNhomSon,
+        //
+        textSort: textSort,
+        setTextSort: setTextSort,
       }}
     >
       {children}

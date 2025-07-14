@@ -6,4 +6,5 @@ export type MenuType = {
   icon_chucnang?: string;
   image_url_chucnang?: string;
   sott?: string;
+  search_chucnang?: string;
 };
