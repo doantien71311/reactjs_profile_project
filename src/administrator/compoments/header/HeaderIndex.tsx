@@ -46,9 +46,10 @@ export const HeaderIndex = () => {
             <FontAwesomeIcon icon={faBars} />
           </Button>
         </div>
-        <div className="p-2 ms-auto">
-          {/* <span>{isShowMenu.toString()}</span> */}
-        </div>
+        <span className="text-left text-secondary fw-bold">
+          Web portal demo, chưa hoàn chỉnh, xin thông cảm
+        </span>
+        <div className="p-2 ms-auto "></div>
         <div className="p-2">
           <DropdownButton
             variant=""
@@ -60,6 +61,7 @@ export const HeaderIndex = () => {
                   width: "100%",
                   height: "100%",
                   maxHeight: "45px",
+                  maxWidth: "45px",
                   boxShadow: "1px 1px 2px grey",
                   border: "1px solid white",
                 }}
