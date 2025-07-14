@@ -60,8 +60,8 @@ export const HeaderIndex = () => {
                 style={{
                   width: "100%",
                   height: "100%",
-                  maxHeight: "45px",
-                  maxWidth: "45px",
+                  maxHeight: "100px",
+                  maxWidth: "100px",
                   boxShadow: "1px 1px 2px grey",
                   border: "1px solid white",
                 }}
