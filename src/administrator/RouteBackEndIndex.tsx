@@ -33,16 +33,6 @@ export const RouteBackEndIndex = () => {
           }
           className="justify-content-center p-2 "
         >
-          {/* <img
-            srcset="
-    https://drive.google.com/thumbnail?id=10hhX4pIZr0NhuusN4eHvf4ghah5d6yAG&w=320 320w,
-    https://drive.google.com/thumbnail?id=10hhX4pIZr0NhuusN4eHvf4ghah5d6yAG&w=480 480w,
-    https://drive.google.com/thumbnail?id=10hhX4pIZr0NhuusN4eHvf4ghah5d6yAG&w=800 800w
-  "
-            sizes="(max-width: 320px) 280px, (max-width: 480px) 440px, 800px"
-            src="https://drive.google.com/thumbnail?id=10hhX4pIZr0NhuusN4eHvf4ghah5d6yAG&w=800"
-            alt="Example Image"
-          /> */}
           <Image
             thumbnail
             srcSet="
@@ -58,6 +48,30 @@ export const RouteBackEndIndex = () => {
               height: "20rem",
             }}
           ></Image>
+
+          {/* <picture
+            style={{
+              width: "20rem",
+              height: "20rem",
+            }}
+          >
+            <source
+              media="(width < 575px)"
+              srcSet="https://lh3.googleusercontent.com/d/1azMaUw_0-_46sQuTtFrvdeOshyxhKQnb=w480"
+            />
+            <source
+              media="(width < 991px)"
+              srcSet="https://lh3.googleusercontent.com/d/1azMaUw_0-_46sQuTtFrvdeOshyxhKQnb=w500"
+            />
+            <source
+              media="(width > 1000px)"
+              srcSet="https://lh3.googleusercontent.com/d/1azMaUw_0-_46sQuTtFrvdeOshyxhKQnb=w1000"
+            />
+            <img
+              src="https://lh3.googleusercontent.com/d/1azMaUw_0-_46sQuTtFrvdeOshyxhKQnb"
+              alt="qr code"
+            />
+          </picture> */}
         </Row>
         <Row
           style={

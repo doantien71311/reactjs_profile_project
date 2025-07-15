@@ -30,6 +30,8 @@
   --value-border-radius: 25px;
   --value-border-radius-child: 3px;
   --color-box-shadow-item: royalblue;
+
+  --menu-width: 0px;
 }
 
 /* a {

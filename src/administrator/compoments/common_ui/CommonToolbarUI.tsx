@@ -15,6 +15,9 @@ import {
   Button,
   ButtonToolbar,
   Card,
+  Col,
+  Form,
+  Row,
   Stack,
   useAccordionButton,
 } from "react-bootstrap";
@@ -85,17 +88,28 @@ export const CommonToolbarUI = ({
     <Accordion defaultActiveKey="0" style={{ width: "100%" }}>
       <Card>
         <Card.Header className="row_body_toolbar_top_accordion_car_header">
-          <Stack direction="horizontal" gap={3}>
-            {/* <Button>Click me</Button> */}
-            <ContextAwareToggle eventKey="0"></ContextAwareToggle>
+          <Row className="align-items-center">
+            <Stack
+              as={Col}
+              sm={12}
+              // className="col-md-auto"
+              md={6}
+              direction="horizontal"
+              gap={1}
+            >
+              <ContextAwareToggle eventKey="0"></ContextAwareToggle>
+              <Form.Label className="p-0 text-start text-primary text-wrap fw-bold fs-6">
+                {Title}
+              </Form.Label>
+            </Stack>
 
-            <span className="p-0 text-start text-primary text-wrap fw-bold fs-6">
-              {Title}
-              {/* {isCommonLoadingApi.toString()} */}
-            </span>
-            <div className="p-0 ms-auto"></div>
-            <div className="p-2 ">
-              <ButtonToolbar className="" aria-label="Basic example">
+            {/* <Col sm={11} className="col-md-auto"></Col> */}
+
+            <Col sm={12} md={6} className="d-flex">
+              <ButtonToolbar
+                aria-label="Basic example"
+                style={{ marginLeft: "auto", marginRight: "0px" }}
+              >
                 <div className={kiemTraChucNang(Xem)}>
                   <Button
                     onClick={Xem.onNavigation}
@@ -141,8 +155,10 @@ export const CommonToolbarUI = ({
                   </Button>
                 </div>
               </ButtonToolbar>
-            </div>
-          </Stack>
+            </Col>
+
+            {/* </div> */}
+          </Row>
         </Card.Header>
         <Accordion.Collapse eventKey="0">
           <Card.Body>{children}</Card.Body>

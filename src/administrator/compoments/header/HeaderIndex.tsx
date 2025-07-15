@@ -47,7 +47,7 @@ export const HeaderIndex = () => {
           </Button>
         </div>
         <span className="text-left text-secondary fw-bold">
-          Web portal demo, chưa hoàn chỉnh, xin thông cảm
+          Web portal demo
         </span>
         <div className="p-2 ms-auto "></div>
         <div className="p-2">
@@ -60,8 +60,8 @@ export const HeaderIndex = () => {
                 style={{
                   width: "100%",
                   height: "100%",
-                  maxHeight: "100px",
-                  maxWidth: "100px",
+                  maxHeight: "45px",
+                  maxWidth: "50px",
                   boxShadow: "1px 1px 2px grey",
                   border: "1px solid white",
                 }}

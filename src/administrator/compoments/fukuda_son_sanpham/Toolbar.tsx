@@ -8,6 +8,7 @@ import {
   FukudaSonSanPhamBEContextProps,
 } from "./FukudaSonSanPhamBEContext";
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
+import BEConstCSS from "../BEConstCSS";
 
 export const Toolbar = () => {
   const navigate = useNavigate();
@@ -119,8 +120,15 @@ export const Toolbar = () => {
         Sua={Sua}
         Xoa={Xoa}
         children={
-          <Form>
-            <Form.Group as={Row} className="m-2 align-items-center">
+          <Form
+            className={
+              BEConstCSS.row_body_toolbar_top_accordion_car_header_form
+            }
+            style={{
+              position: "relative",
+            }}
+          >
+            <Form.Group as={Row} className="m-2 align-items-center ">
               <Form.Label
                 as={Col}
                 sm={12}
@@ -136,7 +144,20 @@ export const Toolbar = () => {
                 md={10}
                 xl={11}
                 direction="horizontal"
-                style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+                style={{
+                  overflowX: "auto",
+                  overflowBlock: "hidden",
+                  whiteSpace: "nowrap",
+                  // display: "inline !important",
+                  // position: "absolute",
+                  // transform: "translateX(100px)",
+                  // translateX: "",
+                  // top: "auto",
+                  // left: "120px",
+                  // right: "100px",
+                  // minWidth: "100%",
+                }}
+                // className="position-absolute translate-middle-x"
                 gap={1}
               >
                 <Button

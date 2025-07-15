@@ -8,6 +8,7 @@ import {
 import {
   Button,
   Col,
+  Container,
   Form,
   FormControl,
   Row,
@@ -81,8 +82,8 @@ export const Grid = () => {
   };
 
   return (
-    <>
-      <Row className="m-2 align-items-center">
+    <Container fluid className="list_container_fill">
+      <Row className="m-2 w-95 align-items-center search_row_fill">
         <Stack as={Col} sx={12} md={6} lg={9}>
           <Form.Label className="text-secondary fst-italic">
             Tổng số {dataApi.length} sản phẩm
@@ -105,12 +106,13 @@ export const Grid = () => {
         </Stack>
       </Row>
       {isPending ? (
-        <Spinner animation="border" variant="info" />
+        <Spinner animation="border" variant="info" className="me-auto" />
       ) : (
-        <Row className="m-2">
+        <Row className="m-2 w-100 overflow-auto list_row_fill">
           {filterData.map((item) => (
             <Col
               className="mt-2 mb-2"
+              // style={{ maxWidth: "350px" }}
               xs={12}
               md={6}
               lg={4}
@@ -123,6 +125,6 @@ export const Grid = () => {
           ))}
         </Row>
       )}
-    </>
+    </Container>
   );
 };

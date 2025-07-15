@@ -36,7 +36,7 @@ import { BEContext, BEContextProps } from "../BEContext";
 export const MenuIndex = () => {
   //
   const { isMobile } = useContext<BEContextProps>(BEContext);
-  const { setIsShowMenu } = useContext<BEContextProps>(BEContext);
+  const { isShowMenu, setIsShowMenu } = useContext<BEContextProps>(BEContext);
   const [dataMenu, setDataMenu] = useState<MenuType[]>([]);
   const [isLoadingMenu, setIsLoadingMenu] = useState<boolean>(true);
   const [isExpandMenu, setIsExpandgMenu] = useState<boolean>(true);
@@ -46,6 +46,8 @@ export const MenuIndex = () => {
   const [textSearch, setTextSearch] = useState("");
   const [textInput, setTextInput] = useState("");
   const [isPending, startTransition] = useTransition();
+  //
+  const menuLeft = useRef<HTMLDivElement>(null);
   //
   const filterData = useMemo<MenuType[]>(() => {
     return dataMenu.filter(
@@ -91,10 +93,41 @@ export const MenuIndex = () => {
   }, []);
 
   useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const handleResize = () => {
+    // setWindowWidth(window.innerWidth);
+    let leftWidth = window.innerWidth;
+    leftWidth = leftWidth / 3;
+    if (isShowMenu) {
+      console.log("isShowMenu");
+      if (menuLeft.current) {
+        const clientWidth = menuLeft.current.clientWidth;
+        leftWidth = leftWidth > clientWidth ? clientWidth : leftWidth;
+        // console.log("clientWidth: " + clientWidth);
+      }
+    }
+    // console.log("leftWidth " + leftWidth);
+    const root = document.documentElement;
+    root.style.setProperty("--menu-width", leftWidth.toString());
+  };
+
+  useEffect(() => {
     if (!initialized.current) return;
     initialized.current = true;
-
     setIsShowMenu(!isMobile);
+    //
+    // if (menuLeft.current) {
+    //   const clientWidth = menuLeft.current.clientWidth;
+    //   console.log("clientWidth: " + clientWidth);
+    //   const root = document.documentElement;
+    //   root.style.setProperty("--menu-width", clientWidth.toString());
+    // }
 
     return () => {
       //ComponentWillUnmount (Hủy bỏ)
@@ -145,7 +178,7 @@ export const MenuIndex = () => {
   //#endregion các hàm private
 
   return (
-    <div className="menu_left">
+    <div ref={menuLeft} className="menu_left">
       <InputGroup className="mb-3">
         <Form.Control
           // readOnly={isLoadingMenu}
