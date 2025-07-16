@@ -11,9 +11,11 @@ class ChucNangUrl {
   //
   static administrator_fukuda_son_dondathang =
     "/administrator/fukuda-son-dondathang";
+  //
   static administrator_fukuda_son_sanpham = "/administrator/fukuda-son-sanpham";
   static administrator_fukuda_son_sanpham_edit =
     "/administrator/fukuda-son-sanpham-edit";
+  //
   static administrator_fukuda_son_tuyendung_npp =
     "/administrator/fukuda-son-tuyendung-npp";
   static administrator_fukuda_son_khao_sat =

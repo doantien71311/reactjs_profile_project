@@ -3,12 +3,12 @@ import { BEIndex } from "./compoments/BEIndex";
 import { ProfileBEIndex } from "./compoments/profile_nhanvien_edit/profile_temp/ProfileBEIndex";
 import ChucNangUrl from "./ChucNangUrl";
 import { FukudaSonSanPhamBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamBEIndex";
-import { FukudaSonSanPhamEditBEIndex } from "./compoments/fukuda_son_sanpham/FukudaSonSanPhamEditBEIndex";
 import { ProfileBEEditIndex } from "./compoments/profile_nhanvien_edit/profile_edit/ProfileBEEditIndex";
 
 import { NhanVienIndex } from "./compoments/nhanvien/NhanVienIndex";
 import { BEProvider } from "./compoments/BEContext";
 import { RouteBackEndIndex } from "./RouteBackEndIndex";
+import { FukudaSonSanPhamEditIndex } from "./compoments/fukuda_son_sanpham_edit/FukudaSonSanPhamEditIndex";
 
 export const RouteBackEnd = () => {
   return (
@@ -31,6 +31,19 @@ export const RouteBackEnd = () => {
             element={<FukudaSonSanPhamBEIndex />}
           />
           <Route
+            path={
+              ChucNangUrl.administrator_fukuda_son_sanpham_edit +
+              ChucNangUrl.toQueryDanhMuc
+              // "/:keyString/:isAddNew"
+            }
+            element={<FukudaSonSanPhamEditIndex />}
+          />
+
+          {/* <Route
+            path={ChucNangUrl.administrator_fukuda_son_sanpham_edit}
+            element={<FukudaSonSanPhamEditIndex />}
+          /> */}
+          <Route
             path={ChucNangUrl.administrator_fukuda_son_dondathang}
             element={<FukudaSonSanPhamBEIndex />}
           />
@@ -42,16 +55,6 @@ export const RouteBackEnd = () => {
           <Route
             path={ChucNangUrl.administrator_fukuda_son_khao_sat}
             element={<FukudaSonSanPhamBEIndex />}
-          />
-
-          <Route
-            //  path="fukuda-son-dondathang/:ma_nv
-            path={
-              ChucNangUrl.administrator_fukuda_son_sanpham_edit +
-              ChucNangUrl.toQueryDanhMuc
-              // "/:keyString/:isAddNew"
-            }
-            element={<FukudaSonSanPhamEditBEIndex />}
           />
 
           <Route

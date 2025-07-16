@@ -13,9 +13,11 @@ import { useEffect, useRef } from "react";
 export const CommonToolbarEditUI = ({
   Title,
   CapNhat,
+  TroVe,
 }: {
   Title: string;
   CapNhat: TCommonToolbar;
+  TroVe?: TCommonToolbar | undefined;
 }) => {
   const str_variant = "primary";
   const str_size = "sm";
@@ -40,7 +42,14 @@ export const CommonToolbarEditUI = ({
       <Card>
         <Card.Header className="row_body_edit_toolbar_top_accordion_car_header">
           <Stack direction="horizontal" gap={3}>
-            <Button variant="link">
+            <Button
+              variant="link"
+              as="a"
+              onClick={() => {
+                if (!TroVe) return;
+                TroVe.onNavigation();
+              }}
+            >
               <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
             <span className="p-0 text-primary text-start text-wrap fw-bold fs-6">
