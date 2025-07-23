@@ -10,6 +10,7 @@ import { FukudaSonDonDatHangIndex } from "./website/compoments/fukuda_son_dondat
 import App from "./App.tsx";
 import { RouteBackEnd } from "./administrator/RouteBackEnd.tsx";
 import { BEIndex } from "./administrator/compoments/BEIndex.tsx";
+import "./i18n.js";
 
 // const router = createBrowserRouter([
 //   {

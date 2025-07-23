@@ -1,4 +1,11 @@
 import { useState, createContext, ReactNode, useEffect, useRef } from "react";
+import {
+  ResponseApiType,
+  ResponseApiTypeDefault,
+} from "../../model/ResponseApiType";
+// import { useNavigate } from "react-router-dom";
+// import ChucNangUrl from "../ChucNangUrl";
+// import SessionStorageKey from "../SessionStorageKey";
 //
 export type BEContextProps = {
   isShowMenu: boolean;
@@ -6,8 +13,10 @@ export type BEContextProps = {
   isMobile: boolean;
   isCommonLoadingApi: boolean;
   setIsCommonLoadingApi: (value: boolean) => void;
-  isCommonPostingApi: boolean;
-  setIsCommonPostingApi: (value: boolean) => void;
+  commonPostingApi: string;
+  setCommonPostingApi: (value: string) => void;
+  responseApi: ResponseApiType;
+  setResponseApiType: (value: ResponseApiType) => void;
 };
 export const BEContext = createContext<BEContextProps>({
   isShowMenu: true,
@@ -15,8 +24,10 @@ export const BEContext = createContext<BEContextProps>({
   isMobile: false,
   isCommonLoadingApi: false,
   setIsCommonLoadingApi: () => {},
-  isCommonPostingApi: false,
-  setIsCommonPostingApi: () => {},
+  commonPostingApi: "",
+  setCommonPostingApi: () => {},
+  responseApi: ResponseApiTypeDefault,
+  setResponseApiType: () => {},
 });
 
 export const BEProvider = ({ children }: { children: ReactNode }) => {
@@ -25,8 +36,12 @@ export const BEProvider = ({ children }: { children: ReactNode }) => {
   const [useIsShowMenu, setUseIsShowMenu] = useState<boolean>(true);
   const [isUseMobile, setIsUseMobile] = useState(false);
   const [isUseLoadingApi, setUseIsLodingApi] = useState(false);
-  const [isUsePostingApi, setUseIsPostingApi] = useState(false);
+  const [commonPostingApi, setCommonPostingApi] = useState("");
+  const [responseApi, setResponseApiType] = useState<ResponseApiType>(
+    ResponseApiTypeDefault
+  );
   //
+  // const navigate = useNavigate();
 
   // const handleResize = () => {
   //   setIsUseMobile(window.innerWidth <= 767);
@@ -65,6 +80,16 @@ export const BEProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
+    // //Kiểm tra đăng nhập và chuyển trang
+    // const username = sessionStorage.getItem(SessionStorageKey.username);
+    // console.log(
+    //   "sessionStorage.getItem(SessionStorageKey.username) :" + username
+    // );
+    // if (!username || username == null || username == "") {
+    //   navigate(ChucNangUrl.administrator_dang_nhap);
+    //   return;
+    // }
+
     setIsUseMobile(window.innerWidth <= 767);
     return () => {
       console.log("BEProvider: useEffect - count - cleanup");
@@ -79,8 +104,10 @@ export const BEProvider = ({ children }: { children: ReactNode }) => {
         isMobile: isUseMobile,
         isCommonLoadingApi: isUseLoadingApi,
         setIsCommonLoadingApi: setUseIsLodingApi,
-        isCommonPostingApi: isUsePostingApi,
-        setIsCommonPostingApi: setUseIsPostingApi,
+        commonPostingApi: commonPostingApi,
+        setCommonPostingApi: setCommonPostingApi,
+        responseApi: responseApi,
+        setResponseApiType: setResponseApiType,
       }}
     >
       {children}

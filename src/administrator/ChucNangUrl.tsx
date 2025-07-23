@@ -3,11 +3,15 @@ class ChucNangUrl {
     return url + "/" + keyString + "/" + isAddNew;
   };
   static toQueryDanhMuc = "/:keyString/:isAddNew";
+  //
+  static administrator_dang_nhap = "/administrator/dang-nhap";
   ///
-  static administrator_nhanvien = "administrator/nhanvien";
+  static administrator_nhanvien = "/administrator/nhanvien";
+  static administrator_nhanvien_edit = "/administrator/nhanvien-edit";
   ///
   static administrator_profile = "administrator/profile";
   static administrator_profile_edit = "/administrator/profile-edit";
+  static administrator_profile_qtlv_edit = "/administrator/profile-qtlv-edit";
   //
   static administrator_fukuda_son_dondathang =
     "/administrator/fukuda-son-dondathang";
@@ -18,6 +22,7 @@ class ChucNangUrl {
   //
   static administrator_fukuda_son_tuyendung_npp =
     "/administrator/fukuda-son-tuyendung-npp";
+  //
   static administrator_fukuda_son_khao_sat =
     "/administrator/fukuda-son-khao-sat";
 }

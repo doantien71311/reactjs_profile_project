@@ -3,8 +3,21 @@ import { Button, Card, Col, Row, Stack } from "react-bootstrap";
 import { numberToStringMoney } from "../../../utils/utilsFunction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import ChucNangUrl from "../../ChucNangUrl";
+import { useNavigate } from "react-router-dom";
 
 export const ItemGrid = ({ item }: { item: FukudaSonSanPhamType }) => {
+  const navigate = useNavigate();
+  const handleNavigateEdit = () => {
+    navigate(
+      ChucNangUrl.toUrlDanhMuc(
+        ChucNangUrl.administrator_fukuda_son_sanpham_edit,
+        item.id ?? "",
+        false
+      )
+    );
+  };
+
   return (
     <>
       <Card>
@@ -58,7 +71,11 @@ export const ItemGrid = ({ item }: { item: FukudaSonSanPhamType }) => {
             <Button size="sm" variant="muted">
               <FontAwesomeIcon icon={faTrashCan} />
             </Button>
-            <Button size="sm" variant="muted" onClick={() => {}}>
+            <Button
+              size="sm"
+              variant="muted"
+              onClick={() => handleNavigateEdit()}
+            >
               <FontAwesomeIcon icon={faPencil} />
             </Button>
           </Stack>

@@ -33,6 +33,7 @@
 .profile-slogan {
   grid-area: slogan;
   min-height: auto;
+  /* display: block; */
   /* width: 100vw; */
   /* border: 1px solid; */
   /* color: var(--primary-one-right-color); */
@@ -127,6 +128,26 @@
 /* #endregion các thành phần dùng chung */
 
 /*#region slogan */
+.profile_slogan_language {
+  /* border: 1px solid green; */
+  margin-right: 0px;
+  display: inline-flex;
+  margin-left: 100% !important;
+  transform: translateX(-100%);
+}
+
+.profile_slogan_language button:hover {
+  /* opacity: 0.8; */
+  cursor: pointer;
+  background-color: var(--primary-color);
+}
+
+.profile_slogan_language button:active {
+  background-color: var(--primary-one-right-color);
+  transform: scale(0.9);
+  /* color: white; */
+}
+
 .profile_slogan_chucvu {
   display: flex;
   flex-direction: row;

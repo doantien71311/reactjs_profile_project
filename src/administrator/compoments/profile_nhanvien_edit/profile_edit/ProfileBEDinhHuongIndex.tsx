@@ -6,7 +6,7 @@ import {
   ProfileBEEditContextProps,
 } from "./ProfileBEEditContext";
 
-import { Accordion, Button, Form, Modal } from "react-bootstrap";
+import { Accordion, Button, Col, Form, Modal, Row } from "react-bootstrap";
 import BEConstCSS from "../../BEConstCSS";
 import {
   CommonButtonAddDataGrid,
@@ -19,10 +19,9 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 export const ProfileBEDinhHuongIndex = () => {
-  const useData =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).dataApi;
-  const setDataApi =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).setDataApi;
+  const { dataApiDinhHuong, setDataApiDinhHuong } =
+    useContext<ProfileBEEditContextProps>(ProfileBEEditContext);
+
   const [showKyNang, setShowKyNang] = useState(false);
   const [useDataRow, setUseDataRow] = useState<ProfileDinhHuongType>({});
   const handleKyNangClose = () => setShowKyNang(false);
@@ -32,7 +31,7 @@ export const ProfileBEDinhHuongIndex = () => {
   const handleAddRow = () => {
     setUseDataRow({
       id: uuidv4(),
-      stt: (useData.profile_nhanvien_dinhhuong ?? []).length + 1,
+      stt: dataApiDinhHuong.length + 1,
     });
     setShowKyNang(true);
   };
@@ -49,26 +48,19 @@ export const ProfileBEDinhHuongIndex = () => {
     // delete (useData.profile_nhanvien_kynang ?? [])[indexDelete];
     // setDataApi(useData);
 
-    setDataApi({
-      ...useData,
-      profile_nhanvien_dinhhuong: (
-        useData.profile_nhanvien_dinhhuong ?? []
-      ).filter((f) => f.id !== props.row.id),
-    });
+    setDataApiDinhHuong(dataApiDinhHuong.filter((f) => f.id !== props.row.id));
+
     setShowKyNang(false);
   };
   //
   const handleSaveDataToGrid = () => {
-    const rowIndex = (useData.profile_nhanvien_dinhhuong ?? []).findIndex(
-      (f) => f.id === useDataRow.id
-    );
-    if (rowIndex < 0)
-      (useData.profile_nhanvien_dinhhuong ?? []).push(useDataRow);
+    const rowIndex = dataApiDinhHuong.findIndex((f) => f.id === useDataRow.id);
+    if (rowIndex < 0) dataApiDinhHuong.push(useDataRow);
     else {
-      (useData.profile_nhanvien_dinhhuong ?? [])[rowIndex] = useDataRow;
+      dataApiDinhHuong[rowIndex] = useDataRow;
     }
     //
-    setDataApi({ ...useData });
+    setDataApiDinhHuong([...dataApiDinhHuong]);
     setShowKyNang(false);
   };
   //#endregion các nút trên lưới
@@ -78,6 +70,12 @@ export const ProfileBEDinhHuongIndex = () => {
     setUseDataRow({
       ...useDataRow,
       noidung: event,
+    });
+  };
+  const handleChangeDinhHuong = (event: string) => {
+    setUseDataRow({
+      ...useDataRow,
+      noidung_en: event,
     });
   };
   //#endregion các thay đổi control
@@ -115,6 +113,14 @@ export const ProfileBEDinhHuongIndex = () => {
     {
       key: "noidung",
       name: "Nội dung",
+      width: "minmax(300px, max-content)",
+      //   width: "max-content",
+      //   minWidth: 200,
+      // maxWidth: 100,
+    },
+    {
+      key: "noidung_en",
+      name: "Nội dung EN",
       width: "minmax(300px, max-content)",
       //   width: "max-content",
       //   minWidth: 200,
@@ -163,20 +169,38 @@ export const ProfileBEDinhHuongIndex = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>Tên định hướng:</Form.Label>
-            <Form.Control
-              // type="text"
-              as="textarea"
-              rows={4}
-              value={useDataRow.noidung ?? ""}
-              onChange={(event) => handleChangeTenKyNang(event.target.value)}
-            ></Form.Control>
-            <Form.Label>STT:</Form.Label>
-            <Form.Control
-              type="number"
-              maxLength={2}
-              value={useDataRow.stt ?? 0}
-            ></Form.Control>
+            <Row>
+              <Form.Group as={Col} sm={12}>
+                <Form.Label>Tên định hướng:</Form.Label>
+                <Form.Control
+                  // type="text"
+                  as="textarea"
+                  rows={4}
+                  value={useDataRow.noidung ?? ""}
+                  onChange={(event) =>
+                    handleChangeTenKyNang(event.target.value)
+                  }
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group as={Col} sm={12}>
+                <Form.Label>Tên định hướng EN:</Form.Label>
+                <Form.Control
+                  // type="text"
+                  as="textarea"
+                  rows={4}
+                  value={useDataRow.noidung_en ?? ""}
+                  onChange={(event) =>
+                    handleChangeDinhHuong(event.target.value)
+                  }
+                ></Form.Control>
+                <Form.Label>STT:</Form.Label>
+                <Form.Control
+                  type="number"
+                  maxLength={2}
+                  value={useDataRow.stt ?? 0}
+                ></Form.Control>
+              </Form.Group>
+            </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -198,7 +222,7 @@ export const ProfileBEDinhHuongIndex = () => {
             // className={BEConstCSS.grid_fill}
             // rowKeyGetter={rowKeyGetter}
             columns={columns}
-            rows={useData.profile_nhanvien_dinhhuong ?? []}
+            rows={dataApiDinhHuong}
             // rows={useDataArray}
             // selectedRows={selectedRows}
             // onSelectedRowsChange={setSelectedRows}

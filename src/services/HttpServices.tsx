@@ -1,5 +1,6 @@
 // import { nhanvienType } from "../model/nhanvienType";
 
+import { ParameterApiType } from "../model/ParameterApiType";
 import { ResponseApiType } from "../model/ResponseApiType";
 import { ResponseFileUploadApiType } from "../model/ResponseFileUploadApiType";
 import UrlApi from "./UrlApi";
@@ -80,10 +81,25 @@ export const getArrayData = (api: string) => {
     });
 };
 
-export const getArrayDataPromise = <T,>(api: string): Promise<Array<T>> => {
+export const getArrayDataPromise = <T,>(
+  api: string,
+  parameter?: ParameterApiType[]
+): Promise<Array<T>> => {
   return new Promise<Array<T>>((resolve) => {
     getTokenString().then((token) => {
-      fetch(`${UrlApi.getApiHttp()}${api}`, {
+      let parameterQuery = "";
+      if (parameter) {
+        parameterQuery = parameter
+          .map((m) => {
+            return `${m.name}=${m.value}`;
+          })
+          .join("&");
+        parameterQuery = `?${parameterQuery}`;
+      }
+      console.log("parameterQuery " + parameterQuery);
+      const url_api_get = `${UrlApi.getApiHttp()}${api}${parameterQuery}`;
+      console.log("url_api_get " + url_api_get);
+      fetch(url_api_get, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + token,
@@ -104,10 +120,25 @@ export const getArrayDataPromise = <T,>(api: string): Promise<Array<T>> => {
   });
 };
 
-export const getRowData = <T,>(api: string): Promise<T> => {
+export const getRowFromListData = <T,>(
+  api: string,
+  parameter?: ParameterApiType[]
+): Promise<T> => {
   return new Promise<T>((resolve) => {
     getTokenString().then((token) => {
-      fetch(`${UrlApi.getApiHttp()}${api}`, {
+      let parameterQuery = "";
+      if (parameter) {
+        parameterQuery = parameter
+          .map((m) => {
+            return `${m.name}=${m.value}`;
+          })
+          .join("&");
+        parameterQuery = `?${parameterQuery}`;
+      }
+      console.log("parameterQuery " + parameterQuery);
+      const url_api_get = `${UrlApi.getApiHttp()}${api}${parameterQuery}`;
+      console.log("url_api_get " + url_api_get);
+      fetch(`${UrlApi.getApiHttp()}${api}${parameterQuery}`, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + token,
@@ -115,7 +146,43 @@ export const getRowData = <T,>(api: string): Promise<T> => {
       })
         .then((res) => res.json())
         .then((json) => {
-          
+          const value: T[] = json.data.google_drive as T[];
+          const row = value[0];
+          return resolve(row);
+        })
+        .catch(() => {
+          return resolve({} as T);
+        });
+    });
+  });
+};
+
+export const getRowData = <T,>(
+  api: string,
+  parameter?: ParameterApiType[]
+): Promise<T> => {
+  return new Promise<T>((resolve) => {
+    getTokenString().then((token) => {
+      let parameterQuery = "";
+      if (parameter) {
+        parameterQuery = parameter
+          .map((m) => {
+            return `${m.name}=${m.value}`;
+          })
+          .join("&");
+        parameterQuery = `?${parameterQuery}`;
+      }
+      // console.log("parameterQuery " + parameterQuery);
+      const url_api_get = `${UrlApi.getApiHttp()}${api}${parameterQuery}`;
+      console.log("url_api_get: " + url_api_get);
+      fetch(url_api_get, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
           const value: T = json.data.google_drive as T;
           return resolve(value);
         })
@@ -145,7 +212,7 @@ export const postRowData = <T,>(
       })
         .then((res) => res.json())
         .then((json) => {
-          const value = json.data.google_drive as ResponseApiType;
+          const value = json as ResponseApiType;
           return resolve(value);
         })
         .catch(() => {

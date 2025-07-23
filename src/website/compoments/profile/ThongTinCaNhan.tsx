@@ -2,8 +2,12 @@ import { useContext } from "react";
 import { splitStringToArray } from "../../../utils/utilsFunction";
 import { ProfileContext, ProfileContextProps } from "./ProfileContext";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
+import LanguageTranslation from "../../../LanguageTranslation";
+import { v4 as uuidv4 } from "uuid";
 
 export const ThongTinCacNhan = () => {
+  const { t } = useTranslation();
   const useData = useContext<ProfileContextProps>(ProfileContext).dataApi;
   const charVariants = {
     hidden: { opacity: 0 },
@@ -19,12 +23,14 @@ export const ThongTinCacNhan = () => {
   return (
     <section className="profile-item profile-thongtincanhan ">
       <div className="common-title profile_thongtincanhan_tieude">
-        <span>THÔNG TIN CÁ NHÂN</span>
+        <span>
+          {/* THÔNG TIN CÁ NHÂN */}
+          {t(LanguageTranslation.profile_personal_information_title)}
+        </span>
         <i className="fas fa-address-card fa-3x"></i>
       </div>
       <div className="profile_thongtincanhan_noidung">
-        <motion.div 
-        className="profile_thongtincanhan_item">
+        <motion.div className="profile_thongtincanhan_item">
           <i className="fas fa-user fa-lg"></i>
           <motion.span
             initial="hidden"
@@ -36,9 +42,9 @@ export const ThongTinCacNhan = () => {
             }}
             viewport={viewportCus}
           >
-            {splitStringToArray(useData.ten_nv ?? "").map((item) => (
+            {splitStringToArray(useData.ten_nv_translate ?? "").map((item) => (
               <motion.text
-                key={item}
+                key={uuidv4()}
                 transition={transitionCus}
                 variants={charVariants}
               >
@@ -54,20 +60,23 @@ export const ThongTinCacNhan = () => {
             whileInView="reveal"
             variants={charVariants}
             transition={{
-              delayChildren: (useData.ten_nv ?? "").length * staggerChildrenCus,
+              delayChildren:
+                (useData.ten_nv_translate ?? "").length * staggerChildrenCus,
               staggerChildren: staggerChildrenCus,
             }}
             viewport={viewportCus}
           >
-            {splitStringToArray(useData.dienthoai ?? "").map((item) => (
-              <motion.text
-                // key={item}
-                transition={transitionCus}
-                variants={charVariants}
-              >
-                {item ?? ""}
-              </motion.text>
-            ))}
+            {splitStringToArray(useData.dienthoai_translate ?? "").map(
+              (item) => (
+                <motion.text
+                  key={uuidv4()}
+                  transition={transitionCus}
+                  variants={charVariants}
+                >
+                  {item ?? ""}
+                </motion.text>
+              )
+            )}
           </motion.span>
         </div>
         <div className="profile_thongtincanhan_item">
@@ -78,16 +87,16 @@ export const ThongTinCacNhan = () => {
             variants={charVariants}
             transition={{
               delayChildren:
-                ((useData.ten_nv ?? "").length +
-                  (useData.dienthoai ?? "").length) *
+                ((useData.ten_nv_translate ?? "").length +
+                  (useData.dienthoai_translate ?? "").length) *
                 staggerChildrenCus,
               staggerChildren: staggerChildrenCus,
             }}
             viewport={viewportCus}
           >
-            {splitStringToArray(useData.email ?? "").map((item) => (
+            {splitStringToArray(useData.email_translate ?? "").map((item) => (
               <motion.text
-                key={item}
+                key={uuidv4()}
                 transition={transitionCus}
                 variants={charVariants}
               >
@@ -105,23 +114,25 @@ export const ThongTinCacNhan = () => {
             variants={charVariants}
             transition={{
               delayChildren:
-                ((useData.ten_nv ?? "").length +
-                  (useData.dienthoai ?? "").length +
-                  (useData.email ?? "").length) *
+                ((useData.ten_nv_translate ?? "").length +
+                  (useData.dienthoai_translate ?? "").length +
+                  (useData.email_translate ?? "").length) *
                 staggerChildrenCus,
               staggerChildren: staggerChildrenCus,
             }}
             viewport={viewportCus}
           >
-            {splitStringToArray(useData.diachi_thuongtru ?? "").map((item) => (
-              <motion.text
-                // key={item}
-                transition={transitionCus}
-                variants={charVariants}
-              >
-                {item ?? ""}
-              </motion.text>
-            ))}
+            {splitStringToArray(useData.diachi_thuongtru_translate ?? "").map(
+              (item) => (
+                <motion.text
+                  key={uuidv4()}
+                  transition={transitionCus}
+                  variants={charVariants}
+                >
+                  {item ?? ""}
+                </motion.text>
+              )
+            )}
           </motion.span>
         </div>
       </div>

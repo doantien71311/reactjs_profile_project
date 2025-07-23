@@ -31,7 +31,7 @@ export const DinhHuong = () => {
             className="profile-dinhhuong-item"
           >
             <i className="fas fa-star fa-2x"></i>
-            <span>{item.noidung}</span>
+            <span>{item.noidung_translate}</span>
           </motion.div>
         ))}
       </div>

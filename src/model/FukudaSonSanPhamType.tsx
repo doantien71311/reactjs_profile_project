@@ -1,10 +1,12 @@
 export interface FukudaSonSanPhamType {
   id: string;
-  ma_hh: string;
+  ma_hh?: string;
   ma_hh_nhacungcap?: string;
   ten_hh?: string;
   hinhanh_url?: string;
+  ma_dvt?: string;
   ten_dvt?: string;
+  ma_quydoi?: string;
   ten_quydoi?: string;
   soluong?: number;
   ma_hh_nhom?: string;

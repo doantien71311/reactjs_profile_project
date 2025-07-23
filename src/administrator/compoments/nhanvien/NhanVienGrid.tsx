@@ -1,8 +1,8 @@
 import { createContext, useContext, useMemo, useRef, useState } from "react";
 import { NhanVienType } from "../../../model/NhanVienType";
 import {
-  CellMouseArgs,
-  CellMouseEvent,
+  // CellMouseArgs,
+  // CellMouseEvent,
   CellSelectArgs,
   Column,
   RenderCellProps,
@@ -602,8 +602,8 @@ export const NhanVienGrid = () => {
         ),
       },
       {
-        key: "id",
-        name: "id",
+        key: "soid",
+        name: "soid",
         // width: "5%",
         width: "max-content",
         minWidth: 50,
@@ -638,33 +638,36 @@ export const NhanVienGrid = () => {
 
   //#endregion các useMemo
 
-  const [selectedRows, setSelectedRows] = useState(
-    (): ReadonlySet<string> => new Set()
-  );
+  // const [selectedRows, setSelectedRows] = useState(
+  //   (): ReadonlySet<string> => new Set()
+  // );
 
   //#region các function của data grid
   function rowKeyGetter(row: NhanVienType) {
     return row.soid;
   }
-  function onCellClick(
-    args: CellMouseArgs<NhanVienType, SummaryRow>,
-    event: CellMouseEvent
-  ) {
-    if (args.column.key === "soid") {
-      event.preventGridDefault();
-    }
-    context.selectRow.soid = args.row.soid;
-    context.selectRow.ma_nv = args.row.ma_nv;
-    context.setSelectRow(context.selectRow);
-  }
+  // function onCellClick(
+  //   args: CellMouseArgs<NhanVienType, SummaryRow>,
+  //   event: CellMouseEvent
+  // ) {
+  //   if (args.column.key === "soid") {
+  //     event.preventGridDefault();
+  //   }
+  //   console.log("onCellClick: " + args.row.soid);
+  //   console.log(args.row.soid);
+  //   context.selectRow.soid = args.row.soid;
+  //   context.selectRow.ma_nv = args.row.ma_nv;
+  //   context.setSelectRow(context.selectRow);
+  // }
   function onSelectedCellChange(
     args: CellSelectArgs<NhanVienType, SummaryRow>
   ) {
     if (!args.row) return;
-    context.selectRow.soid = args.row.soid;
-    context.selectRow.ma_nv = args.row.ma_nv;
-    context.setSelectRow(context.selectRow);
-    // console.log("onSelectedCellChange: " + selectRow.id);
+    console.log(args.row);
+    // context.selectRow.soid = args.row.soid;
+    // context.selectRow.ma_nv = args.row.ma_nv;
+    context.setSelectRow(args.row);
+    console.log("onSelectedCellChange: " + args.row.soid);
   }
   //#endregion các function của data grid
 
@@ -678,10 +681,10 @@ export const NhanVienGrid = () => {
           rowKeyGetter={rowKeyGetter}
           columns={columns}
           rows={filteredRows}
-          selectedRows={selectedRows}
-          onSelectedRowsChange={setSelectedRows}
+          // selectedRows={selectedRows}
+          // onSelectedRowsChange={setSelectedRows}
           onSelectedCellChange={onSelectedCellChange}
-          onCellClick={onCellClick}
+          // onCellClick={onCellClick}
           defaultColumnOptions={{
             minWidth: 50,
             resizable: true,

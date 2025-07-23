@@ -7,6 +7,12 @@ export interface NhanVienType {
   email?: string;
   facebook?: string;
   zalo?: string;
+  ma_tinhthanhpho?: string;
+  ten_tinhthanhpho?: string;
+  ma_quanhuyen?: string;
+  ten_quanhuyen?: string;
+  ma_phuongxa?: string;
+  ten_phuongxa?: string;
   diachi_thuongtru?: string;
   ma_chucvu?: string;
   ten_chucvu?: string;

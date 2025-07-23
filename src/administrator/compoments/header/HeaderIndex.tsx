@@ -10,8 +10,11 @@ import {
   Image,
 } from "react-bootstrap";
 import { BEContextProps, BEContext } from "../BEContext";
+import ChucNangUrl from "../../ChucNangUrl";
+import { useNavigate } from "react-router-dom";
 
 export const HeaderIndex = () => {
+  const navigate = useNavigate();
   const { isShowMenu, setIsShowMenu } = useContext<BEContextProps>(BEContext);
   const initialized = useRef(false);
   //
@@ -30,6 +33,10 @@ export const HeaderIndex = () => {
   //#region các hàm private
   const menuHandleClick = () => {
     setIsShowMenu(!isShowMenu);
+  };
+  const navigateDangNhap = () => {
+    sessionStorage.clear();
+    navigate(ChucNangUrl.administrator_dang_nhap);
   };
 
   //#endregion các hàm private
@@ -79,7 +86,7 @@ export const HeaderIndex = () => {
             <Dropdown.Item eventKey="1">Đổi Them</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item eventKey="2">
-              <Button onClick={() => menuHandleClick()}>
+              <Button onClick={() => navigateDangNhap()}>
                 <FontAwesomeIcon icon={faSignOutAlt} />
                 <span>Đăng xuất</span>
               </Button>

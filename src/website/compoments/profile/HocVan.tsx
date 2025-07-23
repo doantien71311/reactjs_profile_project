@@ -1,14 +1,20 @@
 import { useContext } from "react";
 import { ProfileContext, ProfileContextProps } from "./ProfileContext";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
+import LanguageTranslation from "../../../LanguageTranslation";
 
 export const HocVan = () => {
+  const { t } = useTranslation();
   const useData = useContext<ProfileContextProps>(ProfileContext).dataApi;
 
   return (
     <section className="profile-item profile-hocvan">
       <div className="common-title profile_hocvan_tieude">
-        <span>HỌC VẤN</span>
+        <span>
+          {/* HỌC VẤN  */}
+          {t(LanguageTranslation.profile_education_title)}
+        </span>
         <i className="fas fa-user-graduate fa-3x"></i>
       </div>
       <div className="profile_hocvan_noidung">
@@ -29,10 +35,22 @@ export const HocVan = () => {
             viewport={{ once: false }}
             className="profile_hocvan_noidung_item"
           >
-            <span>-Năm học: {item.thoigian_hocvan ?? ""}</span>
-            <span>-Tên trường: {item.tentruong_hocvan ?? ""}</span>
-            <span>-Chuyên ngành: {item.chuyennganh_hocvan ?? ""}</span>
-            <span>-Bằng cấp: {item.bangcap_hocvan ?? ""}</span>
+            <span>
+              {`-${t(LanguageTranslation.academic_year_title)}`}:{" "}
+              {item.thoigian_hocvan ?? ""}
+            </span>
+            <span>
+              {`-${t(LanguageTranslation.university_title)}`}:{" "}
+              {item.tentruong_hocvan_translate ?? ""}
+            </span>
+            <span>
+              {`-${t(LanguageTranslation.major_title)}`}:{" "}
+              {item.chuyennganh_hocvan_translate ?? ""}
+            </span>
+            <span>
+              {`-${t(LanguageTranslation.degree_title)}`}:{" "}
+              {item.bangcap_hocvan_translate ?? ""}
+            </span>
           </motion.div>
         ))}
       </div>

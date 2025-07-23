@@ -3,8 +3,11 @@ import { ProfileContext, ProfileContextProps } from "./ProfileContext";
 import CountUp from "react-countup";
 import { motion } from "motion/react";
 import { ProfileKyNangType } from "../../../model/ProfileNhanVienType";
+import { useTranslation } from "react-i18next";
+import LanguageTranslation from "../../../LanguageTranslation";
 
 export const NangLuc = () => {
+  const { t } = useTranslation();
   const useData = useContext<ProfileContextProps>(ProfileContext).dataApi;
 
   const getJsonStyle = (item: ProfileKyNangType) => {
@@ -27,7 +30,10 @@ export const NangLuc = () => {
 
     <section className="profile-item profile-nangluc">
       <div className="common-title">
-        <span>KỸ NĂNG</span>
+        <span>
+          {/* KỸ NĂNG */}
+          {t(LanguageTranslation.profile_skills_title)}
+        </span>
         <i className="fas fa-grin-stars fa-3x"></i>
       </div>
       <div className="profile_nangluc_noidung">
@@ -92,7 +98,7 @@ export const NangLuc = () => {
               </span>
             </div>
             <div className="profile_nangluc_bar">
-              <span>{item.ten_kynang ?? ""}</span>
+              <span>{item.ten_kynang_translate ?? ""}</span>
               <div>
                 <motion.div
                   initial={{

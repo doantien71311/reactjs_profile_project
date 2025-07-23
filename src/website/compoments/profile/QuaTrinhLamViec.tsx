@@ -1,8 +1,12 @@
 import { useContext } from "react";
 import { ProfileContext, ProfileContextProps } from "./ProfileContext";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
+import LanguageTranslation from "../../../LanguageTranslation";
 
 export const QuaTrinhLamViec = () => {
+  const { t } = useTranslation();
+
   const useData = useContext<ProfileContextProps>(ProfileContext).dataApi;
 
   return (
@@ -15,7 +19,8 @@ export const QuaTrinhLamViec = () => {
         />
         <div className="common-title profile_quatrinhlamviec_tieude">
           <label htmlFor="collapsible-head-checkboxDD">
-            QUÁ TRÌNH LÀM VIỆC
+            {/* QUÁ TRÌNH LÀM VIỆC */}
+            {t(LanguageTranslation.profile_work_experience_title)}
           </label>
           <i className="fas fa-building fa-3x"></i>
         </div>
@@ -43,14 +48,16 @@ export const QuaTrinhLamViec = () => {
               className="profile_quatrinhlamviec_item"
             >
               <div className="profile_quatrinhlamviec_item_left">
-                <span>{item.thoigian_qtlv ?? ""}</span>
-                <span>{item.congty_qtlv ?? ""}</span>
+                <span>{item.thoigian_qtlv_translate ?? ""}</span>
+                <span>{item.congty_qtlv_translate ?? ""}</span>
               </div>
               <div className="profile_quatrinhlamviec_item_right">
-                <span>{item.vitri_qtlv ?? ""}</span>
+                <span>{item.vitri_qtlv_translate ?? ""}</span>
                 <div
                   className="profile_quatrinhlamviec_item_right_mota"
-                  dangerouslySetInnerHTML={{ __html: `${item.mota_qtlv}` }}
+                  dangerouslySetInnerHTML={{
+                    __html: `${item.mota_qtlv_translate}`,
+                  }}
                 ></div>
               </div>
             </motion.div>

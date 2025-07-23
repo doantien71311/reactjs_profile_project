@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import { BEContext, BEContextProps } from "../BEContext";
 import BEConstCSS from "../BEConstCSS";
+import CommonPostStatus from "./CommonPostStatus";
 
 // export type CommonTitleBodyEditUIProps = { title: ReactNode; body: ReactNode };
 export const CommonTitleBodyEditUI = ({
@@ -18,18 +19,31 @@ export const CommonTitleBodyEditUI = ({
   title: ReactNode;
   body: ReactNode;
 }) => {
-  const { isCommonLoadingApi, isCommonPostingApi } =
-    useContext<BEContextProps>(BEContext);
+  const {
+    isCommonLoadingApi,
+    commonPostingApi,
+    setCommonPostingApi,
+    responseApi,
+  } = useContext<BEContextProps>(BEContext);
   const [show, setShow] = useState(false);
   //
   useEffect(() => {
-    setShow(isCommonPostingApi);
+    if (commonPostingApi === CommonPostStatus.saved) {
+      setShow(true);
+      setCommonPostingApi("");
+    }
     return () => {
       // console.log(
       //   "ProfileBEEditProvider: useEffect setIsCommonLoadingApi - count - cleanup"
       // );
     };
-  }, [isCommonPostingApi]);
+  }, [commonPostingApi]);
+
+  const getStatus = () => {
+    let text_status = "text-danger";
+    if ((responseApi.status ?? "") == "200") text_status = "text-success";
+    return `${text_status} fw-bold`;
+  };
 
   return (
     <>
@@ -42,7 +56,10 @@ export const CommonTitleBodyEditUI = ({
           <Toast.Header closeButton={false}>
             <strong className="me-auto">Thông báo</strong>
           </Toast.Header>
-          <Toast.Body>Lưu thành công</Toast.Body>
+          {/* <Toast.Body>Lưu thành công</Toast.Body> */}
+          <Toast.Body className={getStatus()}>
+            {responseApi.message ?? ""}
+          </Toast.Body>
         </Toast>
       </ToastContainer>
       <Col
@@ -72,7 +89,7 @@ export const CommonTitleBodyEditUI = ({
         ) : (
           <></>
         )}
-        {isCommonPostingApi ? (
+        {commonPostingApi === CommonPostStatus.saving ? (
           <>
             <div
               // style={{ width: "100%", height: "100%" }}

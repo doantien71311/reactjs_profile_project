@@ -2,11 +2,165 @@
 // import { ProfileContext, ProfileContextProps } from "./ProfileContext";
 // import { motion } from "motion/react";
 
+import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { ProfileContext, ProfileContextProps } from "./ProfileContext";
+import vn_flag from "../../../assets/image/vn_flag.png";
+import en_flag from "../../../assets/image/en_flag.png";
+import LanguageTranslation from "../../../LanguageTranslation";
+
+type FlagType = {
+  value: string;
+  title: string;
+  url_image: string;
+};
+
 export const Slogan = () => {
-  // const useData = useContext<ProfileContextProps>(ProfileContext).dataApi;
+  const dataFlagImage: FlagType[] = [];
+  dataFlagImage.push({
+    value: "vn",
+    title: "VN",
+    url_image: vn_flag,
+  });
+  dataFlagImage.push({
+    value: "en",
+    title: "EN",
+    url_image: en_flag,
+  });
+
+  const [valueFlagImage, setValueFlagImage] = useState("");
+
+  const getBorderButton = (value: string) => {
+    if (value == "") return "3px solid var(--primary-one-right-color)";
+    if (value == valueFlagImage)
+      // return "3px solid var(--primary-one-right-color)";
+      return "3px solid var(--primary-color)";
+    return "3px solid transparent";
+  };
+
+  const { dataApi, setDataApi, setLanguageValue } =
+    useContext<ProfileContextProps>(ProfileContext);
+  const { i18n } = useTranslation();
+  const { t } = useTranslation();
+  //
+  const changeLanguage = (value: string) => {
+    setLanguageValue(value);
+    setValueFlagImage(value);
+    return;
+    //
+    i18n.changeLanguage(value);
+    setValueFlagImage(value);
+    if (value == "vn" || value == null || value == undefined) {
+      const dinhhuong_vn = dataApi.profile_nhanvien_dinhhuong?.map((item) => {
+        return { ...item, noidung_translate: item.noidung };
+      });
+      const kynang_vn = dataApi.profile_nhanvien_kynang?.map((item) => {
+        return { ...item, ten_kynang_translate: item.ten_kynang };
+      });
+      const qtlv_vn = dataApi.profile_nhanvien_quatrinhlamviec?.map((item) => {
+        return {
+          ...item,
+          thoigian_qtlv_translate: item.thoigian_qtlv,
+          congty_qtlv_translate: item.congty_qtlv,
+          vitri_qtlv_translate: item.vitri_qtlv,
+          mota_qtlv_translate: item.mota_qtlv,
+        };
+      });
+      const hocvan_vn = dataApi.profile_nhanvien_hocvan?.map((item) => {
+        return {
+          ...item,
+          bangcap_hocvan_translate: item.bangcap_hocvan,
+          thoigian_hocvan_translate: item.thoigian_hocvan,
+          chuyennganh_hocvan_translate: item.chuyennganh_hocvan,
+          tentruong_hocvan_translate: item.tentruong_hocvan,
+        };
+      });
+      setDataApi({
+        ...dataApi,
+        ten_nv_translate: dataApi.ten_nv,
+        email_translate: dataApi.email,
+        dienthoai_translate: dataApi.dienthoai,
+        diachi_thuongtru_translate: dataApi.diachi_thuongtru,
+        profile_nhanvien_dinhhuong: dinhhuong_vn,
+        profile_nhanvien_kynang: kynang_vn,
+        profile_nhanvien_quatrinhlamviec: qtlv_vn,
+        profile_nhanvien_hocvan: hocvan_vn,
+        mota_translate: dataApi.mota,
+      });
+    } else if (value == "en") {
+      const dinhhuong_en = dataApi.profile_nhanvien_dinhhuong?.map((item) => {
+        return { ...item, noidung_translate: item.noidung_en };
+      });
+      const kynang_en = dataApi.profile_nhanvien_kynang?.map((item) => {
+        return { ...item, ten_kynang_translate: item.ten_kynang_en };
+      });
+      const qtlv_en = dataApi.profile_nhanvien_quatrinhlamviec?.map((item) => {
+        return {
+          ...item,
+          thoigian_qtlv_translate: item.thoigian_qtlv,
+          congty_qtlv_translate: item.congty_qtlv_en,
+          vitri_qtlv_translate: item.vitri_qtlv_en,
+          mota_qtlv_translate: item.mota_qtlv_en,
+        };
+      });
+      const hocvan_en = dataApi.profile_nhanvien_hocvan?.map((item) => {
+        return {
+          ...item,
+          bangcap_hocvan_translate: item.bangcap_hocvan_en,
+          chuyennganh_hocvan_translate: item.chuyennganh_hocvan_en,
+          tentruong_hocvan_translate: item.tentruong_hocvan_en,
+        };
+      });
+      setDataApi({
+        ...dataApi,
+        ten_nv_translate: dataApi.ten_nv_en,
+        email_translate: dataApi.email_en,
+        dienthoai_translate: dataApi.dienthoai_en,
+        diachi_thuongtru_translate: dataApi.diachi_thuongtru_en,
+        profile_nhanvien_dinhhuong: dinhhuong_en,
+        profile_nhanvien_kynang: kynang_en,
+        profile_nhanvien_quatrinhlamviec: qtlv_en,
+        profile_nhanvien_hocvan: hocvan_en,
+        mota_translate: dataApi.mota_en,
+      });
+    }
+  };
 
   return (
     <section className="profile-item profile-slogan">
+      <div className="profile_slogan_language">
+        {dataFlagImage.map((item) => (
+          <>
+            <button
+              style={{
+                border: getBorderButton(item.value),
+                borderRadius: "10px",
+                maxHeight: "35px",
+                margin: "2px",
+                display: "flex",
+                alignItems: "center",
+              }}
+              onClick={() => changeLanguage(item.value)}
+            >
+              <span
+                style={{
+                  fontSize: "0.7rem",
+                }}
+              >
+                {item.title}
+              </span>
+              <img
+                style={{
+                  maxWidth: "30px",
+                  maxHeight: "30px",
+                }}
+                src={item.url_image}
+              ></img>
+            </button>
+          </>
+        ))}
+      </div>
+
       <div className="profile_slogan_chucvu">
         <h1>.Net Developer</h1>
         {/* <svg viewBox="0 0 700 50" style={{ backgroundColor: "green" }}>
@@ -20,7 +174,13 @@ export const Slogan = () => {
             Đổi mới-Chăm chỉ-Hòa đồng
           </text>
         </svg> */}
-        <strong>Đổi mới-Chăm chỉ-Hòa đồng</strong>
+        <strong
+          style={{
+            fontSize: "1.3rem",
+          }}
+        >
+          {t(LanguageTranslation.profile_slogan_value)}
+        </strong>
       </div>
     </section>
   );

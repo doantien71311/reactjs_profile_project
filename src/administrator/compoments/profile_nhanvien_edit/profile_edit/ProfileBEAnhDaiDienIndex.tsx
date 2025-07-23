@@ -27,10 +27,9 @@ import { uploadSingleImage } from "../../../../services/HttpServices";
 import UrlApi from "../../../../services/UrlApi";
 
 export const ProfileBEAnhDaiDienIndex = () => {
-  const useData =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).dataApi;
-  const setDataApi =
-    useContext<ProfileBEEditContextProps>(ProfileBEEditContext).setDataApi;
+  const { dataApiHinhAnh, setDataApiHinhAnh } =
+    useContext<ProfileBEEditContextProps>(ProfileBEEditContext);
+  //
   const [showKyNang, setShowKyNang] = useState(false);
   const [useDataRow, setUseDataRow] = useState<ProfileHinhAnhType>({});
   const handleKyNangClose = () => setShowKyNang(false);
@@ -40,7 +39,7 @@ export const ProfileBEAnhDaiDienIndex = () => {
   const handleAddRow = () => {
     setUseDataRow({
       id: uuidv4(),
-      stt: (useData.profile_nhanvien_kynang ?? []).length + 1,
+      stt: (dataApiHinhAnh ?? []).length + 1,
     });
     setShowKyNang(true);
   };
@@ -49,25 +48,20 @@ export const ProfileBEAnhDaiDienIndex = () => {
     setUseDataRow(props.row);
   };
   const handleDeleteRow = (props: RenderCellProps<ProfileHinhAnhType>) => {
-    setDataApi({
-      ...useData,
-      profile_nhanvien_hinhanh: (useData.profile_nhanvien_hinhanh ?? []).filter(
-        (f) => f.id !== props.row.id
-      ),
-    });
+    setDataApiHinhAnh(dataApiHinhAnh.filter((f) => f.id !== props.row.id));
     setShowKyNang(false);
   };
   //
   const handleSaveDataToGrid = () => {
-    const rowIndex = (useData.profile_nhanvien_hinhanh ?? []).findIndex(
+    const rowIndex = (dataApiHinhAnh ?? []).findIndex(
       (f) => f.id === useDataRow.id
     );
-    if (rowIndex < 0) (useData.profile_nhanvien_hinhanh ?? []).push(useDataRow);
+    if (rowIndex < 0) (dataApiHinhAnh ?? []).push(useDataRow);
     else {
-      (useData.profile_nhanvien_hinhanh ?? [])[rowIndex] = useDataRow;
+      (dataApiHinhAnh ?? [])[rowIndex] = useDataRow;
     }
     //
-    setDataApi({ ...useData });
+    setDataApiHinhAnh([...dataApiHinhAnh]);
     setShowKyNang(false);
   };
   //#endregion các nút trên lưới
@@ -287,13 +281,13 @@ export const ProfileBEAnhDaiDienIndex = () => {
         <Accordion.Header>Hình ảnh</Accordion.Header>
         <Accordion.Body>
           <DataGrid
-            key={`${useData.soid}-hinhanh`}
+            key={`data-grid-hinh-anh-dai-dien`}
             className={`${BEConstCSS.rdg_light} ${BEConstCSS.grid_fill_preview}`}
             ref={gridRef}
             // className={BEConstCSS.grid_fill}
             // rowKeyGetter={rowKeyGetter}
             columns={columns}
-            rows={useData.profile_nhanvien_hinhanh ?? []}
+            rows={dataApiHinhAnh}
             rowHeight={70}
             // rows={useDataArray}
             // selectedRows={selectedRows}

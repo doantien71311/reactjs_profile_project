@@ -9,11 +9,18 @@ import { NhanVienIndex } from "./compoments/nhanvien/NhanVienIndex";
 import { BEProvider } from "./compoments/BEContext";
 import { RouteBackEndIndex } from "./RouteBackEndIndex";
 import { FukudaSonSanPhamEditIndex } from "./compoments/fukuda_son_sanpham_edit/FukudaSonSanPhamEditIndex";
+import { DangNhapIndex } from "./compoments/login/DangNhapIndex";
+import { NhanVienEditIndex } from "./compoments/nhanvien_edit/NhanVienEditIndex";
+import { QTLVEditIndex } from "./compoments/profile_nhanvien_edit/profile_edit/profile_edit_qua_trinh_lam_viec/QTLVEditIndex";
 
 export const RouteBackEnd = () => {
   return (
     <BEProvider>
       <Routes>
+        <Route
+          path={ChucNangUrl.administrator_dang_nhap}
+          element={<DangNhapIndex />}
+        />
         <Route element={<BEIndex />}>
           {/* <Route index path="administrator" element={<RouteBackEndIndex />} /> */}
           <Route index element={<RouteBackEndIndex />} />
@@ -21,9 +28,17 @@ export const RouteBackEnd = () => {
             path={ChucNangUrl.administrator_profile}
             element={<ProfileBEIndex />}
           />
+
           <Route
             path={ChucNangUrl.administrator_profile_edit}
             element={<ProfileBEEditIndex />}
+          />
+          <Route
+            path={
+              ChucNangUrl.administrator_profile_qtlv_edit +
+              ChucNangUrl.toQueryDanhMuc
+            }
+            element={<QTLVEditIndex />}
           />
 
           <Route
@@ -60,6 +75,13 @@ export const RouteBackEnd = () => {
           <Route
             path={ChucNangUrl.administrator_nhanvien}
             element={<NhanVienIndex />}
+          />
+          <Route
+            path={
+              ChucNangUrl.administrator_nhanvien_edit +
+              ChucNangUrl.toQueryDanhMuc
+            }
+            element={<NhanVienEditIndex />}
           />
         </Route>
       </Routes>

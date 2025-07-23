@@ -9,6 +9,7 @@ import App from "./App.tsx";
 import { RouteBackEnd } from "./administrator/RouteBackEnd.tsx";
 // import { BEIndex } from "./administrator/compoments/BEIndex.tsx";
 // import { RouteBackEndIndex } from "./administrator/RouteBackEndIndex.tsx";
+import "./i18n.js";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

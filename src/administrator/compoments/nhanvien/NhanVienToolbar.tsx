@@ -24,14 +24,14 @@ export const NhanVienToolbar = () => {
     isChucNang: false,
     isShowChucnang: true,
     onNavigation: () => {
-      // navigate(
-      //   ChucNangUrl.toUrlDanhMuc(
-      //     ChucNangUrl.administrator_profile_edit,
-      //     "*",
-      //     true
-      //   )
-      // );
-      navigate(ChucNangUrl.administrator_profile_edit);
+      navigate(
+        ChucNangUrl.toUrlDanhMuc(
+          ChucNangUrl.administrator_nhanvien_edit,
+          "*",
+          true
+        )
+      );
+      // navigate(ChucNangUrl.administrator_nhanvien_edit);
     },
   };
   const Sua: TCommonToolbar = {
@@ -44,14 +44,13 @@ export const NhanVienToolbar = () => {
       if (!context.selectRow.soid) return;
       if (context.selectRow.soid === "") return;
 
-      navigate(ChucNangUrl.administrator_profile_edit);
-      // navigate(
-      //   ChucNangUrl.toUrlDanhMuc(
-      //     ChucNangUrl.administrator_profile_edit,
-      //     context.selectRow.soid ?? "",
-      //     false
-      //   )
-      // );
+      navigate(
+        ChucNangUrl.toUrlDanhMuc(
+          ChucNangUrl.administrator_nhanvien_edit,
+          context.selectRow.soid ?? "",
+          false
+        )
+      );
 
       // navigate(
       //   ChucNangUrl.administrator_fukuda_son_sanpham_edit +
