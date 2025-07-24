@@ -4,10 +4,15 @@ import { CommonToolbarUI } from "../common_ui/CommonToolbarUI";
 import ChucNangUrl from "../../ChucNangUrl";
 import { useContext } from "react";
 import { NhanVienContext, NhanVienContextProps } from "./NhanVienContext";
+import CommonStatus from "../common_props/CommonStatus";
 
 export const NhanVienToolbar = () => {
   const navigate = useNavigate();
   const context = useContext<NhanVienContextProps>(NhanVienContext);
+  const {
+    setStatusDeleteQuestionComponent,
+    selectRow,
+  } = useContext<NhanVienContextProps>(NhanVienContext);
 
   const Xem: TCommonToolbar = {
     maChucNang: "Xem",
@@ -75,7 +80,14 @@ export const NhanVienToolbar = () => {
     tenChucNang: "Xóa",
     isChucNang: false,
     isShowChucnang: true,
-    onNavigation: () => {},
+    onNavigation: () => {
+      console.log("Nhân Vien Xoa: TCommonToolbar");
+      if (!selectRow) return;
+      if (!selectRow.soid) return;
+      if (selectRow.soid === "") return;
+      //
+      setStatusDeleteQuestionComponent(CommonStatus.question_delete);
+    },
   };
 
   return (

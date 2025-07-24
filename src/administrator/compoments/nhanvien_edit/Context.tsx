@@ -53,7 +53,7 @@ export const EditProvider = ({ children }: { children: ReactNode }) => {
     isCommonLoadingApi,
     setIsCommonLoadingApi,
     setCommonPostingApi,
-    setResponseApiType,
+    setResponseApiTypeCommon,
   } = useContext<BEContextProps>(BEContext);
   const { keyString, isAddNew } = useParams();
   const intialized = useRef(false);
@@ -101,7 +101,7 @@ export const EditProvider = ({ children }: { children: ReactNode }) => {
       dataApi
     );
     console.log(data);
-    setResponseApiType(data);
+    setResponseApiTypeCommon(data);
     setCommonPostingApi(CommonPostStatus.saved);
   }
   //#endregion các hàm

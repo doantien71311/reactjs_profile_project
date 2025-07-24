@@ -1,5 +1,6 @@
 // import { nhanvienType } from "../model/nhanvienType";
 
+import CommonStatus from "../administrator/compoments/common_props/CommonStatus";
 import { ParameterApiType } from "../model/ParameterApiType";
 import { ResponseApiType } from "../model/ResponseApiType";
 import { ResponseFileUploadApiType } from "../model/ResponseFileUploadApiType";
@@ -249,6 +250,39 @@ export const uploadSingleImage = (
         })
         .catch(() => {
           return resolve({});
+        });
+    });
+  });
+};
+
+export const DeleteRowData = (
+  api: string,
+  id: string
+): Promise<ResponseApiType> => {
+  return new Promise<ResponseApiType>((resolve) => {
+    getTokenString().then((token) => {
+      // console.log(token);
+      const api_url_post = `${UrlApi.getApiHttp()}${api}/${id}`;
+      // console.log(api_url_post);
+      fetch(api_url_post, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          // console.log(json);
+          const value: ResponseApiType = json as ResponseApiType;
+          return resolve(value);
+        })
+        .catch((error) => {
+          const value: ResponseApiType = {
+            status: CommonStatus.BAD,
+            message: "Xóa không thành công",
+            data: error,
+          };
+          return resolve(value);
         });
     });
   });

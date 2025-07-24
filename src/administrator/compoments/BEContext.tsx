@@ -3,6 +3,7 @@ import {
   ResponseApiType,
   ResponseApiTypeDefault,
 } from "../../model/ResponseApiType";
+import { CommonDeleteProps } from "./common_props/CommonDeleteProps";
 // import { useNavigate } from "react-router-dom";
 // import ChucNangUrl from "../ChucNangUrl";
 // import SessionStorageKey from "../SessionStorageKey";
@@ -15,8 +16,18 @@ export type BEContextProps = {
   setIsCommonLoadingApi: (value: boolean) => void;
   commonPostingApi: string;
   setCommonPostingApi: (value: string) => void;
-  responseApi: ResponseApiType;
-  setResponseApiType: (value: ResponseApiType) => void;
+  //
+  responseApiCommon: ResponseApiType;
+  setResponseApiTypeCommon: (value: ResponseApiType) => void;
+  //
+  statusDeleteQuestionCommon: string;
+  setStatusDeleteQuestionCommon: (value: string) => void;
+  //
+  rowDataCommon: CommonDeleteProps;
+  setRowDataCommon: (value: CommonDeleteProps) => void;
+  //
+  statusApi: string;
+  setStatusApi: (value: string) => void;
 };
 export const BEContext = createContext<BEContextProps>({
   isShowMenu: true,
@@ -26,8 +37,18 @@ export const BEContext = createContext<BEContextProps>({
   setIsCommonLoadingApi: () => {},
   commonPostingApi: "",
   setCommonPostingApi: () => {},
-  responseApi: ResponseApiTypeDefault,
-  setResponseApiType: () => {},
+  //
+  responseApiCommon: ResponseApiTypeDefault,
+  setResponseApiTypeCommon: () => {},
+  //
+  statusDeleteQuestionCommon: "",
+  setStatusDeleteQuestionCommon: () => {},
+  //
+  rowDataCommon: {},
+  setRowDataCommon: () => {},
+  //
+  statusApi: "",
+  setStatusApi: () => {},
 });
 
 export const BEProvider = ({ children }: { children: ReactNode }) => {
@@ -40,6 +61,11 @@ export const BEProvider = ({ children }: { children: ReactNode }) => {
   const [responseApi, setResponseApiType] = useState<ResponseApiType>(
     ResponseApiTypeDefault
   );
+  //
+  const [statusApi, setStatusApi] = useState("");
+  const [statusDeleteQuestionCommon, setStatusDeleteQuestionCommon] =
+    useState("");
+  const [rowDataCommon, setRowDataCommon] = useState<CommonDeleteProps>({});
   //
   // const navigate = useNavigate();
 
@@ -106,8 +132,17 @@ export const BEProvider = ({ children }: { children: ReactNode }) => {
         setIsCommonLoadingApi: setUseIsLodingApi,
         commonPostingApi: commonPostingApi,
         setCommonPostingApi: setCommonPostingApi,
-        responseApi: responseApi,
-        setResponseApiType: setResponseApiType,
+        responseApiCommon: responseApi,
+        setResponseApiTypeCommon: setResponseApiType,
+        //
+        statusApi: statusApi,
+        setStatusApi: setStatusApi,
+        //
+        rowDataCommon: rowDataCommon,
+        setRowDataCommon: setRowDataCommon,
+        //
+        statusDeleteQuestionCommon: statusDeleteQuestionCommon,
+        setStatusDeleteQuestionCommon: setStatusDeleteQuestionCommon,
       }}
     >
       {children}

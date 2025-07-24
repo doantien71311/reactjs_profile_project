@@ -96,8 +96,11 @@ export const QTLVEditContext = createContext<QTLVEditContextProps>({
 });
 //
 export const QTLVEditProvider = ({ children }: { children: ReactNode }) => {
-  const { setIsCommonLoadingApi, setCommonPostingApi, setResponseApiType } =
-    useContext<BEContextProps>(BEContext);
+  const {
+    setIsCommonLoadingApi,
+    setCommonPostingApi,
+    setResponseApiTypeCommon,
+  } = useContext<BEContextProps>(BEContext);
   //
   const { keyString, isAddNew } = useParams();
   const reactQuillRefQTLVVN = useRef<ReactQuill>(null);
@@ -200,7 +203,7 @@ export const QTLVEditProvider = ({ children }: { children: ReactNode }) => {
     setUseDataApi(dataPostApi);
     setDataApiQTLVMoTa(mota_qtlv);
     setDataApiQTLVMoTaEN(mota_qtlv_en);
-    setResponseApiType(data);
+    setResponseApiTypeCommon(data);
     setCommonPostingApi(CommonPostStatus.saved);
   }
   //#endregion cách hàm thao tác

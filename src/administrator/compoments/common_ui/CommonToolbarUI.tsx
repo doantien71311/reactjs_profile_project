@@ -145,6 +145,7 @@ export const CommonToolbarUI = ({
                   </Button>
 
                   <Button
+                    onClick={Xoa.onNavigation}
                     as="a"
                     variant={str_variant}
                     size={str_size}

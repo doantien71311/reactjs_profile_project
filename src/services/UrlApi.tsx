@@ -32,7 +32,7 @@ class UrlApi {
     "/api/danh-muc-nhan-vien-lay-ds";
   static api_danh_muc_nhan_vien_cap_nhat: string =
     "/api/danh-muc-nhan-vien-cap-nhat";
-
+  static api_danh_muc_nhan_vien_xoa: string = "/api/danh-muc-nhan-vien-xoa";
   //
   static api_image_upload_anh_dai_dien: string =
     "/api/image-upload-anh-dai-dien";

@@ -23,7 +23,7 @@ export const CommonTitleBodyEditUI = ({
     isCommonLoadingApi,
     commonPostingApi,
     setCommonPostingApi,
-    responseApi,
+    responseApiCommon,
   } = useContext<BEContextProps>(BEContext);
   const [show, setShow] = useState(false);
   //
@@ -41,7 +41,7 @@ export const CommonTitleBodyEditUI = ({
 
   const getStatus = () => {
     let text_status = "text-danger";
-    if ((responseApi.status ?? "") == "200") text_status = "text-success";
+    if ((responseApiCommon.status ?? "") == "200") text_status = "text-success";
     return `${text_status} fw-bold`;
   };
 
@@ -58,10 +58,11 @@ export const CommonTitleBodyEditUI = ({
           </Toast.Header>
           {/* <Toast.Body>Lưu thành công</Toast.Body> */}
           <Toast.Body className={getStatus()}>
-            {responseApi.message ?? ""}
+            {responseApiCommon.message ?? ""}
           </Toast.Body>
         </Toast>
       </ToastContainer>
+
       <Col
         md={12}
         className="w-100 h-100 row_body_edit_toolbar_top"

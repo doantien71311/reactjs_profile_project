@@ -138,8 +138,11 @@ export const ProfileBEEditContext = createContext<ProfileBEEditContextProps>({
 });
 //
 export const ProfileBEEditProvider = ({ children }: ProfileBEEditProps) => {
-  const { setIsCommonLoadingApi, setCommonPostingApi, setResponseApiType } =
-    useContext<BEContextProps>(BEContext);
+  const {
+    setIsCommonLoadingApi,
+    setCommonPostingApi,
+    setResponseApiTypeCommon,
+  } = useContext<BEContextProps>(BEContext);
   //
   const initialized = useRef(false);
   const [isUseLoadingApi, setUseIsLoadingApi] = useState<boolean>(true);
@@ -233,7 +236,7 @@ export const ProfileBEEditProvider = ({ children }: ProfileBEEditProps) => {
     // console.log(data);
     // ...
     // setUseUpdateApi(data);
-    setResponseApiType(data);
+    setResponseApiTypeCommon(data);
     setCommonPostingApi(CommonPostStatus.saved);
   }
   //#endregion cách hàm thao tác
