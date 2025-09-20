@@ -52,9 +52,6 @@
 }
 
 /* tuy chỉnh menu hover */
-.menu_left nav > ul > li {
-  list-style: none;
-}
 
 .menu_left_hover_image {
   max-width: 50px;
@@ -70,6 +67,7 @@
 
 .menu_left nav {
   overflow: hidden;
+  cursor: pointer;
 }
 
 .menu_left > nav > ul {
@@ -95,6 +93,7 @@
   height: 100%;
   max-height: calc(100vh - 10.5rem);
   z-index: 10;
+  cursor: pointer;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -105,6 +104,11 @@
 }
 .hide-scrollbar {
   -ms-overflow-style: none; /* Hides the scrollbar */
+}
+
+.menu_left nav > ul > li {
+  list-style: none;
+  cursor: pointer;
 }
 
 .menu_left > nav > ul > li {
@@ -171,20 +175,46 @@
   display: block;
   z-index: 99;
 }
-.menu_left li:active ul {
+.menu_left > nav > ul > li:active ul {
+  display: block;
+  z-index: 99;
+}
+.menu_left > nav > ul > li:focus ul {
+  display: block;
+  z-index: 99;
+}
+/* .menu_left > nav > ul > li::selection ul {
+  display: block;
+  z-index: 99;
+} */
+
+/* .menu_left > nav > ul > li:hover {
+  background-color: aquamarine;
+}
+.menu_left > nav > ul > li:active {
+  background-color: aquamarine;
+}
+.menu_left > nav > ul > li:focus {
+  background-color: aquamarine;
+}
+.menu_left > nav > ul > li::selection ul {
+  background-color: aquamarine;
+} */
+
+/* .menu_left li:active ul {
   display: block;
   z-index: 99;
 }
 .menu_left li:focus ul {
   display: block;
   z-index: 99;
-}
+} */
 
-.menu_left li:hover ul li {
+/* .menu_left li:hover ul li {
   display: block;
-  z-index: 99;
-  /* background-color: aqua; */
-}
+  index: 99;
+
+} */
 
 .menu_left ul li ul li:hover {
   /* background-color: var(--primary-second-right-color); */
@@ -454,4 +484,36 @@
     max-width: inherit;
     /* border: 1px solid green; */
   }
+}
+
+@media (hover: hover) {
+  /* .menu_left > nav > ul > li:hover ul {
+    display: block;
+    z-index: 99;
+  }
+  .menu_left > nav > ul > li:active ul {
+    display: block;
+    z-index: 99;
+  }
+  .menu_left > nav > ul > li:focus ul {
+    display: block;
+    z-index: 99;
+  }
+  .menu_left > nav > ul > li::selection ul {
+    display: block;
+    z-index: 99;
+  }
+
+  .menu_left > nav > ul > li:hover {
+    background-color: aquamarine;
+  }
+  .menu_left > nav > ul > li:active {
+    background-color: aquamarine;
+  }
+  .menu_left > nav > ul > li:focus {
+    background-color: aquamarine;
+  }
+  .menu_left > nav > ul > li::selection ul {
+    background-color: aquamarine;
+  } */
 }
