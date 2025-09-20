@@ -263,7 +263,7 @@ export const MenuIndex = () => {
                       {filterData
                         .filter((f) => f.ma_chucnang_cha == "")
                         .map((m) => (
-                          <li>
+                          <li onClick={() => {}}>
                             <div>
                               <Image
                                 className="menu_left_hover_image"

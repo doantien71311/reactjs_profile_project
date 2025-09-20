@@ -166,7 +166,7 @@
   padding: 10px 20px;
 }
 
-.menu_left li:hover ul {
+.menu_left > nav > ul > li:hover ul {
   display: block;
   z-index: 99;
 }
