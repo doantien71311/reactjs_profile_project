@@ -68,6 +68,10 @@
   box-shadow: 1px 1px 3px gray;
 }
 
+.menu_left nav {
+  overflow: hidden;
+}
+
 .menu_left > nav > ul {
   /* border: 1px solid black; */
   list-style: none;
@@ -86,14 +90,21 @@
     var(--primary-color),
     var(--primary-one-right-color)
   );
-  overflow-y: auto;
-  /* overflow-x: hidden; */
+  overflow-y: scroll;
+  scrollbar-width: none;
   height: 100%;
-  /* max-height: (300px); */
-  max-height: calc(100vh - 10rem);
-  /* width: 300px; */
-  /* z-index: 1; */
+  max-height: calc(100vh - 10.5rem);
   z-index: 10;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  scrollbar-width: none; /* Hides the scrollbar */
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Hides the scrollbar */
 }
 
 .menu_left > nav > ul > li {
