@@ -56,7 +56,7 @@ export const BEProvider = ({ children }: { children: ReactNode }) => {
 
   const [useIsShowMenu, setUseIsShowMenu] = useState<boolean>(true);
   const [isUseMobile, setIsUseMobile] = useState(false);
-  const [isUseLoadingApi, setUseIsLodingApi] = useState(false);
+  const [isUseLoadingApi, setUseIsLoadingApi] = useState(false);
   const [commonPostingApi, setCommonPostingApi] = useState("");
   const [responseApi, setResponseApiType] = useState<ResponseApiType>(
     ResponseApiTypeDefault
@@ -129,7 +129,7 @@ export const BEProvider = ({ children }: { children: ReactNode }) => {
         setIsShowMenu: updateUseIsShowMenu,
         isMobile: isUseMobile,
         isCommonLoadingApi: isUseLoadingApi,
-        setIsCommonLoadingApi: setUseIsLodingApi,
+        setIsCommonLoadingApi: setUseIsLoadingApi,
         commonPostingApi: commonPostingApi,
         setCommonPostingApi: setCommonPostingApi,
         responseApiCommon: responseApi,

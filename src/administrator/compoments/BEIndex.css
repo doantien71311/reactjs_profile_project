@@ -36,22 +36,156 @@
 /*#region menu left*/
 .menu_left {
   /* height: 100%; */
-  height: calc(100vh - 80px);
+  height: calc(100vh - 70px);
   min-height: calc(100vh - 85px);
+  /* height: calc(100vh - 200px); */
   width: 100%;
+  max-width: 500px;
+  /* width: 200px; */
   /* overflow-x: scroll; */
   /* overflow-y: auto; */
   /* border: 1px solid black; */
 
   /* min-width: 300px; */
   /* border: 1px solid blue; */
+  /* z-index: 1; */
 }
+
+/* tuy chỉnh menu hover */
+.menu_left nav > ul > li {
+  list-style: none;
+}
+
+.menu_left_hover_image {
+  max-width: 50px;
+  max-height: 50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  /* border: 1px solid red; */
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 1px 1px 3px gray;
+}
+
+.menu_left > nav > ul {
+  /* border: 1px solid black; */
+  list-style: none;
+  padding-left: 0px;
+  padding-right: 0px;
+  position: relative;
+  /* height: calc(100vh - 150px); */
+  /* height: 500px; */
+  /* min-height: calc(100vh - 85px); */
+
+  /* background-color: var(--primary-color); */
+  /* background-color: var(--primary-color); */
+
+  background-image: linear-gradient(
+    to left,
+    var(--primary-color),
+    var(--primary-one-right-color)
+  );
+  overflow-y: auto;
+  /* overflow-x: hidden; */
+  height: 100%;
+  /* max-height: (300px); */
+  max-height: calc(100vh - 10rem);
+  /* width: 300px; */
+  /* z-index: 1; */
+  z-index: 10;
+}
+
+.menu_left > nav > ul > li {
+  border-bottom: 1px solid grey;
+  color: var(--complementary-three-color);
+  text-align: center;
+  margin: 0px;
+  padding: 10px;
+  /* container-type: inline-size; */
+  width: 100%;
+  /* border: solid 1px saddlebrown; */
+  /* container-type: inline-size; */
+}
+
+.menu_left > nav > ul > li > ul {
+  /* background-color: rgb(245 243 255); */
+  background-color: rgb(232, 232, 232);
+  /* background-color: rgba(gray, 0.5); */
+  display: none;
+  /* position: absolute; */
+  /* top: 0; */
+  /* right: 0; */
+  margin-top: 0px;
+  text-align: center;
+  width: 300px;
+  z-index: -99;
+  padding-left: 0;
+  height: 100%;
+  /* transform: translateX(100%); */
+  box-shadow: 1px 1px 3px rgb(192, 192, 192);
+
+  /* display: block;
+  z-index: 99; */
+  position: fixed;
+  transform: translateX(calc(100vw / 12 * 3));
+  max-height: calc(100vh - 10rem);
+  bottom: 0.5rem;
+  left: 0;
+  /* width: calc(); */
+  /* width: 100cqw; */
+  /* bottom: 0; */
+  /* left: 0; */
+  /* overflow-x: hidden; */
+}
+
+.menu_left > nav > ul > li > ul > li {
+  min-height: 50px;
+  /* line-height: 50px; */
+  list-style: none;
+  /* border-bottom: solid 1px rgb(208, 208, 208); */
+  border-bottom: solid 1px grey;
+}
+
+.menu_left > nav > ul > li > ul > li > a {
+  text-align: center;
+  display: block;
+  color: var(--complementary-first-color);
+  min-height: 50px;
+  padding: 10px 20px;
+}
+
+.menu_left li:hover ul {
+  display: block;
+  z-index: 99;
+}
+
+.menu_left li:hover ul li {
+  display: block;
+  z-index: 99;
+  /* background-color: aqua; */
+}
+
+.menu_left ul li ul li:hover {
+  /* background-color: var(--primary-second-right-color); */
+  background-image: linear-gradient(
+    to right,
+    rgb(232, 232, 232) 80%,
+    var(--primary-color) 100%
+  );
+}
+
+/* end tuy chỉnh menu hover */
+
 .menu_left_accordion {
   height: 100%;
   max-height: calc(100vh - 130px);
+  /* min-height: calc(100vh - 200px); */
   /* border: 3px saddlebrown solid; */
   overflow-y: auto;
   /* background-color: aquamarine; */
+  /* height: 500px; */
+  max-height: calc(100vh - 10rem);
 }
 
 .menu_left_accordion_item {
@@ -264,6 +398,24 @@
     width: calc(100vw - 50px);
     /* border: 1px solid saddlebrown; */
     max-width: inherit;
+  }
+  .menu_left {
+    /* z-index: 10; */
+    /* background-color: blueviolet; */
+    /* max-height: calc(100vh); */
+    height: calc(100vh);
+  }
+
+  .menu_left > nav > ul {
+    max-width: 190px;
+  }
+  .menu_left > nav > ul > li > ul {
+    max-width: calc(100vw - 210px);
+    transform: translateX(200px);
+    text-align: start;
+  }
+  .menu_left > nav > ul > li > ul > li > a {
+    text-align: start;
   }
 }
 @media ((min-width: 577px) and (max-width: 992px)) {

@@ -52,7 +52,10 @@ export const BEIndex = () => {
           <HeaderIndex />
         </Col>
         {/* align-items-start */}
-        <Row className="w-100 p-2 h-75 row_body">
+        <Row
+          //  className="w-100 p-2 h-75 row_body"
+          className="w-100 p-1 h-75 row_body"
+        >
           <Col
             xs={12}
             md={3}
