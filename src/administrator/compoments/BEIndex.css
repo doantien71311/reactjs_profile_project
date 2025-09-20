@@ -170,6 +170,14 @@
   display: block;
   z-index: 99;
 }
+.menu_left li:active ul {
+  display: block;
+  z-index: 99;
+}
+.menu_left li:focus ul {
+  display: block;
+  z-index: 99;
+}
 
 .menu_left li:hover ul li {
   display: block;
