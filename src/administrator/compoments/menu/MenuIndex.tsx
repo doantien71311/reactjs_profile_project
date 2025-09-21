@@ -282,6 +282,7 @@ export const MenuIndex = () => {
                                     <NavLink
                                       style={{ textDecoration: "none" }}
                                       to={mC.url_chucnang ?? ""}
+                                      onClick={menuItemHandleClick}
                                     >
                                       {mC.ten_chucnang}
                                     </NavLink>

@@ -21,7 +21,7 @@ import { useContext, useEffect, useRef } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 //
 export const BEIndex = () => {
-  const { isShowMenu } = useContext<BEContextProps>(BEContext);
+  const { isShowMenu, isMobile } = useContext<BEContextProps>(BEContext);
   const initialized = useRef(false);
   //
   useEffect(() => {
@@ -44,6 +44,12 @@ export const BEIndex = () => {
     // );
     // document.getElementsByTagName("head")[0].appendChild(link);
   }, []);
+
+  const getHiddenBodyMobile = (): boolean => {
+    if (isMobile && isShowMenu) return true;
+    // if (isMobile && !isShowMenu) return true;
+    return false;
+  };
 
   return (
     <>
@@ -72,6 +78,7 @@ export const BEIndex = () => {
           <Col
             xs={12}
             md={isShowMenu ? 9 : 12}
+            hidden={getHiddenBodyMobile()}
             // className="bg-warning h-100 justify-content-md-center justify-content-center align-items-center align-self-center row_body_main_right"
             className=" p-0 h-100 row_body_main_right"
           >

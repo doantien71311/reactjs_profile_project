@@ -68,14 +68,17 @@
 .menu_left nav {
   overflow: hidden;
   cursor: pointer;
+  /* display: flex; */
 }
 
 .menu_left > nav > ul {
   /* border: 1px solid black; */
+
   list-style: none;
   padding-left: 0px;
   padding-right: 0px;
   position: relative;
+
   /* height: calc(100vh - 150px); */
   /* height: 500px; */
   /* min-height: calc(100vh - 85px); */
@@ -91,7 +94,8 @@
   overflow-y: scroll;
   scrollbar-width: none;
   height: 100%;
-  max-height: calc(100vh - 10.5rem);
+  /* flex: 1; */
+  max-height: calc(100vh - 10rem - 9px);
   z-index: 10;
   cursor: pointer;
 }
@@ -145,9 +149,10 @@
   z-index: 99; */
   position: fixed;
   transform: translateX(calc(100vw / 12 * 3));
-  max-height: calc(100vh - 10rem);
-  bottom: 0.5rem;
-  left: 0;
+  max-height: calc(100vh - 10rem - 9px);
+  /* bottom: 0.5rem; */
+  bottom: 1.5vh;
+  left: 0px;
   /* width: calc(); */
   /* width: 100cqw; */
   /* bottom: 0; */
@@ -188,18 +193,18 @@
   z-index: 99;
 } */
 
-/* .menu_left > nav > ul > li:hover {
-  background-color: aquamarine;
+.menu_left > nav > ul > li:hover {
+  background-color: rgb(232, 232, 232);
 }
 .menu_left > nav > ul > li:active {
-  background-color: aquamarine;
+  background-color: rgb(232, 232, 232);
 }
 .menu_left > nav > ul > li:focus {
-  background-color: aquamarine;
+  background-color: rgb(232, 232, 232);
 }
 .menu_left > nav > ul > li::selection ul {
-  background-color: aquamarine;
-} */
+  background-color: rgb(232, 232, 232);
+}
 
 /* .menu_left li:active ul {
   display: block;
@@ -229,7 +234,7 @@
 
 .menu_left_accordion {
   height: 100%;
-  max-height: calc(100vh - 130px);
+  /* max-height: calc(100vh - 130px); */
   /* min-height: calc(100vh - 200px); */
   /* border: 3px saddlebrown solid; */
   overflow-y: auto;
