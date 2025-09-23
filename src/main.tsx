@@ -54,6 +54,7 @@ createRoot(document.getElementById("root")!).render(
           {/* <Route path="admins" element={<Admin />} /> */}
         </Route>
         {/* <Route path="administrator/*" element={<RouteBackEnd />} /> */}
+
         <Route index element={<BEIndex />} />
         <Route path="*" element={<RouteBackEnd />}></Route>
 
